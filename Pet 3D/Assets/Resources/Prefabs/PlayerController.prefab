@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 184535783148088118}
+  - component: {fileID: 8786501366927563355}
   - component: {fileID: 184535783148088119}
+  - component: {fileID: 5012236603326888670}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -31,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8786501366927563355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184535783148088113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f7ca45ae808374eb33756749988753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodSpawner: {fileID: 0}
+  ballThrower: {fileID: 0}
 --- !u!114 &184535783148088119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,8 +59,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6554f51351e1db14dbdb60aa92798cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appleParent: {fileID: 0}
+  appleUIParent: {fileID: 0}
   apples: []
   applePrefab: {fileID: 2917915472860557537, guid: e4dc09e4f5922e24e9da7a7b35433463, type: 3}
+  mouseHitPos: {fileID: 0}
   unusedColor: {r: 1, g: 1, b: 1, a: 1}
   usedColor: {r: 1, g: 1, b: 1, a: 0.43137255}
+--- !u!114 &5012236603326888670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184535783148088113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bc1fafe12a453429321d5e06dc9f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballUIParent: {fileID: 0}
+  ballPrefab: {fileID: 0}
+  balls: []
+  unusedColor: {r: 1, g: 0, b: 0, a: 1}
+  usedColor: {r: 1, g: 0, b: 0, a: 0.43137255}

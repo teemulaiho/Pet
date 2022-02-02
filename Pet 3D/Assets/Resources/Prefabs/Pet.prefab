@@ -125,8 +125,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5392455372623680842}
-  - component: {fileID: 5392455372623680841}
   - component: {fileID: 308038363777034601}
+  - component: {fileID: 5392455372623680841}
   m_Layer: 0
   m_Name: Pet
   m_TagString: Pet
@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 5392455372623680840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 5392455371692587693}
   - {fileID: 5392455372772399995}
@@ -151,24 +151,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5392455372623680841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5392455372623680840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37669a0ae7a2c94e9b1ac4c33fc7f9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apples: []
-  apple: {fileID: 0}
-  currentHealth: 1
-  petAnimator: {fileID: 5392455371692587694}
-  healthAnimator: {fileID: 5392455373258041313}
-  spriteRenderer: {fileID: 5392455371692587695}
 --- !u!54 &308038363777034601
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -185,6 +167,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5392455372623680841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5392455372623680840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37669a0ae7a2c94e9b1ac4c33fc7f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canLoseHealth: 0
+  apples: []
+  apple: {fileID: 0}
+  currentHealth: 1
+  petAnimator: {fileID: 5392455371692587694}
+  healthAnimator: {fileID: 5392455373258041313}
+  spriteRenderer: {fileID: 5392455371692587695}
 --- !u!1 &5392455372772399994
 GameObject:
   m_ObjectHideFlags: 0

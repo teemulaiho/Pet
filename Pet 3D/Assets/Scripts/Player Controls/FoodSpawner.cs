@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class FoodSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject appleParent;
+    [SerializeField] GameObject appleUIParent;
     [SerializeField] List<GameObject> apples = new List<GameObject>();
     [SerializeField] Apple applePrefab;
 
@@ -46,9 +46,9 @@ public class FoodSpawner : MonoBehaviour
 
     void SetAppleCount()
     {
-        for (int i = 0; i < appleParent.transform.childCount; i++)
+        for (int i = 0; i < appleUIParent.transform.childCount; i++)
         {
-            apples.Add(appleParent.transform.GetChild(i).gameObject);
+            apples.Add(appleUIParent.transform.GetChild(i).gameObject);
             applesInInventory++;
         }
     }
@@ -57,10 +57,6 @@ public class FoodSpawner : MonoBehaviour
     {
         if (!HasFoodInInventory())
             return;
-
-        //Vector3 mousePos = Input.mousePosition;
-        //mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        //mousePos.z = 0f;
 
         Vector3 mousePos = raycastHit.point;
         mousePos.y += 2f;
@@ -87,5 +83,16 @@ public class FoodSpawner : MonoBehaviour
     {
         apples[applesInInventory - 1].GetComponent<Image>().color = usedColor;
         applesInInventory--;
+    }
+
+    private void OnEnable()
+    {
+        appleUIParent.gameObject.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        if (appleUIParent)
+            appleUIParent.gameObject.SetActive(false);
     }
 }
