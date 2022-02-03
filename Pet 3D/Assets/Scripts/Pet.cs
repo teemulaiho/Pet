@@ -13,6 +13,7 @@ public enum ObjectType
 public class Pet : MonoBehaviour
 {
     public bool canLoseHealth;
+    public bool canLoseEnergy;
 
     [SerializeField] private List<Ball> balls = new List<Ball>();
     [SerializeField] private List<Apple> apples = new List<Apple>();
@@ -27,6 +28,10 @@ public class Pet : MonoBehaviour
 
     private float maxHealth = 1f;
     [SerializeField] private float currentHealth = 1f;
+
+    private float maxEnergy = 10f;
+    [SerializeField] private float currentEnergy = 10f;
+
     private float dt = 0f;
     private float dtCounter = 2f;
     private float actionDt = 0f;
@@ -49,8 +54,9 @@ public class Pet : MonoBehaviour
     float runAnimationLength = 0f;
     float jumpAnimationLength = 0f;
 
-
     private float CurrentRelativeHealth { get { return currentHealth / maxHealth; } }
+
+    private float CurrentRelativeEnergy { get { return currentEnergy / maxEnergy; } }
 
     private float CurrentHealth
     {
@@ -58,9 +64,17 @@ public class Pet : MonoBehaviour
         set { currentHealth = value; }
     }
 
+    private float CurrentEnergy
+    {
+        get { return currentEnergy; }
+        set { currentEnergy = value; }
+    }
+
+
     private void Start()
     {
         currentHealth = maxHealth;
+        currentEnergy = maxEnergy;
         healthAnimator.SetFloat("Health", currentHealth);
         petAnimator.SetFloat("Health", currentHealth);
         previousPos = transform.position;
@@ -91,6 +105,7 @@ public class Pet : MonoBehaviour
     {
         UpdateMovement();
         UpdateHealth();
+        UpdateEnergy();
         GoToFood();
 
         if (!capturedBall)
@@ -102,8 +117,6 @@ public class Pet : MonoBehaviour
         {
             GoToGoal();
         }
-
-
 
         UpdateAnimator();
     }
@@ -129,6 +142,13 @@ public class Pet : MonoBehaviour
 
             dt = 0f;
         }
+    }
+
+    void UpdateEnergy()
+    {
+        if (!canLoseEnergy)
+            return;
+
     }
 
     void UpdateAnimator()

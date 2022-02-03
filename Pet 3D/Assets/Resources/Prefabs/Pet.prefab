@@ -180,9 +180,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canLoseHealth: 0
+  canLoseEnergy: 0
+  balls: []
   apples: []
   apple: {fileID: 0}
+  ball: {fileID: 0}
+  capturedBall: {fileID: 0}
+  goal: {fileID: 0}
   currentHealth: 1
+  currentEnergy: 10
   petAnimator: {fileID: 5392455371692587694}
   healthAnimator: {fileID: 5392455373258041313}
   spriteRenderer: {fileID: 5392455371692587695}
