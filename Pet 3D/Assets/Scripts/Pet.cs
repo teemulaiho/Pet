@@ -29,11 +29,16 @@ public class Pet : MonoBehaviour
     private float maxHealth = 1f;
     [SerializeField] private float currentHealth = 1f;
 
-    private float maxEnergy = 10f;
-    [SerializeField] private float currentEnergy = 10f;
+    private float maxEnergy = 5f;
+    [SerializeField] private float currentEnergy = 5;
 
     private float dt = 0f;
     private float dtCounter = 2f;
+
+    private float energydt = 0f;
+    private float energydtCounter = 2f;
+
+
     private float actionDt = 0f;
     private float currentSpeed = 0f;
     private float speed = 1f;
@@ -43,9 +48,11 @@ public class Pet : MonoBehaviour
 
     private bool isEating;
     private bool isMoving;
+    private bool isSleeping;
 
     [SerializeField] Animator petAnimator;
     [SerializeField] Animator healthAnimator;
+    [SerializeField] Animator reactionAnimator;
 
     [SerializeField] SpriteRenderer spriteRenderer;
 
@@ -70,6 +77,15 @@ public class Pet : MonoBehaviour
         set { currentEnergy = value; }
     }
 
+    public bool IsSleeping
+    {
+        get { return isSleeping; }
+        set
+        {
+            isSleeping = value;
+            petAnimator.SetBool("isSleeping", isSleeping);
+        }
+    }
 
     private void Start()
     {
@@ -149,12 +165,45 @@ public class Pet : MonoBehaviour
         if (!canLoseEnergy)
             return;
 
+        energydt += Time.deltaTime;
+
+        if (!IsSleeping)
+        {
+            if (energydt > energydtCounter)
+            {
+                currentEnergy -= 0.5f;
+
+                if (CurrentRelativeEnergy < 0.1f)
+                {
+                    IsSleeping = true;
+                    Feint();
+                }
+
+                energydt = 0f;
+            }
+        }
+        else
+        {
+            if (energydt > energydtCounter)
+            {
+                currentEnergy += 0.5f;
+
+                if (CurrentRelativeEnergy > 0.9f)
+                {
+                    IsSleeping = false;
+                }
+
+                energydt = 0f;
+            }
+        }
     }
 
     void UpdateAnimator()
     {
         healthAnimator.SetFloat("Health", currentHealth);
-        petAnimator.SetFloat("Health", currentHealth);
+
+        if (!IsSleeping)
+            petAnimator.SetFloat("Health", currentHealth);
 
         if (!isEating)
         {
@@ -181,6 +230,11 @@ public class Pet : MonoBehaviour
                 isEating = false;
                 actionDt = 0f;
             }
+        }
+
+        if (IsSleeping)
+        {
+            reactionAnimator.SetTrigger("Sleep");
         }
     }
 
@@ -239,6 +293,10 @@ public class Pet : MonoBehaviour
             return;
 
         apple = apples[foodIndex];
+
+
+        currentEnergy = maxEnergy;
+        IsSleeping = false;
     }
 
 
