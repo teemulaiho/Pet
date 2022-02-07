@@ -23,6 +23,9 @@ public class Pet : MonoBehaviour
 
     [SerializeField] private GameObject goal;
 
+    Transform movementTargetTransform;
+    Vector3 movementTarget;
+
 
 
 
@@ -85,6 +88,12 @@ public class Pet : MonoBehaviour
             isSleeping = value;
             petAnimator.SetBool("isSleeping", isSleeping);
         }
+    }
+
+    public Transform MovementTargetTransform
+    {
+        get { return movementTargetTransform; }
+        set { movementTargetTransform = value; }
     }
 
     private void Start()
@@ -244,7 +253,21 @@ public class Pet : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, previousPos);
             isMoving = distance > 0f;
-            movementDirection = previousPos.x - transform.position.x;
+
+            Vector3 prePosOnCamera = Camera.main.WorldToScreenPoint(previousPos);
+            Vector3 curPosOnCamera = Camera.main.WorldToScreenPoint(transform.position);
+
+            movementDirection = prePosOnCamera.magnitude - curPosOnCamera.magnitude;
+
+            //float newDir = (prePosOnCamera.x - curPosOnCamera.x) ;
+            //movementDirection = newDir > 0.025f ? newDir : movementDirection;
+
+            //if (movementTargetTransform)
+            //    transform.LookAt(movementTargetTransform);
+
+            // Original
+            //movementDirection = previousPos.x - transform.position.x;
+
             previousPos = transform.position;
         }
         else
@@ -293,7 +316,7 @@ public class Pet : MonoBehaviour
             return;
 
         apple = apples[foodIndex];
-
+        MovementTargetTransform = apple.transform;
 
         currentEnergy = maxEnergy;
         IsSleeping = false;
@@ -328,6 +351,7 @@ public class Pet : MonoBehaviour
             return;
 
         ball = balls[ballIndex];
+        MovementTargetTransform = ball.transform;
     }
 
     void GoToFood()

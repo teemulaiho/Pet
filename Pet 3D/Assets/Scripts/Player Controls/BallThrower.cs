@@ -42,9 +42,8 @@ public class BallThrower : MonoBehaviour
         if (ballCount > 1)
             return;
 
-
         Ball ball = Instantiate(ballPrefab, Camera.main.transform.position, Quaternion.identity, null);
-        ball.GetComponent<Rigidbody>().AddForce(Vector3.forward * 300);
+        ball.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 300);
 
         ballUIParent.transform.GetChild(0).GetComponent<Image>().color = usedColor;
 

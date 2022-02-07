@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     {
         foodSpawner = GetComponent<FoodSpawner>();
         ballThrower = GetComponent<BallThrower>();
-
     }
 
     // Start is called before the first frame update
