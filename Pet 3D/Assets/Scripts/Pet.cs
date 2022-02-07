@@ -15,6 +15,7 @@ public class Pet : MonoBehaviour
     public bool canLoseHealth;
     public bool canLoseEnergy;
 
+    [SerializeField] private PlayerController player;
     [SerializeField] private List<Ball> balls = new List<Ball>();
     [SerializeField] private List<Apple> apples = new List<Apple>();
     [SerializeField] private Apple apple;
@@ -49,6 +50,7 @@ public class Pet : MonoBehaviour
     private Vector3 previousPos = Vector3.zero;
     private float movementDirection = 0f;
 
+    private bool spottedPlayer;
     private bool isEating;
     private bool isMoving;
     private bool isSleeping;
@@ -80,6 +82,15 @@ public class Pet : MonoBehaviour
         set { currentEnergy = value; }
     }
 
+    public bool IsEating
+    {
+        get { return isEating; }
+        set
+        {
+            isEating = value;
+        }
+    }
+
     public bool IsSleeping
     {
         get { return isSleeping; }
@@ -87,6 +98,31 @@ public class Pet : MonoBehaviour
         {
             isSleeping = value;
             petAnimator.SetBool("isSleeping", isSleeping);
+
+            if (IsSleeping && !SpottedPlayer)
+            {
+                reactionAnimator.SetTrigger("Sleep");
+            }
+        }
+    }
+
+    public bool SpottedPlayer
+    {
+        get { return spottedPlayer; }
+        set
+        {
+            spottedPlayer = value;
+
+            if (spottedPlayer)
+            {
+                if (IsSleeping)
+                {
+                    IsSleeping = false;
+                    reactionAnimator.SetTrigger("Notice");
+                }
+
+                CurrentEnergy = maxEnergy;
+            }
         }
     }
 
@@ -94,6 +130,11 @@ public class Pet : MonoBehaviour
     {
         get { return movementTargetTransform; }
         set { movementTargetTransform = value; }
+    }
+
+    private void Awake()
+    {
+        player = FindObjectOfType<PlayerController>();
     }
 
     private void Start()
@@ -128,6 +169,7 @@ public class Pet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForPlayer();
         UpdateMovement();
         UpdateHealth();
         UpdateEnergy();
@@ -144,6 +186,26 @@ public class Pet : MonoBehaviour
         }
 
         UpdateAnimator();
+    }
+
+    void CheckForPlayer()
+    {
+        if (ball || apple)
+            return;
+
+        float dist = float.MaxValue;
+
+        if (player)
+            dist = Vector3.Distance(transform.position, player.transform.position);
+
+        if (dist < 5f && !SpottedPlayer)
+        {
+            SpottedPlayer = true;
+        }
+        else if (dist > 5f && SpottedPlayer)
+        {
+            SpottedPlayer = false;
+        }
     }
 
     void UpdateHealth()
@@ -171,7 +233,7 @@ public class Pet : MonoBehaviour
 
     void UpdateEnergy()
     {
-        if (!canLoseEnergy)
+        if (!canLoseEnergy || ball || apple)
             return;
 
         energydt += Time.deltaTime;
@@ -214,7 +276,7 @@ public class Pet : MonoBehaviour
         if (!IsSleeping)
             petAnimator.SetFloat("Health", currentHealth);
 
-        if (!isEating)
+        if (!IsEating)
         {
             petAnimator.SetBool("isMoving", isMoving);
 
@@ -224,7 +286,7 @@ public class Pet : MonoBehaviour
                 spriteRenderer.flipX = true;
         }
 
-        if (isEating)
+        if (IsEating)
         {
             actionDt -= Time.deltaTime;
 
@@ -236,20 +298,18 @@ public class Pet : MonoBehaviour
                     apple.Eat();
                     apple = null;
                 }
-                isEating = false;
+
+                IsEating = false;
                 actionDt = 0f;
             }
         }
 
-        if (IsSleeping)
-        {
-            reactionAnimator.SetTrigger("Sleep");
-        }
+
     }
 
     void UpdateMovement()
     {
-        if (!isEating)
+        if (!IsEating)
         {
             float distance = Vector3.Distance(transform.position, previousPos);
             isMoving = distance > 0f;
@@ -356,7 +416,7 @@ public class Pet : MonoBehaviour
 
     void GoToFood()
     {
-        if (apple && !isEating)
+        if (apple && !IsEating)
         {
             float dist = Vector3.Distance(transform.position, apple.transform.position);
 
@@ -369,7 +429,7 @@ public class Pet : MonoBehaviour
 
     void GoToBall()
     {
-        if (ball && !isEating && !capturedBall)
+        if (ball && !IsEating && !capturedBall)
         {
             float dist = Vector3.Distance(transform.position, ball.transform.position);
 
@@ -377,12 +437,15 @@ public class Pet : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, ball.transform.position, Time.deltaTime * speed);
             }
+
+            if (IsSleeping)
+                IsSleeping = false;
         }
     }
 
     void GoToGoal()
     {
-        if (ball && !isEating && capturedBall)
+        if (ball && !IsEating && capturedBall)
         {
             float dist = Vector3.Distance(transform.position, goal.transform.position);
 
@@ -397,7 +460,7 @@ public class Pet : MonoBehaviour
     {
         isMoving = false;
         petAnimator.SetBool("isMoving", isMoving);
-        isEating = true;
+        IsEating = true;
         actionDt = eatingAnimationLength;
     }
 

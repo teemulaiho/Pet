@@ -61,7 +61,7 @@ public class BallThrower : MonoBehaviour
 
     private void OnEnable()
     {
-        ballUIParent.gameObject.SetActive(true);
+        ballUIParent.gameObject.SetActive(true);    
     }
 
     private void OnDisable()

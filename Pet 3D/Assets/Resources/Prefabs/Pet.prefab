@@ -180,8 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37669a0ae7a2c94e9b1ac4c33fc7f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canLoseHealth: 1
+  canLoseHealth: 0
   canLoseEnergy: 1
+  player: {fileID: 0}
   balls: []
   apples: []
   apple: {fileID: 0}
