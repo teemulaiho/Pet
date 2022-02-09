@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PetState
+{
+    None,
+    Idle,
+    Sleep,
+}
 
 public enum ObjectType
 {
@@ -12,6 +18,8 @@ public enum ObjectType
 
 public class Pet : MonoBehaviour
 {
+    public PetState petState;
+
     public bool canLoseHealth;
     public bool canLoseEnergy;
 
@@ -67,6 +75,19 @@ public class Pet : MonoBehaviour
     float runAnimationLength = 0f;
     float jumpAnimationLength = 0f;
 
+    public PetState SetPetState
+    {
+        get { return petState; }
+        set { petState = value; }
+    }
+
+    public PetState GetCurrentState()
+    {
+        return petState;
+    }
+
+    public float GetCurrentRelativeHealth() { return CurrentRelativeHealth; }
+    public float GetCurrentRelativeEnergy() { return CurrentRelativeEnergy; }
     private float CurrentRelativeHealth { get { return currentHealth / maxHealth; } }
 
     private float CurrentRelativeEnergy { get { return currentEnergy / maxEnergy; } }
@@ -98,6 +119,8 @@ public class Pet : MonoBehaviour
         set
         {
             isSleeping = value;
+
+            petState = PetState.Sleep;
             petAnimator.SetBool("isSleeping", isSleeping);
 
             if (IsSleeping && !SpottedPlayer)
