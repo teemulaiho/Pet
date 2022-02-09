@@ -28,6 +28,7 @@ public class Pet : MonoBehaviour
     Vector3 movementTarget;
 
 
+    private float healthPreviousFrame = 0f;
 
 
     private float maxHealth = 1f;
@@ -103,6 +104,8 @@ public class Pet : MonoBehaviour
             {
                 reactionAnimator.SetTrigger("Sleep");
             }
+
+            reactionAnimator.SetBool("isSleeping", IsSleeping);
         }
     }
 
@@ -229,6 +232,8 @@ public class Pet : MonoBehaviour
 
             dt = 0f;
         }
+
+        healthPreviousFrame = CurrentHealth;
     }
 
     void UpdateEnergy()
@@ -271,7 +276,8 @@ public class Pet : MonoBehaviour
 
     void UpdateAnimator()
     {
-        healthAnimator.SetFloat("Health", currentHealth);
+        if (CurrentHealth != healthPreviousFrame)
+            healthAnimator.SetFloat("Health", currentHealth);
 
         if (!IsSleeping)
             petAnimator.SetFloat("Health", currentHealth);
@@ -489,5 +495,10 @@ public class Pet : MonoBehaviour
                 capturedBall = null;
             }
         }
+    }
+
+    public void PetPet()
+    {
+        reactionAnimator.SetTrigger("PetPet");
     }
 }
