@@ -7,6 +7,9 @@ public enum PetState
     None,
     Idle,
     Sleep,
+    FollowPlayer,
+    Eat,
+    ChaseBall
 }
 
 public enum ObjectType
@@ -148,6 +151,11 @@ public class Pet : MonoBehaviour
                 }
 
                 CurrentEnergy = maxEnergy;
+
+                if (spottedPlayer)
+                {
+                    SetPetState = PetState.FollowPlayer;
+                }
             }
         }
     }
@@ -199,19 +207,39 @@ public class Pet : MonoBehaviour
         UpdateMovement();
         UpdateHealth();
         UpdateEnergy();
-        GoToFood();
 
+        Sense();
+
+        switch (petState)
+        {
+            case PetState.FollowPlayer:
+            {
+                GoToPlayer();
+                break;
+            }
+            case PetState.ChaseBall:
+            {
+                if (!capturedBall)
+                {
+                    FindNearestBall();
+                    GoToBall();
+                }
+                else
+                    GoToGoal();
+                break;
+            }
+        }
+
+        GoToFood();
+        UpdateAnimator();
+    }
+
+    void Sense()
+    {
         if (!capturedBall)
         {
             FindNearestBall();
-            GoToBall();
         }
-        else
-        {
-            GoToGoal();
-        }
-
-        UpdateAnimator();
     }
 
     void CheckForPlayer()
@@ -441,6 +469,18 @@ public class Pet : MonoBehaviour
 
         ball = balls[ballIndex];
         MovementTargetTransform = ball.transform;
+
+        SetPetState = PetState.ChaseBall;
+    }
+
+    void GoToPlayer()
+    {
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+
+        if (dist > 5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * speed);
+        }
     }
 
     void GoToFood()
@@ -516,6 +556,7 @@ public class Pet : MonoBehaviour
             {
                 capturedBall.ReleaseBall();
                 capturedBall = null;
+                SetPetState = PetState.Idle;
             }
         }
     }

@@ -571,6 +571,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 191793453503981253, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
+      propertyPath: m_margin.z
+      value: -125.433624
+      objectReference: {fileID: 0}
     - target: {fileID: 7255566934638903257, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
       propertyPath: m_Name
       value: Canvas
