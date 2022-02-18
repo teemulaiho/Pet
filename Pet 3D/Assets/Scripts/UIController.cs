@@ -46,7 +46,7 @@ public class UIController : MonoBehaviour
     {
         if (pet)
         {
-            petStateText.text = "Pet State: " + pet.GetCurrentState().ToString();
+            petStateText.text = "State: " + pet.GetCurrentState().ToString();
         }
     }
 
@@ -54,7 +54,7 @@ public class UIController : MonoBehaviour
     {
         if (pet)
         {
-            petHealthText.text = "Pet Health: " + pet.GetCurrentRelativeHealth() * 100f + " %";
+            petHealthText.text = "Health: " + pet.GetCurrentRelativeHealth() * 100f + " %";
         }
     }
 
@@ -62,7 +62,7 @@ public class UIController : MonoBehaviour
     {
         if (pet)
         {
-            petEnergyText.text = "Pet Energy: " + pet.GetCurrentRelativeEnergy() * 100f + " %";    
+            petEnergyText.text = "Energy: " + pet.GetCurrentRelativeEnergy() * 100f + " %";    
         } 
     }
 }
