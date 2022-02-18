@@ -42,18 +42,15 @@ public class Pet : MonoBehaviour
     private float healthPreviousFrame = 0f;
 
 
-    private float maxHealth = 1f;
-    [SerializeField] private float currentHealth = 1f;
+    private float maxHealth = 100f;
+    [SerializeField] private float currentHealth = 100f;
 
-    private float maxEnergy = 5f;
-    [SerializeField] private float currentEnergy = 5;
+    private float maxEnergy = 100f;
+    [SerializeField] private float currentEnergy = 100f;
 
-    private float dt = 0f;
-    private float dtCounter = 2f;
-
-    private float energydt = 0f;
-    private float energydtCounter = 2f;
-
+    private float healthLossRate = 2.5f;
+    private float energyLossRate = 5.0f;
+    private float energyGainRate = 5.0f;
 
     private float actionDt = 0f;
     private float currentSpeed = 0f;
@@ -267,22 +264,16 @@ public class Pet : MonoBehaviour
         if (!canLoseHealth)
             return;
 
-        dt += Time.deltaTime;
 
-        if (dt > dtCounter)
+        currentHealth -= healthLossRate * Time.deltaTime;
+
+        if (CurrentRelativeHealth < 0.5f)
         {
-            currentHealth -= 0.1f;
-
-            if (CurrentRelativeHealth < 0.5f)
-            {
-                FindNearestFood();
-            }
-
-            if (CurrentRelativeHealth <= 0f)
-                Feint();
-
-            dt = 0f;
+            FindNearestFood();
         }
+
+        if (CurrentRelativeHealth <= 0f)
+            Feint();
 
         healthPreviousFrame = CurrentHealth;
     }
@@ -292,35 +283,25 @@ public class Pet : MonoBehaviour
         if (!canLoseEnergy || ball || apple)
             return;
 
-        energydt += Time.deltaTime;
 
         if (!IsSleeping)
         {
-            if (energydt > energydtCounter)
+            currentEnergy -= energyLossRate * Time.deltaTime;
+
+            if (CurrentRelativeEnergy < 0.1f)
             {
-                currentEnergy -= 0.5f;
-
-                if (CurrentRelativeEnergy < 0.1f)
-                {
-                    IsSleeping = true;
-                    Feint();
-                }
-
-                energydt = 0f;
+                IsSleeping = true;
+                Feint();
             }
+
         }
         else
         {
-            if (energydt > energydtCounter)
+            currentEnergy += energyGainRate * Time.deltaTime;
+
+            if (CurrentRelativeEnergy > 0.9f)
             {
-                currentEnergy += 0.5f;
-
-                if (CurrentRelativeEnergy > 0.9f)
-                {
-                    IsSleeping = false;
-                }
-
-                energydt = 0f;
+                IsSleeping = false;
             }
         }
     }

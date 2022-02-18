@@ -13,8 +13,8 @@ public class UIController : MonoBehaviour
 
     [Space]
     [Header("Pet Info")]
-    [SerializeField] TMP_Text petHealthText; 
-    [SerializeField] TMP_Text petEnergyText; 
+    [SerializeField] Slider healthBar;
+    [SerializeField] Slider energyBar; 
     [SerializeField] TMP_Text petStateText; 
 
 
@@ -22,11 +22,6 @@ public class UIController : MonoBehaviour
     {
         pet = FindObjectOfType<Pet>();
         player = FindObjectOfType<PlayerController>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -37,32 +32,28 @@ public class UIController : MonoBehaviour
 
     private void UpdatePetInfo()
     {
-        UpdatePetHealthInfo();
-        UpdatePetEnergyInfo();
         UpdatePetStateInfo();
+        UpdateSlider(healthBar, pet.GetCurrentRelativeHealth());
+        UpdateSlider(energyBar, pet.GetCurrentRelativeEnergy());
     }
 
     private void UpdatePetStateInfo()
     {
         if (pet)
         {
-            petStateText.text = "State: " + pet.GetCurrentState().ToString();
+            petStateText.text = pet.GetCurrentState().ToString();
         }
     }
 
-    private void UpdatePetHealthInfo()
+    private void UpdateSlider(Slider slider, float value)
     {
-        if (pet)
-        {
-            petHealthText.text = "Health: " + pet.GetCurrentRelativeHealth() * 100f + " %";
-        }
-    }
+        slider.value = Mathf.Clamp(value, 0.15f, 1.0f);
 
-    private void UpdatePetEnergyInfo()
-    {
-        if (pet)
-        {
-            petEnergyText.text = "Energy: " + pet.GetCurrentRelativeEnergy() * 100f + " %";    
-        } 
+        Image fillImage = slider.fillRect.GetComponent<Image>();
+
+        if (slider.value > 0.5f)
+            fillImage.color = Color.Lerp(Color.yellow, Color.green, (slider.value - 0.5f) * 2.0f);
+        else
+            fillImage.color = Color.Lerp(Color.red, Color.yellow, slider.value * 2.0f);
     }
 }
