@@ -40,7 +40,7 @@ public class FoodSpawner : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            AddFoodToInventory();
+            //AddFoodToInventory();
         }
     }
 

@@ -9,10 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 184535783148088118}
+  - component: {fileID: 7874497881144424119}
   - component: {fileID: 8786501366927563355}
   - component: {fileID: 184535783148088119}
   - component: {fileID: 5012236603326888670}
   - component: {fileID: 2327241538207559000}
+  - component: {fileID: 1549844926725016642}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -34,6 +36,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7874497881144424119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184535783148088113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5dd68fa97968945bd3235ca1890b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8786501366927563355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +109,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f8feca081519a41a7295ce3b940979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shop: {fileID: 0}
   playerCanvas: {fileID: 0}
   playerActionImage: {fileID: 0}
   actionSprites:
   - {fileID: 21300000, guid: 89c9397f4a1d59749bb25ef5602b4cd0, type: 3}
+--- !u!136 &1549844926725016642
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184535783148088113}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.17
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

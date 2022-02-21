@@ -17,9 +17,14 @@ public class MouseLook : MonoBehaviour
         xAxisClamp = 0.0f;
     }
     
-    private void LockCursor()
+    public static void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public static void ReleaseCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void Update()
