@@ -710,42 +710,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 477785332, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 477785332, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 477785332, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
+    - target: {fileID: 883328170107327247, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1932048141}
-    - target: {fileID: 477785332, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 477785332, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NextItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 477785332, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Shop, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 477785332, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2046623672134442683, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
+    - target: {fileID: 1163379134137049408, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1932048141}
-    - target: {fileID: 6920064741963329942, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7255566934638903257, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -838,7 +810,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
 --- !u!114 &650714450 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 843470680652795780, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5192808637146066723, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
   m_PrefabInstance: {fileID: 650714449}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -849,7 +821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &650714451 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5933088117168816896, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7175238092883657396, guid: 711e2100f0e57a141b3cc865f6610c46, type: 3}
   m_PrefabInstance: {fileID: 650714449}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1597,7 +1569,7 @@ PrefabInstance:
     - target: {fileID: 3028816317421139310, guid: 42232636e76cd754d8b2b4e37d26c125, type: 3}
       propertyPath: ballInventoryCount
       value: 
-      objectReference: {fileID: 650714450}
+      objectReference: {fileID: 650714451}
     - target: {fileID: 5077357206451115420, guid: 42232636e76cd754d8b2b4e37d26c125, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1657,7 +1629,7 @@ PrefabInstance:
     - target: {fileID: 7856552192556835975, guid: 42232636e76cd754d8b2b4e37d26c125, type: 3}
       propertyPath: foodInventoryCount
       value: 
-      objectReference: {fileID: 650714451}
+      objectReference: {fileID: 650714450}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42232636e76cd754d8b2b4e37d26c125, type: 3}
 --- !u!1001 &989476625
