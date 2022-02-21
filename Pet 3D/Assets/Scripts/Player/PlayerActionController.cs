@@ -56,10 +56,13 @@ public class PlayerActionController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (shop)
-                {
-                    shop.Toggle();
-                }
+                if (shop && !shop.IsOpen)
+                    shop.Open();
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (shop && shop.IsOpen)
+                    shop.Close();
             }
         }
 

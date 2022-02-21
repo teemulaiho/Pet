@@ -7,7 +7,7 @@ public class Shop : MonoBehaviour
     [SerializeField] GameObject shopWindowGO;
     [SerializeField] CanvasGroup shopWindow;
 
-    bool isOpen;
+    public bool IsOpen { get; set; }
 
     Coroutine ShopToggleCoroutine;
 
@@ -43,16 +43,6 @@ public class Shop : MonoBehaviour
         shopWindow.alpha = 0f;
     }
 
-    public void Toggle()
-    {
-        isOpen = !isOpen;
-
-        if (isOpen)
-            Open();
-        else
-            Close();
-    }
-
     public void Open()
     {
         if (ShopToggleCoroutine == null)
@@ -65,13 +55,14 @@ public class Shop : MonoBehaviour
             ShopToggleCoroutine = StartCoroutine(CloseShop());
     }
 
-    public void NextItem()
+    public void ChangeItem(int value)
     {
-        currentItemIndex++;
+        currentItemIndex += value;
+
         if (currentItemIndex >= shopItemsForSale.Count)
-        {
             currentItemIndex = 0;
-        }
+        else if (currentItemIndex < 0)
+            currentItemIndex = shopItemsForSale.Count - 1;
 
         currentItem = shopItemsForSale[currentItemIndex];
 
@@ -92,6 +83,7 @@ public class Shop : MonoBehaviour
     IEnumerator OpenShop()
     {
         MouseLook.ReleaseCursor();
+        MoveController.CanMove = false;
 
         float openTime = 1f;
         float openDT = 0f;
@@ -115,6 +107,7 @@ public class Shop : MonoBehaviour
     IEnumerator CloseShop()
     {
         MouseLook.LockCursor();
+        MoveController.CanMove = true;
 
         float closeTime = 1f;
         float closeDT = 0f;

@@ -12,20 +12,25 @@ public class MouseLook : MonoBehaviour
 
     private float xAxisClamp;
 
+    private static bool locked;
+
     private void Awake()
     {
         LockCursor();
         xAxisClamp = 0.0f;
+        locked = true;
     }
     
     public static void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        locked = true;
     }
 
     public static void ReleaseCursor()
     {
         Cursor.lockState = CursorLockMode.None;
+        locked = false;
     }
 
     public static bool IsMouseOverUI()
@@ -35,7 +40,8 @@ public class MouseLook : MonoBehaviour
 
     private void Update()
     {
-        CameraRotation();
+        if (locked)
+            CameraRotation();
     }
 
     private void CameraRotation()

@@ -11,9 +11,12 @@ public class MoveController : MonoBehaviour
     Vector3 velocity;
     private CharacterController characterController;
 
+    public static bool CanMove { get; set; }
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        CanMove = true;
     }
 
     void Update()
@@ -24,14 +27,14 @@ public class MoveController : MonoBehaviour
         }
 
         float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float y = Input.GetAxis("Vertical");
 
-        Vector3 movement = transform.right * x + transform.forward * z;
+        Vector3 movement = transform.right * x + transform.forward * y;
 
-        characterController.Move(movement * movementSpeed * Time.deltaTime);
+        if (CanMove)
+            characterController.Move(movement * movementSpeed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
-
         characterController.Move(velocity * Time.deltaTime);
 
         if (Input.GetButton("Jump") && characterController.isGrounded)
