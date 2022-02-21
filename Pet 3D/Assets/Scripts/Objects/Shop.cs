@@ -86,7 +86,7 @@ public class Shop : MonoBehaviour
     public void PurchaseItem()
     {
         Debug.Log("Buying item " + currentItem.GetItemName());
-        PlayerInventory.AddItemToPlayerInventory(currentItem.GetItemName());
+        PlayerInventory.current.AddItemToPlayerInventory(currentItem.GetItemName());
     }
 
     IEnumerator OpenShop()
@@ -133,6 +133,14 @@ public class Shop : MonoBehaviour
             }
 
             yield return null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
         }
     }
 }

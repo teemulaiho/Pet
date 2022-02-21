@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MouseLook : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class MouseLook : MonoBehaviour
     public static void ReleaseCursor()
     {
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public static bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 
     private void Update()

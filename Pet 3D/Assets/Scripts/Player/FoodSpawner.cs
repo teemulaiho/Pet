@@ -2,55 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class FoodSpawner : MonoBehaviour
 {
     [SerializeField] GameObject appleUIParent;
-    [SerializeField] List<GameObject> apples = new List<GameObject>();
+    [SerializeField] TMP_Text foodInventoryCount;
     [SerializeField] Apple applePrefab;
 
-    private int applesInInventory = 0;
-
     public GameObject mouseHitPos;
-
-    [SerializeField] Color unusedColor;
-    [SerializeField] Color usedColor;
-
     Ray ray;
     RaycastHit raycastHit;
 
     private void Start()
     {
         SetAppleCount();
+
+        PlayerInventory.current.onInventoryValueChange += UpdateFoodUI;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out raycastHit))
+        if (!MouseLook.IsMouseOverUI())
         {
-            if (mouseHitPos)
-                mouseHitPos.transform.position = raycastHit.point;
-
-            if (Input.GetMouseButtonDown(0))
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out raycastHit))
             {
-                SpawnFood();
+                if (mouseHitPos)
+                    mouseHitPos.transform.position = raycastHit.point;
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    SpawnFood();
+                }
             }
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            //AddFoodToInventory();
+            AddFoodToInventory();
         }
     }
 
     void SetAppleCount()
     {
-        for (int i = 0; i < appleUIParent.transform.childCount; i++)
-        {
-            apples.Add(appleUIParent.transform.GetChild(i).gameObject);
-            applesInInventory++;
-        }
+        PlayerInventory.current.AddItemToPlayerInventory(applePrefab.name);
+        PlayerInventory.current.AddItemToPlayerInventory(applePrefab.name);
+        PlayerInventory.current.AddItemToPlayerInventory(applePrefab.name);
+
+        foodInventoryCount.text = "x" + PlayerInventory.current.GetInventoryCount(applePrefab.name).ToString();
     }
 
     void SpawnFood()
@@ -67,22 +68,24 @@ public class FoodSpawner : MonoBehaviour
 
     bool HasFoodInInventory()
     {
-        return applesInInventory > 0;
+       return PlayerInventory.current.HasItemInventory(applePrefab.name);
     }
 
     void AddFoodToInventory()
     {
-        if (applesInInventory > apples.Count - 1)
-            return;
-
-        apples[applesInInventory].GetComponent<Image>().color = unusedColor;
-        applesInInventory++;
+        PlayerInventory.current.AddItemToPlayerInventory(applePrefab.name);
+        UpdateFoodUI();
     }
 
     void RemoveFoodFromInventory()
     {
-        apples[applesInInventory - 1].GetComponent<Image>().color = usedColor;
-        applesInInventory--;
+        PlayerInventory.current.RemoveItemFromPlayerInventory(applePrefab.name);
+        UpdateFoodUI();
+    }
+
+    void UpdateFoodUI()
+    {
+        foodInventoryCount.text = "x" + PlayerInventory.current.GetInventoryCount(applePrefab.name).ToString();
     }
 
     private void OnEnable()

@@ -1,34 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public static Dictionary<string, int> playerInventory;
+    public Dictionary<string, int> playerInventory;
+    public static PlayerInventory current;
 
     private void Awake()
     {
         playerInventory = new Dictionary<string, int>();
+        current = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public event Action onInventoryValueChange;
+    public void InventoryValueChange()
     {
-        
+        if (onInventoryValueChange != null)
+        {
+            onInventoryValueChange();
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    public bool HasItemInventory(string itemToCheck)
     {
-        
+        return playerInventory.ContainsKey(itemToCheck) && playerInventory[itemToCheck] > 0;
     }
 
-    public static bool HasItemInventory(string itemToCheck)
-    {
-        return playerInventory.ContainsKey(itemToCheck);
-    }
-
-    public static void AddItemToPlayerInventory(string newItem)
+    public void AddItemToPlayerInventory(string newItem)
     {
         if (playerInventory.ContainsKey(newItem))
         {
@@ -38,14 +37,26 @@ public class PlayerInventory : MonoBehaviour
         {
             playerInventory.Add(newItem, 1);
         }
+
+        InventoryValueChange();
     }
 
-    public static void RemoveItemFromPlayerInventory(string itemToBeRemoved)
+    public void RemoveItemFromPlayerInventory(string itemToBeRemoved)
     {
         if (playerInventory.ContainsKey(itemToBeRemoved) &&
             playerInventory[itemToBeRemoved] > 0)
         {
             playerInventory[itemToBeRemoved] -= 1;
         }
+
+        InventoryValueChange();
+    }
+
+    public int GetInventoryCount(string itemToCheck)
+    {
+        if (playerInventory.ContainsKey(itemToCheck))
+            return playerInventory[itemToCheck];
+        else
+            return 0;
     }
 }

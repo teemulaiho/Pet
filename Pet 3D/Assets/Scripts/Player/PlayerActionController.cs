@@ -96,7 +96,6 @@ public class PlayerActionController : MonoBehaviour
         pet.PetPet();
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Shop"))

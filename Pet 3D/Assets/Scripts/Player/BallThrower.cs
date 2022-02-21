@@ -1,67 +1,74 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BallThrower : MonoBehaviour
 {
     [SerializeField] GameObject ballUIParent;
+    [SerializeField] TMP_Text ballInventoryCount;
     [SerializeField] Ball ballPrefab;
     [SerializeField] List<GameObject> balls;
-    int ballCount = 0;
-
-    [SerializeField] Color unusedColor;
-    [SerializeField] Color usedColor;
 
     private void Awake()
     {
         ballPrefab = Resources.Load<Ball>("Prefabs/Ball");
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        UpdateBallUI();
 
+        PlayerInventory.current.onInventoryValueChange += UpdateBallUI;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!MouseLook.IsMouseOverUI())
         {
-            ThrowBall();
+            if (Input.GetMouseButtonDown(0))
+            {
+                ThrowBall();
+            }
         }
-
         if (Input.GetMouseButtonDown(1))
         {
-            RemoveBall();
+            //RemoveBall();
         }
     }
 
     void ThrowBall()
     {
-        if (ballCount > 1)
+        if (!PlayerInventory.current.HasItemInventory(ballPrefab.name))
             return;
 
         Ball ball = Instantiate(ballPrefab, Camera.main.transform.position, Quaternion.identity, null);
         ball.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 300);
 
-        ballUIParent.transform.GetChild(0).GetComponent<Image>().color = usedColor;
-
-        ballCount++;
+        PlayerInventory.current.RemoveItemFromPlayerInventory(ballPrefab.name);
     }
 
-    void RemoveBall()
-    {
-        if (ballCount <= 0)
-            return;
+    //void RemoveBall()
+    //{
+    //    PlayerInventory.RemoveItemFromPlayerInventory(ballPrefab.name);
 
-        ballUIParent.transform.GetChild(0).GetComponent<Image>().color = unusedColor;
-        ballCount--;
+    //    if (ballCount <= 0)
+    //        return;
+
+    //    ballUIParent.transform.GetChild(0).GetComponent<Image>().color = unusedColor;
+    //    ballCount--;
+    //}
+
+
+    void UpdateBallUI()
+    {
+        ballInventoryCount.text = "x" + PlayerInventory.current.GetInventoryCount(ballPrefab.name).ToString();
     }
 
     private void OnEnable()
     {
-        ballUIParent.gameObject.SetActive(true);    
+        ballUIParent.gameObject.SetActive(true);
     }
 
     private void OnDisable()
