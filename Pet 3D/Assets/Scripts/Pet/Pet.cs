@@ -8,7 +8,7 @@ public enum PetState
     Idle,
     Sleep,
     FollowPlayer,
-    Eat,
+    SearchForFood,
     ChaseBall
 }
 
@@ -38,19 +38,19 @@ public class Pet : MonoBehaviour
     Transform movementTargetTransform;
     Vector3 movementTarget;
 
-
     private float healthPreviousFrame = 0f;
 
+    private float maxHealth = 1f;
+    [SerializeField] private float currentHealth = 1f;
 
-    private float maxHealth = 100f;
-    [SerializeField] private float currentHealth = 100f;
+    private float maxEnergy = 5f;
+    [SerializeField] private float currentEnergy = 5;
 
-    private float maxEnergy = 100f;
-    [SerializeField] private float currentEnergy = 100f;
+    private float healthdt = 0f;
+    private float healthdtCounter = 20f;
 
-    private float healthLossRate = 2.5f;
-    private float energyLossRate = 5.0f;
-    private float energyGainRate = 5.0f;
+    private float energydt = 0f;
+    private float energydtCounter = 2f;
 
     private float actionDt = 0f;
     private float currentSpeed = 0f;
@@ -109,7 +109,23 @@ public class Pet : MonoBehaviour
         get { return isEating; }
         set
         {
+            if (isEating && value == !isEating) // Finished eating
+            {
+                if (apple)
+                {
+                    currentHealth += apple.HealthGain;
+                    apple.Eat();
+                    apple = null;
+                    if (!canLoseEnergy)
+                        canLoseEnergy = true;
+
+                    if (CurrentRelativeHealth > 0.5f)
+                        SetPetState = PetState.Idle;
+                }
+            }
+
             isEating = value;
+
         }
     }
 
@@ -120,7 +136,11 @@ public class Pet : MonoBehaviour
         {
             isSleeping = value;
 
-            petState = PetState.Sleep;
+            if (isSleeping)
+            {
+                SetPetState = PetState.Sleep;
+            }
+
             petAnimator.SetBool("isSleeping", isSleeping);
 
             if (IsSleeping && !SpottedPlayer)
@@ -209,6 +229,10 @@ public class Pet : MonoBehaviour
 
         switch (petState)
         {
+            case PetState.Sleep:
+            {
+                break;
+            }
             case PetState.FollowPlayer:
             {
                 GoToPlayer();
@@ -225,9 +249,15 @@ public class Pet : MonoBehaviour
                     GoToGoal();
                 break;
             }
+            case PetState.SearchForFood:
+            {
+                if (!apple)
+                    FindNearestFood();
+                GoToFood();
+                break;
+            }
         }
 
-        GoToFood();
         UpdateAnimator();
     }
 
@@ -264,16 +294,23 @@ public class Pet : MonoBehaviour
         if (!canLoseHealth)
             return;
 
+        healthdt += Time.deltaTime;
 
-        currentHealth -= healthLossRate * Time.deltaTime;
-
-        if (CurrentRelativeHealth < 0.5f)
+        if (healthdt > healthdtCounter)
         {
-            FindNearestFood();
-        }
+            CurrentHealth -= 0.1f;
 
-        if (CurrentRelativeHealth <= 0f)
-            Feint();
+            if (CurrentRelativeHealth < 0.5f)
+            {
+                SetPetState = PetState.SearchForFood;
+                canLoseEnergy = false;
+            }
+
+            if (CurrentRelativeHealth <= 0f)
+                Feint();
+
+            healthdt = 0f;
+        }
 
         healthPreviousFrame = CurrentHealth;
     }
@@ -283,25 +320,36 @@ public class Pet : MonoBehaviour
         if (!canLoseEnergy || ball || apple)
             return;
 
+        energydt += Time.deltaTime;
 
         if (!IsSleeping)
         {
-            currentEnergy -= energyLossRate * Time.deltaTime;
-
-            if (CurrentRelativeEnergy < 0.1f)
+            if (energydt > energydtCounter)
             {
-                IsSleeping = true;
-                Feint();
-            }
+                CurrentEnergy -= 0.5f;
 
+                if (CurrentRelativeEnergy < 0.1f)
+                {
+                    IsSleeping = true;
+                    Feint();
+                }
+
+                energydt = 0f;
+            }
         }
         else
         {
-            currentEnergy += energyGainRate * Time.deltaTime;
-
-            if (CurrentRelativeEnergy > 0.9f)
+            if (energydt > energydtCounter)
             {
-                IsSleeping = false;
+                currentEnergy += 0.5f;
+
+                if (CurrentRelativeEnergy > 0.9f)
+                {
+                    IsSleeping = false;
+                    SetPetState = PetState.Idle;
+                }
+
+                energydt = 0f;
             }
         }
     }
@@ -330,13 +378,6 @@ public class Pet : MonoBehaviour
 
             if (actionDt <= 0f)
             {
-                if (apple)
-                {
-                    currentHealth += apple.HealthGain;
-                    apple.Eat();
-                    apple = null;
-                }
-
                 IsEating = false;
                 actionDt = 0f;
             }
