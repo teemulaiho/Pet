@@ -61,7 +61,7 @@ public class FoodSpawner : MonoBehaviour
         Vector3 mousePos = raycastHit.point;
         mousePos.y += 2f;
 
-        Instantiate(applePrefab, mousePos, Quaternion.identity, this.transform);
+        Instantiate(applePrefab, mousePos, Quaternion.identity);
         RemoveFoodFromInventory();
     }
 

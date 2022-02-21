@@ -1410,11 +1410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8859321a5656ac4c945904b0b34208d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  sensitivity: 0.1
-  cam: {fileID: 0}
-  anchorPoint: {x: 0, y: 0, z: 0}
-  anchorRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &985026769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1474,6 +1469,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7856552192556835975, guid: 42232636e76cd754d8b2b4e37d26c125, type: 3}
+      propertyPath: mouseHitPos
+      value: 
+      objectReference: {fileID: 1417361444}
     - target: {fileID: 7856552192556835975, guid: 42232636e76cd754d8b2b4e37d26c125, type: 3}
       propertyPath: appleUIParent
       value: 
