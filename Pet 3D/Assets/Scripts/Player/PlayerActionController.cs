@@ -40,6 +40,8 @@ public class PlayerActionController : MonoBehaviour
     private void Awake()
     {
         pet = FindObjectOfType<Pet>();
+        IsWithinShopInteractionDistance = false;
+        isWithinPetInteractionDistance = false;
     }
 
     // Update is called once per frame

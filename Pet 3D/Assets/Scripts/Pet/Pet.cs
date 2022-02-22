@@ -40,11 +40,11 @@ public class Pet : MonoBehaviour
 
     private float healthPreviousFrame = 0f;
 
-    private float maxHealth = 1f;
-    [SerializeField] private float currentHealth = 1f;
+    private float maxHealth = 100f;
+    [SerializeField] private float currentHealth = Persistent.petStats.health;
 
-    private float maxEnergy = 5f;
-    [SerializeField] private float currentEnergy = 5;
+    private float maxEnergy = 100f;
+    [SerializeField] private float currentEnergy = Persistent.petStats.energy;
 
     private float healthdt = 0f;
     private float healthdtCounter = 20f;
@@ -298,7 +298,7 @@ public class Pet : MonoBehaviour
 
         if (healthdt > healthdtCounter)
         {
-            CurrentHealth -= 0.1f;
+            CurrentHealth -= 10f;
 
             if (CurrentRelativeHealth < 0.5f)
             {
@@ -326,7 +326,7 @@ public class Pet : MonoBehaviour
         {
             if (energydt > energydtCounter)
             {
-                CurrentEnergy -= 0.5f;
+                CurrentEnergy -= 10f;
 
                 if (CurrentRelativeEnergy < 0.1f)
                 {

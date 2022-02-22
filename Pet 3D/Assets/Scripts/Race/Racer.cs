@@ -5,9 +5,12 @@ using UnityEngine;
 public class Racer : MonoBehaviour
 {
     private Animator animator;
+    private SpriteRenderer rend;
 
+    public string Name { get; set; }
     private float maxStamina;
     private float stamina;
+
     private float staminaDrainRate;
     private float staminaRechargeRate;
     private bool resting;
@@ -17,15 +20,16 @@ public class Racer : MonoBehaviour
     private float speed;
     private float targetSpeed;
     private float acceleration;
-    private float accelerationBoost;
 
     private bool running;
+    public bool Finished { get; set; }
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        rend = GetComponent<SpriteRenderer>();
         resting = false;
-        speed = 0f;
+        Finished = false;
     }
 
     private void Update()
@@ -42,53 +46,39 @@ public class Racer : MonoBehaviour
         }
     }
 
+    private void UpdateSpeed()
+    {
+
+        if (speed < targetSpeed)
+            speed += acceleration * Time.deltaTime;
+        else if (speed > targetSpeed)
+            speed -= acceleration * Time.deltaTime;
+        else
+            speed = targetSpeed;
+    }
+
     private void UpdateStamina()
     {
         if (resting)
-        {
             stamina += staminaRechargeRate * Time.deltaTime;
-            if (stamina >= maxStamina)
-            {
-                stamina = maxStamina;
-                Rest(false);
-            }
-        }
         else
-        {
             stamina -= staminaDrainRate * Time.deltaTime;
-            if (stamina <= 0)
-            {
-                stamina = 0f;
-                Rest(true);
-            }
-        }
 
         stamina = Mathf.Clamp(stamina, 0f, maxStamina);
-    }
-
-    private void UpdateSpeed()
-    {
-        float totalAcceleration = acceleration + accelerationBoost;
-        if (speed < targetSpeed)
-            speed += totalAcceleration * Time.deltaTime;
-        else if (speed > targetSpeed)
-            speed -= totalAcceleration * Time.deltaTime;
-        else
-            speed = targetSpeed;
+        if (stamina == maxStamina)
+            Rest(false);
+        else if (stamina == 0f)
+            Rest(true);
     }
 
     private void Rest(bool value)
     {
         if (value)
-        {
             targetSpeed = minSpeed;
-        }
         else
-        {
             targetSpeed = maxSpeed;
-            if (accelerationBoost > 0f)
-                accelerationBoost = 0f;
-        }
+
+        resting = value;
     }
 
     public void Release()
@@ -100,14 +90,27 @@ public class Racer : MonoBehaviour
 
     public void SetStats(PetStats stats)
     {
-        maxStamina = stats.health;
+        Name = stats.name;
+
+        maxStamina = 100.0f;
         stamina = maxStamina;
-        staminaDrainRate = 20.0f - stats.stamina;
-        staminaRechargeRate = 10.0f + stats.stamina;
+
+        float drainModifier = Random.Range(-5f, 5f);
+        staminaDrainRate = 25.0f - stats.stamina + drainModifier;
+
+        float rechargeModifier = Random.Range(-5f, 5f);
+        staminaRechargeRate = 20.0f + stats.stamina + rechargeModifier;
         
-        maxSpeed = 3.0f;
-        minSpeed = 2.0f;
-        acceleration = 0.5f + 0.05f * stats.stamina;
-        accelerationBoost = 1.0f;
+        maxSpeed = 4.0f;
+        minSpeed = 3.0f;
+        speed = 2.0f;
+
+        float accelerationModifier = Random.Range(-0.1f, 0.1f);
+        acceleration = 0.5f + 0.1f * stats.stamina + accelerationModifier;
+    }
+
+    public void SetColor(Color color)
+    {
+        rend.color = color;
     }
 }
