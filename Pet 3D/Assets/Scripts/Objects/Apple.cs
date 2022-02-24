@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Apple : MonoBehaviour
 {
+    public Item itemData;
     float healthGain = 0.5f;
 
     public float HealthGain

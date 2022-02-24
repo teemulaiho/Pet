@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    Rigidbody rb;
-
+    public Item item;
+    protected Rigidbody rb;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();

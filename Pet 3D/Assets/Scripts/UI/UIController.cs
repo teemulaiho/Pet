@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 using System;
 
 public class UIController : MonoBehaviour
 {
-    Pet pet;
-    PlayerController player;
+    private Pet pet;
+    private Player player;
 
     public bool IsOpen { get; set; }
-
 
     [Space]
     [Header("Pet Info")]
@@ -20,10 +20,16 @@ public class UIController : MonoBehaviour
     [SerializeField] TMP_Text petStateText;
     [SerializeField] GameObject eventWindow;
 
+    [SerializeField] GameObject itemUIParent;
+    [SerializeField] TMP_Text itemCountText;
+
+    [SerializeField] Image playerActionImage;
+    [SerializeField] List<Sprite> actionSprites = new List<Sprite>();
+
     private void Awake()
     {
         pet = FindObjectOfType<Pet>();
-        player = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<Player>();
         IsOpen = false;
         eventWindow.SetActive(false);
     }
@@ -32,19 +38,21 @@ public class UIController : MonoBehaviour
     void Update()
     {
         UpdatePetInfo();
+        UpdatePlayerCAction();
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (IsOpen)
             {
-                MouseLook.LockCursor();
-                MoveController.CanMove = true;
+                Player.LockCursor();
+                Player.CanMove = true;
                 CloseUI();
                 IsOpen = false;
             }
             else
             {
-                MouseLook.ReleaseCursor();
-                MoveController.CanMove = false;
+                Player.ReleaseCursor();
+                Player.CanMove = false;
                 OpenUI();
                 IsOpen = true;
             }
@@ -85,5 +93,26 @@ public class UIController : MonoBehaviour
     public void CloseUI()
     {
         eventWindow.SetActive(false);
+    }
+
+    public static bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
+
+    private void UpdatePlayerCAction()
+    {
+        if (player.IsWithinShopInteractionDistance)
+        {
+            playerActionImage.sprite = actionSprites[0];
+            playerActionImage.color = Color.white;
+        }
+        else if (player.IsWithinPetInteractionDistance)
+        {
+            playerActionImage.sprite = actionSprites[0];
+            playerActionImage.color = Color.white;
+        }
+        else
+            playerActionImage.color = Color.clear;
     }
 }

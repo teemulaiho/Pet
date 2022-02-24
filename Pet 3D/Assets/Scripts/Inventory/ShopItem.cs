@@ -15,7 +15,7 @@ public class ShopItem : MonoBehaviour
     {
         item = newItem;
 
-        itemIcon.sprite = item.GetItemSprite();
+        itemIcon.sprite = item.icon;
         itemText.text = item.GetItemDescription();
     }
 }

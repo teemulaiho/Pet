@@ -3,60 +3,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory
 {
-    public Dictionary<string, int> playerInventory;
-    public static PlayerInventory current;
-
-    private void Awake()
+    public List<InventoryItem> inventory;
+    public int money;
+    public PlayerInventory()
     {
-        playerInventory = new Dictionary<string, int>();
-        current = this;
+        inventory = new List<InventoryItem>();
+        money = 0;
     }
 
-    public event Action onInventoryValueChange;
-    public void InventoryValueChange()
+    public bool Contains(Item item)
     {
-        if (onInventoryValueChange != null)
+        foreach (InventoryItem inventoryItem in inventory)
+            if (inventoryItem.item == item)
+                return true;
+
+        return false;
+    }
+
+    public void AddItemToPlayerInventory(Item item)
+    {
+        if (Contains(item))
         {
-            onInventoryValueChange();
-        }
-    }
-    public bool HasItemInventory(string itemToCheck)
-    {
-        return playerInventory.ContainsKey(itemToCheck) && playerInventory[itemToCheck] > 0;
-    }
-
-    public void AddItemToPlayerInventory(string newItem)
-    {
-        if (playerInventory.ContainsKey(newItem))
-        {
-            playerInventory[newItem] += 1;
+            foreach (InventoryItem inventoryItem in inventory)
+                if (inventoryItem.item == item)
+                {
+                    inventoryItem.count += 1;
+                    break;
+                }
         }
         else
         {
-            playerInventory.Add(newItem, 1);
+            inventory.Add(new InventoryItem(item, 1));
         }
-
-        InventoryValueChange();
     }
 
-    public void RemoveItemFromPlayerInventory(string itemToBeRemoved)
+    public void RemoveItemFromPlayerInventory(Item item)
     {
-        if (playerInventory.ContainsKey(itemToBeRemoved) &&
-            playerInventory[itemToBeRemoved] > 0)
+        if (Contains(item))
         {
-            playerInventory[itemToBeRemoved] -= 1;
-        }
+            foreach (InventoryItem inventoryItem in inventory)
+                if (inventoryItem.item == item)
+                {
+                    inventoryItem.count -= 1;
+                    if (inventoryItem.count == 0)
+                        inventory.Remove(inventoryItem);
 
-        InventoryValueChange();
+                    break;
+                }
+        }
     }
 
-    public int GetInventoryCount(string itemToCheck)
+    public int GetInventoryCount(Item item)
     {
-        if (playerInventory.ContainsKey(itemToCheck))
-            return playerInventory[itemToCheck];
-        else
-            return 0;
+        if (Contains(item))
+        {
+            foreach (InventoryItem inventoryItem in inventory)
+                if (inventoryItem.item == item)
+                    return inventoryItem.count;
+        }
+
+        return 0;
     }
 }
