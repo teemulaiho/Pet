@@ -9,8 +9,11 @@ public class ItemSpawner : MonoBehaviour
     RaycastHit raycastHit;
     private bool tracking;
 
+    private LineRenderer lineRend;
+
     private void Awake()
     {
+        lineRend = GetComponent<LineRenderer>();
         tracking = false;
     }
 
@@ -40,7 +43,7 @@ public class ItemSpawner : MonoBehaviour
         mousePos.y += 2f;
 
         Instantiate(item.prefab, mousePos, Quaternion.identity);
-        Persistent.playerInventory.RemoveItemFromPlayerInventory(item);
+        Persistent.playerInventory.RemoveItem(item);
     }
 
     public void Track(bool value)

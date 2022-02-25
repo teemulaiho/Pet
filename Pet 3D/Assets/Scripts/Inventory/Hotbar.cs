@@ -9,8 +9,17 @@ public class Hotbar : MonoBehaviour
     private int selectionIndex;
     public InventoryItem selectedItem;
 
+    private KeyCode[] keyCodes;
+
     public void Init()
     {
+        keyCodes = new KeyCode[5];
+        keyCodes[0] = KeyCode.Alpha1;
+        keyCodes[1] = KeyCode.Alpha2;
+        keyCodes[2] = KeyCode.Alpha3;
+        keyCodes[3] = KeyCode.Alpha4;
+        keyCodes[4] = KeyCode.Alpha5;
+
         for (int i = 0; i < itemSlots.Length; i++)
             itemSlots[i].Init();
 
@@ -19,45 +28,46 @@ public class Hotbar : MonoBehaviour
 
     private void Update()
     {
-        int newIndex = -1;
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            newIndex = 0;
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-            newIndex = 1;
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-            newIndex = 2;
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-            newIndex = 3;
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-            newIndex = 4;
-
-        if (newIndex >= 0)
+        for (int i = 0; i < keyCodes.Length; i++)
         {
-            if (newIndex == selectionIndex)
+            if (Input.GetKeyDown(keyCodes[i]))
             {
-                itemSlots[newIndex].Deselect();
-                selectedItem = null;
-                selectionIndex = -1;
-            }
-            else
-            {
-                if (selectionIndex >= 0)
+                if (i == selectionIndex)
                 {
                     itemSlots[selectionIndex].Deselect();
                     selectedItem = null;
+                    selectionIndex = -1;
                 }
+                else
+                {
+                    if (selectionIndex >= 0)
+                    {
+                        itemSlots[selectionIndex].Deselect();
+                        selectedItem = null;
+                    }
 
-                itemSlots[newIndex].Select();
-                if (itemSlots[newIndex].inventoryItem != null)
-                    selectedItem = itemSlots[newIndex].inventoryItem;
+                    selectionIndex = i;
 
-                selectionIndex = newIndex;
+                    itemSlots[selectionIndex].Select();
+                    if (itemSlots[selectionIndex].inventoryItem != null)
+                        selectedItem = itemSlots[selectionIndex].inventoryItem;
+                    
+                }
+                break;
             }
         }
     }
+    public void UpdateSlot()
+    {
+        if (selectionIndex >= 0)
+        {
+            itemSlots[selectionIndex].UpdateSlot();
+            if (itemSlots[selectionIndex].inventoryItem == null)
+                selectedItem = null;
+        }
+    }
 
-    public void AssignItemToIndex(InventoryItem inventoryItem, int index)
+    public void AssignItemToSlot(InventoryItem inventoryItem, int index)
     {
         itemSlots[index].AssignItem(inventoryItem);
     }

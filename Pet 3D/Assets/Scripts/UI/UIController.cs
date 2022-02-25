@@ -19,12 +19,10 @@ public class UIController : MonoBehaviour
     [SerializeField] Slider energyBar; 
     [SerializeField] TMP_Text petStateText;
     [SerializeField] GameObject eventWindow;
-
-    [SerializeField] GameObject itemUIParent;
-    [SerializeField] TMP_Text itemCountText;
+    [SerializeField] ShopWindow shopWindow;
 
     [SerializeField] Image playerActionImage;
-    [SerializeField] List<Sprite> actionSprites = new List<Sprite>();
+    [SerializeField] Sprite actionSprite;
 
     private void Awake()
     {
@@ -32,31 +30,32 @@ public class UIController : MonoBehaviour
         player = FindObjectOfType<Player>();
         IsOpen = false;
         eventWindow.SetActive(false);
+        shopWindow.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdatePetInfo();
-        UpdatePlayerCAction();
+        UpdatePlayerAction();
+        //if (!IsOpen)
+        //{
+        //    if (player.lookedAtObject && Input.GetKeyDown(KeyCode.F))
+        //    {
+        //        if (player.lookedAtObject.CompareTag("Shop"))
+        //        {
+        //            OpenShopWindow();
+        //        }
+        //        else if (player.lookedAtObject.CompareTag("Event"))
+        //        {
+        //            OpenEventWindow();
+        //        }
+        //    }
+        //}
+        //else
+        //{
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (IsOpen)
-            {
-                Player.LockCursor();
-                Player.CanMove = true;
-                CloseUI();
-                IsOpen = false;
-            }
-            else
-            {
-                Player.ReleaseCursor();
-                Player.CanMove = false;
-                OpenUI();
-                IsOpen = true;
-            }
-        }
+        //}
     }
 
     private void UpdatePetInfo()
@@ -86,30 +85,49 @@ public class UIController : MonoBehaviour
             fillImage.color = Color.Lerp(Color.red, Color.yellow, slider.value * 2.0f);
     }
 
-    public void OpenUI()
+    public void OpenShopWindow()
+    {
+        shopWindow.gameObject.SetActive(true);
+        OnWindowOpen();
+    }
+    public void CloseShopWindow()
+    {
+        shopWindow.gameObject.SetActive(false);
+        OnWindowClose();
+    }
+    public void OpenEventWindow()
     {
         eventWindow.SetActive(true);
+        OnWindowOpen();
     }
-    public void CloseUI()
+    public void CloseEventWindow()
     {
         eventWindow.SetActive(false);
+        OnWindowClose();
     }
 
+    private void OnWindowOpen()
+    {
+        Player.ReleaseCursor();
+        Player.CanMove = false;
+        IsOpen = true;
+    }
+    private void OnWindowClose()
+    {
+        Player.LockCursor();
+        Player.CanMove = true;
+        IsOpen = false;
+    }
     public static bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
 
-    private void UpdatePlayerCAction()
+    private void UpdatePlayerAction()
     {
-        if (player.IsWithinShopInteractionDistance)
+        if (player.lookedAtObject)
         {
-            playerActionImage.sprite = actionSprites[0];
-            playerActionImage.color = Color.white;
-        }
-        else if (player.IsWithinPetInteractionDistance)
-        {
-            playerActionImage.sprite = actionSprites[0];
+            playerActionImage.sprite = actionSprite;
             playerActionImage.color = Color.white;
         }
         else

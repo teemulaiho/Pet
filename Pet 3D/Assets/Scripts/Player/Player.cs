@@ -5,26 +5,28 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public float movementSpeed;
-    public float jumpSpeed;
-    public float runMultiplier;
+    public float walkSpeed;
+    public float runSpeed;
+    private float movementSpeed;
+
+    public float jumpHeight;
     public float gravity = -9.81f;
-    Vector3 velocity;
+    private Vector3 velocity;
+    private CharacterController characterController;
+
     public float mouseSensitivity;
     private float xAxisClamp;
-    private CharacterController characterController;
+    public Transform playerCamera;
+
+    private RaycastHit lookInfo;
+    public LayerMask interactable;
+    public GameObject lookedAtObject;
+
+    public ItemSpawner itemSpawner;
 
     public Hotbar hotbar;
 
-    public ItemSpawner itemSpawner;
-    public Transform playerCamera;
-
-    [SerializeField] Shop shop;
-
-    float petInteractionDistance = 2f;
-    Pet pet;
-    public bool IsWithinPetInteractionDistance { get; set; }
-    public bool IsWithinShopInteractionDistance { get; set; }
+    private float interactRange = 2.0f;
 
     public static bool CanMove { get; set; }
     public static bool CanLook { get; set; }
@@ -34,29 +36,24 @@ public class Player : MonoBehaviour
         Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
         Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
 
-        Persistent.playerInventory.AddItemToPlayerInventory(Persistent.itemDatabase[0]);
-        Persistent.playerInventory.AddItemToPlayerInventory(Persistent.itemDatabase[1]);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase[0]);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase[1]);
 
         hotbar.Init();
 
         for (int i = 0; i < hotbar.itemSlots.Length; i++)
         {
             if (i < Persistent.playerInventory.inventory.Count)
-                hotbar.AssignItemToIndex(Persistent.playerInventory.inventory[i], i);
+                hotbar.AssignItemToSlot(Persistent.playerInventory.inventory[i], i);
         }
 
         xAxisClamp = 0.0f;
 
         characterController = GetComponent<CharacterController>();
         CanMove = true;
+        movementSpeed = walkSpeed;
 
         LockCursor();
-
-        itemSpawner = GetComponent<ItemSpawner>();
-
-        pet = FindObjectOfType<Pet>();
-        IsWithinShopInteractionDistance = false;
-        IsWithinPetInteractionDistance = false;
     }
 
     public static void LockCursor()
@@ -79,68 +76,60 @@ public class Player : MonoBehaviour
             {
                 itemSpawner.Track(true);
                 if (Input.GetMouseButtonDown(0))
+                {
                     itemSpawner.SpawnItem(hotbar.selectedItem.item);
+                    hotbar.UpdateSlot();
+                }
             }
         }
 
-
         if (CanLook)
-            CameraRotation();
+            MouseLook();
 
-        if (characterController.isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
+        Movement();
 
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        LookCast();
 
-        Vector3 movement = transform.right * x + transform.forward * y;
+        if (lookedAtObject && Input.GetKeyDown(KeyCode.F))
+            Interact();
+    }
 
+    private void Movement()
+    {
+        Vector2 movementInput = Vector2.zero;
+        bool jumpInput = false;
+        
         if (CanMove)
-            characterController.Move(movement * movementSpeed * Time.deltaTime);
+        {
+            movementInput.x = Input.GetAxis("Horizontal");
+            movementInput.y = Input.GetAxis("Vertical");
 
+            jumpInput = Input.GetKey(KeyCode.Space);
+        }
+
+        Vector3 moveDirection = transform.right * movementInput.x + transform.forward * movementInput.y;
+        if (moveDirection.magnitude > 1.0f)
+            moveDirection = moveDirection.normalized;
+
+        if (characterController.isGrounded)
+        {
+            movementSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+
+            if (jumpInput)
+                velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            if (velocity.y < 0)
+                velocity.y = 0f;
+        }
+
+        velocity.x = moveDirection.x * movementSpeed;
+        velocity.z = moveDirection.z * movementSpeed;
         velocity.y += gravity * Time.deltaTime;
+
         characterController.Move(velocity * Time.deltaTime);
-
-        if (Input.GetButton("Jump") && characterController.isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpSpeed * -2f * gravity);
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            characterController.Move(movement * Time.deltaTime * runMultiplier);
-        }
-
-        CheckDistanceBetweenPlayerAndPet();
-
-        if (IsWithinPetInteractionDistance)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-                Pet();
-        }
-        if (IsWithinShopInteractionDistance)
-        {
-
-        }
     }
 
-    private void CheckDistanceBetweenPlayerAndPet()
-    {
-        float dist = Vector3.Distance(transform.position, pet.transform.position);
-        if (dist <= petInteractionDistance)
-            IsWithinPetInteractionDistance = true;
-        else
-            IsWithinPetInteractionDistance = false;
-    }
-
-    void Pet()
-    {
-        pet.PetPet();
-    }
-
-    public void CameraRotation()
+    public void MouseLook()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
@@ -164,28 +153,35 @@ public class Player : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
     }
 
+    private void LookCast()
+    {
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out lookInfo, interactRange, interactable))
+        {
+            lookedAtObject = lookInfo.collider.gameObject;
+        }
+        else
+            lookedAtObject = null;
+    }
+
+    private void Interact()
+    {
+        if (lookedAtObject)
+        {
+            if (lookedAtObject.CompareTag("Pet"))
+            {
+                lookedAtObject.GetComponent<Pet>().PetPet();
+            }
+            else if (lookedAtObject.CompareTag("Shop"))
+            {
+                
+            }
+        }
+    }
+
     private void ClampXAxisRotationToValue(float value)
     {
         Vector3 eulerRotation = transform.eulerAngles;
         eulerRotation.x = value;
         transform.eulerAngles = eulerRotation;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Shop"))
-        {
-            IsWithinShopInteractionDistance = true;
-            shop = other.GetComponentInParent<Shop>();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Shop"))
-        {
-            IsWithinShopInteractionDistance = false;
-            shop = null;
-        }
     }
 }

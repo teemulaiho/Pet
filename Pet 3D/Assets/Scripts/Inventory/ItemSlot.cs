@@ -19,6 +19,16 @@ public class ItemSlot : MonoBehaviour
         Deselect();
     }
 
+    public void UpdateSlot()
+    {
+        if (inventoryItem.count == 0)
+            UnassignItem();
+        else
+        {
+            count.text = "x" + inventoryItem.count.ToString();
+        }
+    }
+
     public void AssignItem(InventoryItem inventoryItem)
     {
         this.inventoryItem = inventoryItem;
@@ -28,6 +38,7 @@ public class ItemSlot : MonoBehaviour
     }
     public void UnassignItem()
     {
+        inventoryItem = null;
         image.enabled = false;
         count.text = null;
         inventoryItem = null;

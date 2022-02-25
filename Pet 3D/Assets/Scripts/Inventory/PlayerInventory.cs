@@ -22,7 +22,7 @@ public class PlayerInventory
         return false;
     }
 
-    public void AddItemToPlayerInventory(Item item)
+    public void AddItem(Item item)
     {
         if (Contains(item))
         {
@@ -39,23 +39,23 @@ public class PlayerInventory
         }
     }
 
-    public void RemoveItemFromPlayerInventory(Item item)
+    public void RemoveItem(Item item)
     {
-        if (Contains(item))
-        {
-            foreach (InventoryItem inventoryItem in inventory)
-                if (inventoryItem.item == item)
+        for (int i = 0; i < inventory.Count; i++)
+            if (inventory[i].item == item)
+            {
+                inventory[i].count -= 1;
+                if (inventory[i].count == 0)
                 {
-                    inventoryItem.count -= 1;
-                    if (inventoryItem.count == 0)
-                        inventory.Remove(inventoryItem);
-
-                    break;
+                    inventory[i] = null;
+                    inventory.Remove(inventory[i]);
                 }
-        }
+
+                break;
+            }
     }
 
-    public int GetInventoryCount(Item item)
+    public int GetItemCount(Item item)
     {
         if (Contains(item))
         {

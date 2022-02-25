@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PetEvents : MonoBehaviour
+public class EventWindow : MonoBehaviour
 {
     public void RaceEvent()
     {
