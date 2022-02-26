@@ -7,6 +7,7 @@ using UnityEngine;
 #endif
 public static class Persistent
 {
+    public static InventorySystem inventorySystem;
     public static List<Item> itemDatabase;
     public static PlayerInventory playerInventory;
     public static PetStats petStats;
@@ -23,6 +24,7 @@ public static class Persistent
     #endif
     public static void Initialize()
     {
+        inventorySystem = new InventorySystem();
         itemDatabase = new List<Item>();
 
         playerInventory = new PlayerInventory

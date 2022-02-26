@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ItemSlot : MonoBehaviour
+public class HotbarItemSlot : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
     [SerializeField] Image image;
@@ -21,11 +21,14 @@ public class ItemSlot : MonoBehaviour
 
     public void UpdateSlot()
     {
-        if (inventoryItem.count == 0)
-            UnassignItem();
-        else
+        if (inventoryItem != null)
         {
-            count.text = "x" + inventoryItem.count.ToString();
+            if (inventoryItem.count == 0)
+                UnassignItem();
+            else
+            {
+                count.text = "x" + inventoryItem.count.ToString();
+            }
         }
     }
 

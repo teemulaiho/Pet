@@ -38,24 +38,14 @@ public class UIController : MonoBehaviour
     {
         UpdatePetInfo();
         UpdatePlayerAction();
-        //if (!IsOpen)
-        //{
-        //    if (player.lookedAtObject && Input.GetKeyDown(KeyCode.F))
-        //    {
-        //        if (player.lookedAtObject.CompareTag("Shop"))
-        //        {
-        //            OpenShopWindow();
-        //        }
-        //        else if (player.lookedAtObject.CompareTag("Event"))
-        //        {
-        //            OpenEventWindow();
-        //        }
-        //    }
-        //}
-        //else
-        //{
 
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (IsOpen)
+            {
+                CloseShopWindow();
+            }
+        }
     }
 
     private void UpdatePetInfo()
@@ -108,14 +98,14 @@ public class UIController : MonoBehaviour
 
     private void OnWindowOpen()
     {
-        Player.ReleaseCursor();
-        Player.CanMove = false;
+        player.ReleaseCursor();
+        player.CanMove = false;
         IsOpen = true;
     }
     private void OnWindowClose()
     {
-        Player.LockCursor();
-        Player.CanMove = true;
+        player.LockCursor();
+        player.CanMove = true;
         IsOpen = false;
     }
     public static bool IsMouseOverUI()

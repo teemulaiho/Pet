@@ -7,6 +7,7 @@ public class PlayerInventory
 {
     public List<InventoryItem> inventory;
     public int money;
+
     public PlayerInventory()
     {
         inventory = new List<InventoryItem>();
@@ -22,20 +23,20 @@ public class PlayerInventory
         return false;
     }
 
-    public void AddItem(Item item)
+    public void AddItem(Item item, int amount)
     {
         if (Contains(item))
         {
             foreach (InventoryItem inventoryItem in inventory)
                 if (inventoryItem.item == item)
                 {
-                    inventoryItem.count += 1;
+                    inventoryItem.count += amount;
                     break;
                 }
         }
         else
         {
-            inventory.Add(new InventoryItem(item, 1));
+            inventory.Add(new InventoryItem(item, amount));
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hotbar : MonoBehaviour
 {
-    public ItemSlot[] itemSlots;
+    public HotbarItemSlot[] itemSlots;
 
     private int selectionIndex;
     public InventoryItem selectedItem;
@@ -56,15 +56,13 @@ public class Hotbar : MonoBehaviour
                 break;
             }
         }
-    }
-    public void UpdateSlot()
-    {
+
+        for (int i = 0; i < itemSlots.Length; i++)
+            itemSlots[i].UpdateSlot();
+
         if (selectionIndex >= 0)
-        {
-            itemSlots[selectionIndex].UpdateSlot();
             if (itemSlots[selectionIndex].inventoryItem == null)
                 selectedItem = null;
-        }
     }
 
     public void AssignItemToSlot(InventoryItem inventoryItem, int index)

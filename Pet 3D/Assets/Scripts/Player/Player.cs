@@ -28,16 +28,16 @@ public class Player : MonoBehaviour
 
     private float interactRange = 2.0f;
 
-    public static bool CanMove { get; set; }
-    public static bool CanLook { get; set; }
+    public bool CanMove { get; set; }
+    public bool CanLook { get; set; }
 
     private void Awake()
     {
         Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
         Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
 
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase[0]);
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase[1]);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase[0], 10);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase[1], 10);
 
         hotbar.Init();
 
@@ -56,13 +56,13 @@ public class Player : MonoBehaviour
         LockCursor();
     }
 
-    public static void LockCursor()
+    public void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
         CanLook = true;
     }
 
-    public static void ReleaseCursor()
+    public void ReleaseCursor()
     {
         Cursor.lockState = CursorLockMode.None;
         CanLook = false;
@@ -72,25 +72,25 @@ public class Player : MonoBehaviour
     {
         if (hotbar.selectedItem != null)
         {
-            if (hotbar.selectedItem.item.type == ItemType.Spawnable)
+            if (hotbar.selectedItem.item.type == Item.ItemType.Spawnable)
             {
                 itemSpawner.Track(true);
                 if (Input.GetMouseButtonDown(0))
                 {
                     itemSpawner.SpawnItem(hotbar.selectedItem.item);
-                    hotbar.UpdateSlot();
                 }
             }
         }
 
         if (CanLook)
+        {
             MouseLook();
+            LookCast();
+        }
 
         Movement();
 
-        LookCast();
-
-        if (lookedAtObject && Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
             Interact();
     }
 
@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
             }
             else if (lookedAtObject.CompareTag("Shop"))
             {
-                
+                lookedAtObject.GetComponent<ShopObject>().OpenShop();
             }
         }
     }
