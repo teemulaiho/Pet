@@ -11,8 +11,6 @@ public class UIController : MonoBehaviour
     private Pet pet;
     private Player player;
 
-    public bool IsOpen { get; set; }
-
     [Space]
     [Header("Pet Info")]
     [SerializeField] Slider healthBar;
@@ -28,7 +26,6 @@ public class UIController : MonoBehaviour
     {
         pet = FindObjectOfType<Pet>();
         player = FindObjectOfType<Player>();
-        IsOpen = false;
         eventWindow.SetActive(false);
         shopWindow.gameObject.SetActive(false);
     }
@@ -41,10 +38,10 @@ public class UIController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (IsOpen)
-            {
+            if (shopWindow.gameObject.activeSelf)
                 CloseShopWindow();
-            }
+            else if (eventWindow.activeSelf)
+                CloseEventWindow();
         }
     }
 
@@ -100,13 +97,11 @@ public class UIController : MonoBehaviour
     {
         player.ReleaseCursor();
         player.CanMove = false;
-        IsOpen = true;
     }
     private void OnWindowClose()
     {
         player.LockCursor();
         player.CanMove = true;
-        IsOpen = false;
     }
     public static bool IsMouseOverUI()
     {

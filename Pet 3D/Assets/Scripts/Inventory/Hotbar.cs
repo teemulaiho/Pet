@@ -7,7 +7,6 @@ public class Hotbar : MonoBehaviour
     public HotbarItemSlot[] itemSlots;
 
     private int selectionIndex;
-    public InventoryItem selectedItem;
 
     private KeyCode[] keyCodes;
 
@@ -35,7 +34,6 @@ public class Hotbar : MonoBehaviour
                 if (i == selectionIndex)
                 {
                     itemSlots[selectionIndex].Deselect();
-                    selectedItem = null;
                     selectionIndex = -1;
                 }
                 else
@@ -43,14 +41,11 @@ public class Hotbar : MonoBehaviour
                     if (selectionIndex >= 0)
                     {
                         itemSlots[selectionIndex].Deselect();
-                        selectedItem = null;
                     }
 
                     selectionIndex = i;
 
                     itemSlots[selectionIndex].Select();
-                    if (itemSlots[selectionIndex].inventoryItem != null)
-                        selectedItem = itemSlots[selectionIndex].inventoryItem;
                     
                 }
                 break;
@@ -59,10 +54,14 @@ public class Hotbar : MonoBehaviour
 
         for (int i = 0; i < itemSlots.Length; i++)
             itemSlots[i].UpdateSlot();
+    }
 
+    public InventoryItem GetSelectedItem()
+    {
         if (selectionIndex >= 0)
-            if (itemSlots[selectionIndex].inventoryItem == null)
-                selectedItem = null;
+            return itemSlots[selectionIndex].inventoryItem;
+
+        return null;
     }
 
     public void AssignItemToSlot(InventoryItem inventoryItem, int index)

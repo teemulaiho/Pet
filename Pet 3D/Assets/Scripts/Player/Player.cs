@@ -33,8 +33,12 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
-        Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
+        // initialize database on game launch
+        if (Persistent.itemDatabase.Count == 0)
+        {
+            Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
+            Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
+        }
 
         Persistent.playerInventory.AddItem(Persistent.itemDatabase[0], 10);
         Persistent.playerInventory.AddItem(Persistent.itemDatabase[1], 10);
@@ -70,14 +74,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (hotbar.selectedItem != null)
+        if (hotbar.GetSelectedItem() != null)
         {
-            if (hotbar.selectedItem.item.type == Item.ItemType.Spawnable)
+            if (hotbar.GetSelectedItem().item.type == Item.ItemType.Spawnable)
             {
                 itemSpawner.Track(true);
                 if (Input.GetMouseButtonDown(0))
                 {
-                    itemSpawner.SpawnItem(hotbar.selectedItem.item);
+                    itemSpawner.SpawnItem(hotbar.GetSelectedItem().item);
                 }
             }
         }
@@ -174,6 +178,10 @@ public class Player : MonoBehaviour
             else if (lookedAtObject.CompareTag("Shop"))
             {
                 lookedAtObject.GetComponent<ShopObject>().OpenShop();
+            }
+            else if (lookedAtObject.CompareTag("Event"))
+            {
+                lookedAtObject.GetComponent<EventObject>().OpenEvents();
             }
         }
     }

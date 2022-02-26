@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class EventWindow : MonoBehaviour
 {
-    public void RaceEvent()
+    public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene("RaceScene");
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -29,7 +29,7 @@ public static class Persistent
 
         playerInventory = new PlayerInventory
         {
-            money = 20
+            money = 100
         };
 
         petStats = new PetStats

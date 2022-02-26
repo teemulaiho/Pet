@@ -12,6 +12,7 @@ public class ShopWindow : MonoBehaviour
     [SerializeField] GameObject quantityParent;
     [SerializeField] Slider quantitySlider;
     [SerializeField] TMP_Text quantityValue;
+    [SerializeField] TMP_Text costValue;
 
     [SerializeField] Button purchaseButton;
 
@@ -41,6 +42,7 @@ public class ShopWindow : MonoBehaviour
         if (selectedItem != null)
         {
             quantityValue.text = "x" + quantitySlider.value.ToString();
+            costValue.text = (quantitySlider.value * selectedItem.cost).ToString() + "$";
 
             if (selectedItem.cost * quantitySlider.value <= Persistent.playerInventory.money)
             {
