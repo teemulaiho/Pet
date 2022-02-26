@@ -7,8 +7,9 @@ using UnityEngine;
 #endif
 public static class Persistent
 {
-    public static int money;
-
+    public static InventorySystem inventorySystem;
+    public static List<Item> itemDatabase;
+    public static PlayerInventory playerInventory;
     public static PetStats petStats;
    
     #if UNITY_EDITOR
@@ -23,7 +24,13 @@ public static class Persistent
     #endif
     public static void Initialize()
     {
-        money = 20;
+        inventorySystem = new InventorySystem();
+        itemDatabase = new List<Item>();
+
+        playerInventory = new PlayerInventory
+        {
+            money = 100
+        };
 
         petStats = new PetStats
         {

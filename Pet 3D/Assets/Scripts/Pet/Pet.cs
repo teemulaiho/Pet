@@ -26,7 +26,7 @@ public class Pet : MonoBehaviour
     public bool canLoseHealth;
     public bool canLoseEnergy;
 
-    [SerializeField] private PlayerController player;
+    [SerializeField] private Player player;
     [SerializeField] private List<Ball> balls = new List<Ball>();
     [SerializeField] private List<Apple> apples = new List<Apple>();
     [SerializeField] private Apple apple;
@@ -185,7 +185,7 @@ public class Pet : MonoBehaviour
 
     private void Awake()
     {
-        player = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<Player>();
     }
 
     private void Start()

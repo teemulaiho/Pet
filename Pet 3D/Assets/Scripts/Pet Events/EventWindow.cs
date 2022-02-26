@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PetEvents : MonoBehaviour
+public class EventWindow : MonoBehaviour
 {
-    public void RaceEvent()
+    public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene("RaceScene");
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2917915472860557536}
-  - component: {fileID: 2466024065998082075}
   - component: {fileID: 2917915472860557537}
   - component: {fileID: 4372437824026719144}
   - component: {fileID: 6075589774449658635}
@@ -36,22 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2466024065998082075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2917915472860557543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc34c12e82d15e848b5b65db17c8adc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Apple
-  itemDesctiption: This is an apple. It's pretty tasty.
-  itemSpriteRenderer: {fileID: 2917915472964470783}
-  itemSprite: {fileID: 0}
 --- !u!114 &2917915472860557537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820102d874cf4564894224a34c65647c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 629c2e37ff6f6d848a239dcfc05bdef7, type: 2}
 --- !u!54 &4372437824026719144
 Rigidbody:
   m_ObjectHideFlags: 0
