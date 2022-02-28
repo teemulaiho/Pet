@@ -29,11 +29,13 @@ public class BeautyManager : MonoBehaviour
     Slider timeLeftSlider;
 
     bool running;
+    float quickEndingdt;
     public float rounddt;
     public float roundTimer;
     public float timeLeft;
 
     public int numberOfContestants;
+    int contestantActionsReceived;
 
     public delegate void OnRoundStart();
     public event OnRoundStart onRoundStart;
@@ -42,6 +44,8 @@ public class BeautyManager : MonoBehaviour
     public event OnRoundStart onRoundEnd;
 
     public string GetCurrentInstruction() { return instruction.text; }
+
+
 
 
     private void Awake()
@@ -76,6 +80,17 @@ public class BeautyManager : MonoBehaviour
 
             UpdateUI();
 
+            if (contestantActionsReceived == contestants.Count)
+            {
+                quickEndingdt += Time.deltaTime;
+
+                if (quickEndingdt > 1f)
+                {
+                    Time.timeScale = 3f;
+                    quickEndingdt = 0f;
+                }
+            }
+
             if (rounddt > roundTimer)
             {
                 EndRound();
@@ -92,8 +107,6 @@ public class BeautyManager : MonoBehaviour
     private void InitializeContestants()
     {
         contestants = new List<BeautyContestant>();
-
-
         BeautyContestant contestant = null;
         ContestantSlot freeSlot = null;
         Vector3 spawnPos = new Vector3();
@@ -140,6 +153,8 @@ public class BeautyManager : MonoBehaviour
                 timeLeftSlider = s;
         }
 
+        startButton.interactable = false;
+
         timeLeftSlider.maxValue = roundTimer;
         timeLeftSlider.value = timeLeftSlider.maxValue;
     }
@@ -177,6 +192,7 @@ public class BeautyManager : MonoBehaviour
             contestantActions.Add(contestant, action);
 
         contestantActions[contestant] = action;
+        contestantActionsReceived++;
     }
 
     private void CheckContestantActions()
@@ -188,10 +204,13 @@ public class BeautyManager : MonoBehaviour
         }
 
         UpdateUI();
+
+        contestantActionsReceived = 0;
     }
 
     private void EndRound()
     {
+        Time.timeScale = 1f;
         running = false;
         startButton.interactable = true;
 
@@ -216,13 +235,15 @@ public class BeautyManager : MonoBehaviour
 
     private IEnumerator ReleasContestants()
     {
-        foreach(var contestant in contestants)
+        foreach (var contestant in contestants)
         {
             contestant.GetComponent<Rigidbody>().isKinematic = false;
             contestant.Release();
 
             yield return new WaitForSeconds(2f);
         }
+
+        startButton.interactable = true;
 
         yield return null;
     }
