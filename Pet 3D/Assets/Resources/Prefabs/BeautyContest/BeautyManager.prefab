@@ -44,9 +44,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beautyContestantSlotParent: {fileID: 0}
-  contestantSlots: []
+  contestantSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   beautyContestantParent: {fileID: 0}
-  beautyContestantPrefab: {fileID: 0}
+  beautyContestantPrefab: {fileID: 5401322523491176028, guid: 6a805f9399afc2e498a887c51f749037, type: 3}
+  contestantScoreTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   instructions:
   - Jump
   - Eat

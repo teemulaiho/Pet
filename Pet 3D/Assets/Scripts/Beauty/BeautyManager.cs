@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BeautyManager : MonoBehaviour
 {
@@ -11,7 +12,12 @@ public class BeautyManager : MonoBehaviour
 
     [SerializeField] Transform beautyContestantParent;
     [SerializeField] BeautyContestant beautyContestantPrefab;
-    List<BeautyContestant> constestants;
+    List<BeautyContestant> contestants;
+
+    [SerializeField] List<TMP_Text> contestantScoreTexts;
+
+    Dictionary<BeautyContestant, string> contestantActions;
+    Dictionary<BeautyContestant, TMP_Text> contestantScores;
 
     TMP_Text instruction;
     [SerializeField] List<string> instructions;
@@ -40,9 +46,19 @@ public class BeautyManager : MonoBehaviour
 
     private void Awake()
     {
+        contestantActions = new Dictionary<BeautyContestant, string>();
+        contestantScores = new Dictionary<BeautyContestant, TMP_Text>();  
+        
         InitializeContestantSlots();
         InitializeContestants();
         GetUIElements();
+
+        int i = 0;
+        foreach (var contestant in contestants)
+        {
+            contestantScores.Add(contestant, contestantScoreTexts[i]);
+            i++;
+        }
     }
 
     // Start is called before the first frame update
@@ -75,7 +91,7 @@ public class BeautyManager : MonoBehaviour
 
     private void InitializeContestants()
     {
-        constestants = new List<BeautyContestant>();
+        contestants = new List<BeautyContestant>();
 
         BeautyContestant constestant = null;
         ContestantSlot freeSlot = null;
@@ -90,7 +106,7 @@ public class BeautyManager : MonoBehaviour
             }
 
             constestant.Initialize(this, freeSlot);
-            constestants.Add(constestant);
+            contestants.Add(constestant);
         }
     }
     private void GetUIElements()
@@ -124,8 +140,19 @@ public class BeautyManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        timeLeft = roundTimer - rounddt;
-        timeLeftSlider.value = timeLeft;
+        if (running)
+        {
+            timeLeft = roundTimer - rounddt;
+            timeLeftSlider.value = timeLeft;
+        }
+
+        if (!running)
+        {
+            foreach (var contestant in contestants)
+            {
+                contestantScores[contestant].text = contestant.GetScore().ToString();
+            }
+        }
     }
 
     private void NewInstruction()
@@ -138,14 +165,34 @@ public class BeautyManager : MonoBehaviour
         instruction.text = instructions[randomInstruction];
     }
 
+    public void SetContestantAction(BeautyContestant contestant, string action)
+    {
+        if (!contestantActions.ContainsKey(contestant))
+            contestantActions.Add(contestant, action);
+
+        contestantActions[contestant] = action;
+    }
+
+    private void CheckContestantActions()
+    {
+        foreach (var pair in contestantActions)
+        {
+            if (pair.Value.Contains(instruction.text))
+                pair.Key.AddScore(1);
+        }
+
+        UpdateUI();
+    }
+
     private void EndRound()
     {
-        NewInstruction();
-
         running = false;
         startButton.interactable = true;
 
         onRoundEnd();
+
+        CheckContestantActions();
+        NewInstruction();
     }
 
     public void StartRound()
@@ -154,5 +201,10 @@ public class BeautyManager : MonoBehaviour
         startButton.interactable = false;
 
         onRoundStart();
+    }
+
+    public void ReturnHome()
+    {
+        SceneManager.LoadScene(0);
     }
 }

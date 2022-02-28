@@ -12,6 +12,7 @@ public class BeautyContestant : MonoBehaviour
     SpriteRenderer sr;
 
     string currentInstruction;
+    string actionDone = "";
 
     float movementSpeed = 2f;
 
@@ -21,6 +22,8 @@ public class BeautyContestant : MonoBehaviour
 
     public float decideDt;
     float decideTimer;
+
+    int score;
 
 
     public void Initialize(BeautyManager bm, ContestantSlot slot)
@@ -36,7 +39,7 @@ public class BeautyContestant : MonoBehaviour
         instruction = GameObject.FindGameObjectWithTag("BeautyInstruction").GetComponent<TMP_Text>();
         sr = GetComponent<SpriteRenderer>();
 
-        decideTimer = Random.Range(3f, 6f);
+        decideTimer = Random.Range(1f, 6f);
     }
 
     // Start is called before the first frame update
@@ -75,18 +78,26 @@ public class BeautyContestant : MonoBehaviour
 
             if (decideDt > decideTimer)
             {
-                if (currentInstruction.Contains("Jumps"))
+
+
+                if (currentInstruction.Contains("Jump"))
                 {
                     animator.SetTrigger("Jump");
+                    actionDone = "Jump";
                 }
                 else if (currentInstruction.Contains("Eat"))
                 {
                     animator.SetTrigger("Eat");
+                    actionDone = "Eat";
                 }
                 else if (currentInstruction.Contains("Sleep"))
                 {
-                    animator.SetTrigger("Sleep");
+                    animator.SetBool("isSleeping", true);
+                    //animator.SetTrigger("Sleep");
+                    actionDone = "Sleep";
                 }
+
+                beautyManager.SetContestantAction(this, actionDone);
 
                 isActive = false;
                 sr.color = Color.white;
@@ -95,18 +106,32 @@ public class BeautyContestant : MonoBehaviour
         }
     }
 
+    private void ResetAnimatorValues()
+    {
+        animator.Rebind();
+        animator.Update(0f);
+    }
+
     private void RoundStart()
     {
-        sr.color = Color.green;
+        ResetAnimatorValues();    
         roundActive = true;
-
         currentInstruction = beautyManager.GetCurrentInstruction();
-
         isActive = true;
     }
 
     private void RoundEnd()
     {
         roundActive = false;
+    }
+
+    public void AddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }
