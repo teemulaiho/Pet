@@ -47,8 +47,8 @@ public class BeautyManager : MonoBehaviour
     private void Awake()
     {
         contestantActions = new Dictionary<BeautyContestant, string>();
-        contestantScores = new Dictionary<BeautyContestant, TMP_Text>();  
-        
+        contestantScores = new Dictionary<BeautyContestant, TMP_Text>();
+
         InitializeContestantSlots();
         InitializeContestants();
         GetUIElements();
@@ -93,21 +93,27 @@ public class BeautyManager : MonoBehaviour
     {
         contestants = new List<BeautyContestant>();
 
-        BeautyContestant constestant = null;
+
+        BeautyContestant contestant = null;
         ContestantSlot freeSlot = null;
+        Vector3 spawnPos = new Vector3();
+        spawnPos.y = 10f;
         for (int i = 0; i < numberOfContestants; i++)
         {
-            constestant = Instantiate(beautyContestantPrefab, beautyContestantParent);
-
+            //constestant = Instantiate(beautyContestantPrefab, beautyContestantParent);
+            contestant = Instantiate(beautyContestantPrefab, spawnPos, Quaternion.identity, beautyContestantParent);
             foreach (var slot in contestantSlots)
             {
                 if (slot.IsFree)
                     freeSlot = slot;
             }
 
-            constestant.Initialize(this, freeSlot);
-            contestants.Add(constestant);
+            contestant.Initialize(this, freeSlot);
+            contestant.GetComponent<Rigidbody>().isKinematic = true;
+            contestants.Add(contestant);
         }
+
+        StartCoroutine(ReleasContestants());
     }
     private void GetUIElements()
     {
@@ -206,5 +212,18 @@ public class BeautyManager : MonoBehaviour
     public void ReturnHome()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private IEnumerator ReleasContestants()
+    {
+        foreach(var contestant in contestants)
+        {
+            contestant.GetComponent<Rigidbody>().isKinematic = false;
+            contestant.Release();
+
+            yield return new WaitForSeconds(2f);
+        }
+
+        yield return null;
     }
 }

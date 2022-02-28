@@ -10,12 +10,14 @@ public class BeautyContestant : MonoBehaviour
     Animator animator;
     TMP_Text instruction;
     SpriteRenderer sr;
+    Rigidbody rb;
 
     string currentInstruction;
     string actionDone = "";
 
     float movementSpeed = 2f;
 
+    bool isReleased;
     bool isActive;
     bool isMoving;
     bool roundActive;
@@ -38,6 +40,7 @@ public class BeautyContestant : MonoBehaviour
         animator = GetComponent<Animator>();
         instruction = GameObject.FindGameObjectWithTag("BeautyInstruction").GetComponent<TMP_Text>();
         sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody>();
 
         decideTimer = Random.Range(1f, 6f);
     }
@@ -50,12 +53,14 @@ public class BeautyContestant : MonoBehaviour
 
         beautyManager.onRoundStart += RoundStart;
         beautyManager.onRoundEnd += RoundEnd;
+
+        sr.flipX = transform.position.x - contestantSlot.transform.position.x < 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isMoving)
+        if (isMoving && isReleased)
             Move();
 
         if (roundActive)
@@ -68,6 +73,8 @@ public class BeautyContestant : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, contestantSlot.transform.position, Time.deltaTime * movementSpeed);
         else
             isMoving = false;
+
+        animator.SetBool("isMoving", isMoving);
     }
 
     private void DoAction()
@@ -78,12 +85,11 @@ public class BeautyContestant : MonoBehaviour
 
             if (decideDt > decideTimer)
             {
-
-
                 if (currentInstruction.Contains("Jump"))
                 {
                     animator.SetTrigger("Jump");
                     actionDone = "Jump";
+                    rb.AddForce(Vector3.up * 200f);
                 }
                 else if (currentInstruction.Contains("Eat"))
                 {
@@ -114,6 +120,7 @@ public class BeautyContestant : MonoBehaviour
 
     private void RoundStart()
     {
+        sr.flipX = false;
         ResetAnimatorValues();    
         roundActive = true;
         currentInstruction = beautyManager.GetCurrentInstruction();
@@ -133,5 +140,10 @@ public class BeautyContestant : MonoBehaviour
     public int GetScore()
     {
         return score;
+    }
+
+    public void Release()
+    {
+        isReleased = true;
     }
 }
