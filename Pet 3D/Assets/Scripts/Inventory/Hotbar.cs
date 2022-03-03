@@ -20,7 +20,11 @@ public class Hotbar : MonoBehaviour
         keyCodes[4] = KeyCode.Alpha5;
 
         for (int i = 0; i < itemSlots.Length; i++)
+        {
             itemSlots[i].Init();
+            if (i < Persistent.playerInventory.hotbar.Count)
+                AssignItemToSlot(Persistent.playerInventory.hotbar[i], i);
+        }
 
         selectionIndex = -1;
     }
@@ -67,5 +71,10 @@ public class Hotbar : MonoBehaviour
     public void AssignItemToSlot(InventoryItem inventoryItem, int index)
     {
         itemSlots[index].AssignItem(inventoryItem);
+    }
+
+    public void UpdateSlots()
+    {
+
     }
 }

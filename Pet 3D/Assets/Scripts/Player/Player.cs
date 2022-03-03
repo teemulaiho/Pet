@@ -45,12 +45,6 @@ public class Player : MonoBehaviour
 
         hotbar.Init();
 
-        for (int i = 0; i < hotbar.itemSlots.Length; i++)
-        {
-            if (i < Persistent.playerInventory.inventory.Count)
-                hotbar.AssignItemToSlot(Persistent.playerInventory.inventory[i], i);
-        }
-
         xAxisClamp = 0.0f;
 
         characterController = GetComponent<CharacterController>();

@@ -36,9 +36,6 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnItem(Item item)
     {
-        if (!Persistent.playerInventory.Contains(item))
-            return;
-
         Vector3 mousePos = raycastHit.point;
         mousePos.y += 2f;
 
