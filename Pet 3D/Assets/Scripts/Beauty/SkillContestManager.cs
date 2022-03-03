@@ -5,19 +5,19 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class BeautyManager : MonoBehaviour
+public class SkillContestManager : MonoBehaviour
 {
-    [SerializeField] Transform beautyContestantSlotParent;
+    [SerializeField] Transform skillContestantSlotParent;
     [SerializeField] List<ContestantSlot> contestantSlots;
 
-    [SerializeField] Transform beautyContestantParent;
-    [SerializeField] BeautyContestant beautyContestantPrefab;
-    List<BeautyContestant> contestants;
+    [SerializeField] Transform skillContestantParent;
+    [SerializeField] SkillContestant skillContestantPrefab;
+    List<SkillContestant> contestants;
 
     [SerializeField] List<TMP_Text> contestantScoreTexts;
 
-    Dictionary<BeautyContestant, string> contestantActions;
-    Dictionary<BeautyContestant, TMP_Text> contestantScores;
+    Dictionary<SkillContestant, string> contestantActions;
+    Dictionary<SkillContestant, TMP_Text> contestantScores;
 
     TMP_Text instruction;
     [SerializeField] List<string> instructions;
@@ -44,11 +44,13 @@ public class BeautyManager : MonoBehaviour
     public event OnRoundStart onRoundEnd;
 
     public string GetCurrentInstruction() { return instruction.text; }
+    public string GetInstructionInIndex(int i) { if (i < instructions.Count) return instructions[i]; else return null; }
+    public int GetInstructionCount() { return instructions.Count; }
 
     private void Awake()
     {
-        contestantActions = new Dictionary<BeautyContestant, string>();
-        contestantScores = new Dictionary<BeautyContestant, TMP_Text>();
+        contestantActions = new Dictionary<SkillContestant, string>();
+        contestantScores = new Dictionary<SkillContestant, TMP_Text>();
 
         InitializeContestantSlots();
         InitializeContestants();
@@ -58,6 +60,7 @@ public class BeautyManager : MonoBehaviour
         foreach (var contestant in contestants)
         {
             contestantScores.Add(contestant, contestantScoreTexts[i]);
+            contestantScoreTexts[i].name = contestant.Name + " Score";
             i++;
         }
     }
@@ -103,15 +106,18 @@ public class BeautyManager : MonoBehaviour
 
     private void InitializeContestants()
     {
-        contestants = new List<BeautyContestant>();
-        BeautyContestant contestant = null;
+        contestants = new List<SkillContestant>();
+        SkillContestant contestant = null;
         ContestantSlot freeSlot = null;
         Vector3 spawnPos = new Vector3();
         spawnPos.y = 10f;
+
+        int playerPet = Random.Range(0, numberOfContestants);
+
         for (int i = 0; i < numberOfContestants; i++)
         {
             //constestant = Instantiate(beautyContestantPrefab, beautyContestantParent);
-            contestant = Instantiate(beautyContestantPrefab, spawnPos, Quaternion.identity, beautyContestantParent);
+            contestant = Instantiate(skillContestantPrefab, spawnPos, Quaternion.identity, skillContestantParent);
             foreach (var slot in contestantSlots)
             {
                 if (slot.IsFree)
@@ -120,6 +126,20 @@ public class BeautyManager : MonoBehaviour
 
             contestant.Initialize(this, freeSlot);
             contestant.GetComponent<Rigidbody>().isKinematic = true;
+
+            if (i == playerPet)
+            {
+                contestant.SetStats(Persistent.petStats);
+            }
+            else
+            {
+                PetStats stats = new PetStats();
+                stats.name = "AI Pet " + i.ToString();
+                stats.intellect = Random.Range(1, 3);
+
+                contestant.SetStats(stats);
+            }
+
             contestants.Add(contestant);
         }
 
@@ -168,7 +188,7 @@ public class BeautyManager : MonoBehaviour
         {
             foreach (var contestant in contestants)
             {
-                contestantScores[contestant].text = contestant.GetScore().ToString();
+                contestantScores[contestant].text = contestant.Name + ": " + contestant.GetScore().ToString();
             }
         }
     }
@@ -183,7 +203,7 @@ public class BeautyManager : MonoBehaviour
         instruction.text = instructions[randomInstruction];
     }
 
-    public void SetContestantAction(BeautyContestant contestant, string action)
+    public void SetContestantAction(SkillContestant contestant, string action)
     {
         if (!contestantActions.ContainsKey(contestant))
             contestantActions.Add(contestant, action);

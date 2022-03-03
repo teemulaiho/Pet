@@ -37,7 +37,8 @@ public static class Persistent
             name = "Player Pet",
             health = 100f,
             energy = 100f,
-            stamina = 2
+            stamina = 2,
+            intellect = 2f
         };
     }
 }

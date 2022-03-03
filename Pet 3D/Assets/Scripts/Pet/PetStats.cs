@@ -8,4 +8,5 @@ public class PetStats
     public float health;
     public float energy;
     public int stamina;
+    public float intellect;
 }

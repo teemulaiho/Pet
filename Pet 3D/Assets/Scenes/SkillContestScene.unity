@@ -989,9 +989,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6219648904705758033, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
-      propertyPath: beautyContestantParent
+      propertyPath: skillContestantParent
       value: 
       objectReference: {fileID: 283840448}
+    - target: {fileID: 6219648904705758033, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
+      propertyPath: skillContestantSlotParent
+      value: 
+      objectReference: {fileID: 1955746237}
     - target: {fileID: 6219648904705758033, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
       propertyPath: contestantSlots.Array.data[0]
       value: 
@@ -1018,7 +1022,7 @@ PrefabInstance:
       objectReference: {fileID: 1678551544}
     - target: {fileID: 6219648904705758035, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
       propertyPath: m_Name
-      value: BeautyManager
+      value: SkillContestManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
@@ -1119,7 +1123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8445934386765593328, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
       propertyPath: m_Name
-      value: BeautyContestUI
+      value: SkillContestUI
       objectReference: {fileID: 0}
     - target: {fileID: 8445934387165705767, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
