@@ -45,9 +45,6 @@ public class BeautyManager : MonoBehaviour
 
     public string GetCurrentInstruction() { return instruction.text; }
 
-
-
-
     private void Awake()
     {
         contestantActions = new Dictionary<BeautyContestant, string>();

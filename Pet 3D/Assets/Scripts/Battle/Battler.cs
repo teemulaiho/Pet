@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Battler : MonoBehaviour
 {
+    BattleManager battleManager;
+
     Animator animator;
 
     public string Name { get; set; }
@@ -17,6 +19,11 @@ public class Battler : MonoBehaviour
     public float RelativeCurrentHealth
     {
         get { return currentHealth / maxHealth; }
+    }
+
+    public void Initialize(BattleManager bm)
+    {
+        battleManager = bm;
     }
 
     private void Awake()
@@ -39,11 +46,22 @@ public class Battler : MonoBehaviour
     {
         float totalDamage = baseDamage + strength;
         target.TakeDamage(totalDamage);
+        animator.SetTrigger("Eat");
     }
 
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
         BattleUI.UpdateDamageTakenUI(isPlayerPet, amount);
+    }
+
+    public void AnimationStart()
+    {
+
+    }
+
+    public void AnimationEnd()
+    {
+        battleManager.OnAnimationEnd();
     }
 }

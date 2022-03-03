@@ -13,6 +13,8 @@ public class BattleUI : MonoBehaviour
     public static List<Slider> petHealthSliders;
     public static List<TMP_Text> uiTexts;
 
+    static TMP_Text turnText;
+
     static TMP_Text playerPetName;
     static TMP_Text opponentPetName;
 
@@ -52,6 +54,11 @@ public class BattleUI : MonoBehaviour
             {
                 opponentDamageTakenText = text;
             }
+            else if (text.name.Contains("Turn"))
+            {
+                turnText = text;
+                turnText.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -88,13 +95,10 @@ public class BattleUI : MonoBehaviour
         else
             currentTurnName = battlers[1].Name;
 
-        foreach (var text in uiTexts)
-        {
-            if (text.name.Contains("Turn"))
-            {
-                text.text = currentTurnName;
-            }
-        }
+        turnText.text = currentTurnName;
+
+        if (!turnText.gameObject.activeSelf)
+            turnText.gameObject.SetActive(true);
     }
 
     public static void UpdateDamageTakenUI(bool isPlayerPetTurn, float damageTaken)
@@ -150,7 +154,7 @@ public class BattleUI : MonoBehaviour
             if (button.name.Contains("Start"))
             {
                 button.interactable = !BattleManager.running;
-                
+
                 if (BattleManager.round != 0)
                     button.GetComponentInChildren<TMP_Text>().text = "Continue";
 

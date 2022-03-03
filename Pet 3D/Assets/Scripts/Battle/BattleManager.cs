@@ -21,6 +21,9 @@ public class BattleManager : MonoBehaviour
     float turnDT = 0f;
     float turnDuration = 5f;
 
+    float waitDT = 0f;
+    float waitDuration = 2f;
+
     private void Awake()
     {
         battlers = new List<Battler>();
@@ -30,14 +33,20 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         playerPet = Instantiate(battlerPrefab, playerPetParent);
-        playerPet.SetPlayerPet(true);
         opponentPet = Instantiate(battlerPrefab, opponentPetParent);
+
+        playerPet.SetPlayerPet(true);
 
         battlers.Add(playerPet);
         battlers.Add(opponentPet);
 
         battlers[0].Name = "Player Pet";
         battlers[1].Name = "AI Pet";
+
+        foreach(var battler in battlers)
+        {
+            battler.Initialize(this);
+        }
 
         BattleUI.SetNames(battlers);
         BattleUI.UpdateHealthValues(battlers);
@@ -97,5 +106,15 @@ public class BattleManager : MonoBehaviour
     public void ReturnHome()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void OnAnimationStart()
+    {
+
+    }
+
+    public void OnAnimationEnd()
+    {
+
     }
 }
