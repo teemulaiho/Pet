@@ -92,6 +92,10 @@ public class ShopWindow : MonoBehaviour
 
     public void PurchaseItem()
     {
+        if (Persistent.playerInventory.money < selectedItem.cost)
+            return;
+
         Persistent.playerInventory.AddItem(selectedItem, (int)quantitySlider.value);
+        Persistent.playerInventory.DecreaseMoney(selectedItem.cost);
     }
 }

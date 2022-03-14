@@ -10,6 +10,19 @@ public class PlayerInventory
     private int hotbarSize;
     public int money;
 
+    public delegate void OnMoneyChange();
+    public event OnMoneyChange onMoneyChange;
+
+    private int Money
+    {
+        get { return money; }
+        set
+        {
+            money = value;
+            onMoneyChange();
+        }
+    }
+
     public PlayerInventory()
     {
         inventory = new List<InventoryItem>();
@@ -115,5 +128,15 @@ public class PlayerInventory
                 return inventoryItem.count;
 
         return 0;
+    }
+
+    public void DecreaseMoney(int amountToDecrease)
+    {
+        Money -= amountToDecrease;
+    }
+
+    public void IncreaseMoney(int amountToIncrease)
+    {
+        Money += amountToIncrease;
     }
 }

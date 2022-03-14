@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Hotbar : MonoBehaviour
 {
+    [SerializeField] TMP_Text playerMoney;
+
     public HotbarItemSlot[] itemSlots;
 
     private int selectionIndex;
@@ -29,6 +32,12 @@ public class Hotbar : MonoBehaviour
         selectionIndex = -1;
     }
 
+    private void Start()
+    {
+        Persistent.playerInventory.onMoneyChange += UpdatePlayerInfo;
+        UpdatePlayerInfo();
+    }
+
     private void Update()
     {
         for (int i = 0; i < keyCodes.Length; i++)
@@ -50,7 +59,7 @@ public class Hotbar : MonoBehaviour
                     selectionIndex = i;
 
                     itemSlots[selectionIndex].Select();
-                    
+
                 }
                 break;
             }
@@ -76,5 +85,11 @@ public class Hotbar : MonoBehaviour
     public void UpdateSlots()
     {
 
+    }
+
+    public void UpdatePlayerInfo()
+    {
+        if (playerMoney)
+            playerMoney.text = Persistent.playerInventory.money.ToString();
     }
 }
