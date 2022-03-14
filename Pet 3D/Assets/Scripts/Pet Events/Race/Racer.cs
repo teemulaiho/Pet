@@ -23,6 +23,10 @@ public class Racer : MonoBehaviour
 
     private bool running;
     public bool Finished { get; set; }
+    public int Rank { get; set; }
+    public int Winnings { get; set; }
+
+    public bool isPlayerPet; 
 
     private void Awake()
     {
@@ -30,6 +34,12 @@ public class Racer : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
         resting = false;
         Finished = false;
+    }
+
+    private void Start()
+    {
+        if (!isPlayerPet)
+            rend.color = Color.magenta;
     }
 
     private void Update()

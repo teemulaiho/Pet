@@ -55,11 +55,12 @@ public class RaceManager : MonoBehaviour
             if (i == playerIndex)
             {
                 racers[i].SetStats(Persistent.petStats);
+                racers[i].isPlayerPet = true;
             }
             else
             {
                 PetStats stats = new PetStats();
-                stats.name = "AI Pet"; 
+                stats.name = "AI Pet";
                 stats.health = 100.0f;
                 stats.stamina = raceDifficulty + Random.Range(-1, 2);
 
@@ -103,6 +104,11 @@ public class RaceManager : MonoBehaviour
                     scoreScreen.namePlates[racersFinished].time.text = time.text;
                     scoreScreen.namePlates[racersFinished].petName.text = racer.Name;
                     scoreScreen.namePlates[racersFinished].place.text = (racersFinished + 1).ToString() + ".";
+
+                    racer.Winnings = (prizePool / (racersFinished + 1));
+                    scoreScreen.namePlates[racersFinished].winnings.text = racer.Winnings.ToString();
+
+                    racer.Rank = racersFinished + 1;
                     racer.Finished = true;
                     racersFinished += 1;
                 }
@@ -114,6 +120,7 @@ public class RaceManager : MonoBehaviour
                 time.gameObject.SetActive(false);
                 running = false;
                 raceOver = true;
+                DistributeRacerRewards();
             }
 
             UpdateCamera();
@@ -140,5 +147,14 @@ public class RaceManager : MonoBehaviour
         xPosition = Mathf.Clamp(xPosition, camStartPosition.x, finishLine.transform.position.x);
         camTargetPosition.x = xPosition;
         cam.transform.position = Vector3.Lerp(cam.transform.position, camTargetPosition, 0.0125f);
+    }
+
+    private void DistributeRacerRewards()
+    {
+        foreach (Racer racer in racers)
+        {
+            if (racer.isPlayerPet)
+                Persistent.playerInventory.IncreaseMoney(racer.Winnings);
+        }
     }
 }
