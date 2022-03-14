@@ -19,7 +19,7 @@ public static class Persistent
     }
     #endif
 
-    #if UNITY_STANDALONE
+    #if UNITY_STANDALONE || UNITY_WEBGL || UNITY_ANDROID || UNITY_IOS
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     #endif
     public static void Initialize()
