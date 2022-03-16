@@ -38,7 +38,14 @@ public static class Persistent
             health = 100f,
             energy = 100f,
             stamina = 2,
-            intellect = 2f
+            intellect = 2f,
+            strength = 1f,
+            experience = 0f
         };
+    }
+
+    public static void AddExperience(float experienceToAdd)
+    {
+        petStats.experience += experienceToAdd;
     }
 }

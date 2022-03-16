@@ -9,4 +9,6 @@ public class PetStats
     public float energy;
     public int stamina;
     public float intellect;
+    public float strength;
+    public float experience;
 }

@@ -121,6 +121,7 @@ public class RaceManager : MonoBehaviour
                 running = false;
                 raceOver = true;
                 DistributeRacerRewards();
+                DistributePlayerPetExperience();
             }
 
             UpdateCamera();
@@ -155,6 +156,18 @@ public class RaceManager : MonoBehaviour
         {
             if (racer.isPlayerPet)
                 Persistent.playerInventory.IncreaseMoney(racer.Winnings);
+        }
+    }
+
+    private void DistributePlayerPetExperience()
+    {
+        foreach (Racer racer in racers)
+        {
+            if (racer.isPlayerPet)
+            {
+                if (racer.Rank > 0)
+                    Persistent.AddExperience(10f);
+            }
         }
     }
 }

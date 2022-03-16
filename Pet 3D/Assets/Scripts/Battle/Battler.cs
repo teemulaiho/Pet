@@ -8,6 +8,8 @@ public class Battler : MonoBehaviour
 
     Animator animator;
 
+    SpriteRenderer sr;
+
     public string Name { get; set; }
 
     public bool isPlayerPet;
@@ -23,6 +25,16 @@ public class Battler : MonoBehaviour
         get { return currentHealth / maxHealth; }
     }
 
+    public void SetStats(PetStats stats)
+    {
+        Name = stats.name;
+        this.name = Name;
+        strength = stats.strength;
+
+        if (!isPlayerPet)
+            sr.color = Color.magenta;
+    }
+
     public void Initialize(BattleManager bm)
     {
         battleManager = bm;
@@ -31,11 +43,11 @@ public class Battler : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
 
         maxHealth = 25f;
         currentHealth = maxHealth;
 
-        strength = Random.Range(1f, 6f);
         baseDamage = Random.Range(3f, 6f);
     }
 

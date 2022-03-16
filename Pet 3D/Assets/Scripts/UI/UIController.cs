@@ -19,6 +19,15 @@ public class UIController : MonoBehaviour
     [SerializeField] GameObject eventWindow;
     [SerializeField] ShopWindow shopWindow;
 
+    [Space]
+    [Header("Pet Stats")]
+    [SerializeField] TMP_Text petIntelligence;
+    [SerializeField] TMP_Text petStrength;
+    [SerializeField] TMP_Text petStamina;
+    [SerializeField] TMP_Text petExperience;
+
+    [Space]
+    [Header("Player")]
     [SerializeField] Image playerActionImage;
     [SerializeField] Sprite actionSprite;
 
@@ -57,6 +66,10 @@ public class UIController : MonoBehaviour
         if (pet)
         {
             petStateText.text = pet.GetCurrentState().ToString();
+            petIntelligence.text = Persistent.petStats.intellect.ToString();
+            petStrength.text = Persistent.petStats.strength.ToString();
+            petStamina.text = Persistent.petStats.stamina.ToString();
+            petExperience.text = Persistent.petStats.experience.ToString();
         }
     }
 

@@ -42,13 +42,19 @@ public class BattleManager : MonoBehaviour
         playerPet = Instantiate(battlerPrefab, playerPetParent);
         opponentPet = Instantiate(battlerPrefab, opponentPetParent);
 
+        {
+            PetStats stats = new PetStats();
+            stats.name = "AI Pet";
+            stats.intellect = Random.Range(1, 3);
+            stats.strength = Random.Range(1f, 6f);
+            opponentPet.SetStats(stats);
+        }
+
+        playerPet.SetStats(Persistent.petStats);
         playerPet.SetPlayerPet(true);
 
         battlers.Add(playerPet);
         battlers.Add(opponentPet);
-
-        battlers[0].Name = "Player Pet";
-        battlers[1].Name = "AI Pet";
 
         foreach (var battler in battlers)
         {
@@ -102,7 +108,7 @@ public class BattleManager : MonoBehaviour
                 turnDT = 0f;
             }
         }
-        
+
         if (battleOver)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -158,6 +164,7 @@ public class BattleManager : MonoBehaviour
         ResetTurnAnimations();
         UpdateContestantRanks();
         DistributeContestantRewards();
+        DistributePlayerPetExperience();
         scoreScreen.gameObject.SetActive(true);
         battleOver = true;
     }
@@ -191,7 +198,7 @@ public class BattleManager : MonoBehaviour
     }
     private void SetContestantWinnings()
     {
-        foreach(Battler battler in battlers)
+        foreach (Battler battler in battlers)
         {
             if (battler.RelativeCurrentHealth > 0)
                 battler.Winnings = prizePool;
@@ -205,6 +212,18 @@ public class BattleManager : MonoBehaviour
             if (battler.isPlayerPet)
                 if (Persistent.playerInventory != null)
                     Persistent.playerInventory.IncreaseMoney(battler.Winnings);
+        }
+    }
+
+    private void DistributePlayerPetExperience()
+    {
+        foreach (Battler battler in battlers)
+        {
+            if (battler.isPlayerPet)
+            {
+                if (battler.Winnings > 0)
+                    Persistent.AddExperience(10f);
+            }
         }
     }
 }
