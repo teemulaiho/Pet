@@ -10,11 +10,13 @@ public class Battler : MonoBehaviour
 
     public string Name { get; set; }
 
-    bool isPlayerPet;
+    public bool isPlayerPet;
     float maxHealth;
     float currentHealth;
     float strength;
     float baseDamage;
+
+    public int Winnings { get; set; }
 
     public float RelativeCurrentHealth
     {
@@ -33,8 +35,8 @@ public class Battler : MonoBehaviour
         maxHealth = 25f;
         currentHealth = maxHealth;
 
-        strength = 1f;
-        baseDamage = Random.Range(1f, 3f);
+        strength = Random.Range(1f, 6f);
+        baseDamage = Random.Range(3f, 6f);
     }
 
     public void SetPlayerPet(bool playerPet)
@@ -46,7 +48,7 @@ public class Battler : MonoBehaviour
     {
         //Debug.Log("Called DoDamage to target: " + target.name);
 
-        float totalDamage = baseDamage + strength;
+        float totalDamage = baseDamage + strength + Random.Range(0, 3);
         target.TakeDamage(totalDamage);
         animator.SetTrigger("Eat");
     }
@@ -55,6 +57,9 @@ public class Battler : MonoBehaviour
     {
         currentHealth -= amount;
         BattleUI.UpdateDamageTakenUI(isPlayerPet, amount);
+
+        if (currentHealth <= 0)
+            battleManager.BattlerUnconscious();
     }
 
     public void AnimationStart()

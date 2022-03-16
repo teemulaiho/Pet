@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
+    [SerializeField] BattleScoreScreen scoreScreen;
+
     [SerializeField] List<Battler> battlers;
     [SerializeField] Battler battlerPrefab;
     [SerializeField] Transform playerPetParent;
@@ -13,6 +15,7 @@ public class BattleManager : MonoBehaviour
     Battler playerPet;
     Battler opponentPet;
 
+    private bool battleOver;
     public static bool running;
     bool isPlayerPetTurn;
     public static int round = 0;
@@ -24,6 +27,8 @@ public class BattleManager : MonoBehaviour
     float waitDT = 0f;
     float waitDuration = 2f;
 
+    private int prizePool;
+
     private void Awake()
     {
         battlers = new List<Battler>();
@@ -32,6 +37,8 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        prizePool = 125;
+
         playerPet = Instantiate(battlerPrefab, playerPetParent);
         opponentPet = Instantiate(battlerPrefab, opponentPetParent);
 
@@ -55,7 +62,7 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (running)
+        if (running && !battleOver)
         {
             turnDT += Time.deltaTime;
 
@@ -95,6 +102,12 @@ public class BattleManager : MonoBehaviour
                 turnDT = 0f;
             }
         }
+        
+        if (battleOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                SceneManager.LoadScene("HomeScene");
+        }
     }
 
     public void StartBattle()
@@ -131,5 +144,67 @@ public class BattleManager : MonoBehaviour
     private void ResetTurnAnimations()
     {
         BattleUI.ResetTurnAnimations();
+    }
+
+    public void BattlerUnconscious()
+    {
+        battleOver = true;
+
+        Invoke("EndBattle", 2f);
+    }
+
+    private void EndBattle()
+    {
+        ResetTurnAnimations();
+        UpdateContestantRanks();
+        DistributeContestantRewards();
+        scoreScreen.gameObject.SetActive(true);
+        battleOver = true;
+    }
+
+    private int SortByWinnings(Battler a, Battler b)
+    {
+        return a.Winnings.CompareTo(b.Winnings);
+    }
+
+    private void UpdateContestantRanks()
+    {
+        SetContestantWinnings();
+
+        battlers.Sort(SortByWinnings); // Sort from smallest to largest.
+        battlers.Reverse(); // Higher score is better.
+
+        int i = 0;
+        foreach (Battler battler in battlers)
+        {
+            scoreScreen.namePlates[i].time.text = "";
+            scoreScreen.namePlates[i].petName.text = battler.Name;
+            scoreScreen.namePlates[i].place.text = (i + 1).ToString();
+            scoreScreen.namePlates[i].winnings.text = battler.Winnings.ToString();
+            i++;
+        }
+
+        for (int j = i; j < scoreScreen.namePlates.Length; j++)
+        {
+            scoreScreen.namePlates[j].gameObject.SetActive(false);
+        }
+    }
+    private void SetContestantWinnings()
+    {
+        foreach(Battler battler in battlers)
+        {
+            if (battler.RelativeCurrentHealth > 0)
+                battler.Winnings = prizePool;
+        }
+    }
+
+    private void DistributeContestantRewards()
+    {
+        foreach (Battler battler in battlers)
+        {
+            if (battler.isPlayerPet)
+                if (Persistent.playerInventory != null)
+                    Persistent.playerInventory.IncreaseMoney(battler.Winnings);
+        }
     }
 }
