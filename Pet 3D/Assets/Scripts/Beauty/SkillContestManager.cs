@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class SkillContestManager : MonoBehaviour
 {
+    [SerializeField] SkillContestScoreScreen scoreScreen;
+
     [SerializeField] Transform skillContestantSlotParent;
     [SerializeField] List<ContestantSlot> contestantSlots;
 
@@ -14,7 +16,10 @@ public class SkillContestManager : MonoBehaviour
     [SerializeField] SkillContestant skillContestantPrefab;
     List<SkillContestant> contestants;
 
+    [SerializeField] List<TMP_Text> uiTexts;
     [SerializeField] List<TMP_Text> contestantScoreTexts;
+
+    TMP_Text roundInfo;
 
     Dictionary<SkillContestant, string> contestantActions;
     Dictionary<SkillContestant, TMP_Text> contestantScores;
@@ -28,12 +33,17 @@ public class SkillContestManager : MonoBehaviour
     Button startButton;
     Slider timeLeftSlider;
 
+    bool contestOver;
     bool running;
     float quickEndingdt;
     public float rounddt;
     public float roundTimer;
     public float timeLeft;
 
+    private int prizePool;
+
+    public int numberOfRounds;
+    private int currentRound = 0;
     public int numberOfContestants;
     int contestantActionsReceived;
 
@@ -49,6 +59,8 @@ public class SkillContestManager : MonoBehaviour
 
     private void Awake()
     {
+        prizePool = 225;
+
         contestantActions = new Dictionary<SkillContestant, string>();
         contestantScores = new Dictionary<SkillContestant, TMP_Text>();
 
@@ -61,6 +73,7 @@ public class SkillContestManager : MonoBehaviour
         {
             contestantScores.Add(contestant, contestantScoreTexts[i]);
             contestantScoreTexts[i].name = contestant.Name + " Score";
+            contestantScoreTexts[i].text = contestant.name;
             i++;
         }
     }
@@ -69,6 +82,7 @@ public class SkillContestManager : MonoBehaviour
     void Start()
     {
         SetUIElements();
+        UpdateUI();
     }
 
     // Update is called once per frame
@@ -93,9 +107,18 @@ public class SkillContestManager : MonoBehaviour
 
             if (rounddt > roundTimer)
             {
-                EndRound();
-                rounddt = 0f;
+                if (currentRound <= numberOfRounds)
+                {
+                    EndRound();
+                    rounddt = 0f;
+                }
             }
+        }
+
+        if (contestOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                SceneManager.LoadScene("HomeScene");
         }
     }
 
@@ -129,6 +152,7 @@ public class SkillContestManager : MonoBehaviour
 
             if (i == playerPet)
             {
+                contestant.isPlayerPet = true;
                 contestant.SetStats(Persistent.petStats);
             }
             else
@@ -147,6 +171,16 @@ public class SkillContestManager : MonoBehaviour
     }
     private void GetUIElements()
     {
+        uiTexts = new List<TMP_Text>();
+        uiTexts.AddRange(FindObjectsOfType<TMP_Text>());
+
+        foreach (var text in uiTexts)
+        {
+            if (text.name.Contains("RoundInfoText"))
+                roundInfo = text;
+        }
+
+
         instruction = GameObject.FindGameObjectWithTag("BeautyInstruction").GetComponent<TMP_Text>();
 
         buttons = new List<Button>();
@@ -188,8 +222,45 @@ public class SkillContestManager : MonoBehaviour
         {
             foreach (var contestant in contestants)
             {
-                contestantScores[contestant].text = contestant.Name + ": " + contestant.GetScore().ToString();
+                contestantScores[contestant].text = contestant.Name + ": " + "\n" + contestant.GetScore().ToString();
             }
+
+            roundInfo.text = "Rounds Left: " + "\n" + (numberOfRounds - currentRound).ToString();
+        }
+    }
+
+    private int SortByScore(SkillContestant a, SkillContestant b)
+    {
+        return a.GetScore().CompareTo(b.GetScore());
+    }
+
+    private void UpdateContestantRanks()
+    {
+        contestants.Sort(SortByScore); // Sort from smallest to largest.
+        contestants.Reverse(); // Higher score is better.
+
+        int i = 0;
+        foreach (SkillContestant contestant in contestants)
+        {
+            i++;
+            contestant.Rank = i;
+        }
+
+        SetContestantWinnings();
+
+        i = 0;
+        foreach (SkillContestant contestant in contestants)
+        {
+            scoreScreen.namePlates[i].time.text = contestant.GetScore().ToString();
+            scoreScreen.namePlates[i].petName.text = contestant.name;
+            scoreScreen.namePlates[i].place.text = (i + 1).ToString();
+            scoreScreen.namePlates[i].winnings.text = contestant.Winnings.ToString();
+            i++;
+        }
+
+        for (int j = i; j < scoreScreen.namePlates.Length; j++)
+        {
+            scoreScreen.namePlates[j].gameObject.SetActive(false);
         }
     }
 
@@ -221,7 +292,6 @@ public class SkillContestManager : MonoBehaviour
         }
 
         UpdateUI();
-
         contestantActionsReceived = 0;
     }
 
@@ -234,13 +304,32 @@ public class SkillContestManager : MonoBehaviour
         onRoundEnd();
 
         CheckContestantActions();
-        NewInstruction();
+
+        if (currentRound >= numberOfRounds)
+        {
+            running = false;
+            EndGame();
+        }
+        else
+            NewInstruction();
+
+        UpdateUI();
+    }
+
+    private void EndGame()
+    {
+        UpdateContestantRanks();
+        DistributeContestantRewards();
+        scoreScreen.gameObject.SetActive(true);
+
+        contestOver = true;
     }
 
     public void StartRound()
     {
         running = true;
         startButton.interactable = false;
+        currentRound++;
 
         onRoundStart();
     }
@@ -248,6 +337,27 @@ public class SkillContestManager : MonoBehaviour
     public void ReturnHome()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private void SetContestantWinnings()
+    {
+        foreach (SkillContestant contestant in contestants)
+        {
+            if (contestant.GetScore() == 0)
+                contestant.Winnings = 0;
+            else
+                contestant.Winnings = prizePool / (contestant.Rank);
+        }
+    }
+
+    private void DistributeContestantRewards()
+    {
+        foreach (SkillContestant contestant in contestants)
+        {
+            if (contestant.isPlayerPet)
+                if (Persistent.playerInventory != null)
+                    Persistent.playerInventory.IncreaseMoney(contestant.Winnings);
+        }
     }
 
     private IEnumerator ReleasContestants()

@@ -19,7 +19,9 @@ public class PlayerInventory
         set
         {
             money = value;
-            onMoneyChange();
+
+            if (onMoneyChange != null)
+                onMoneyChange();
         }
     }
 

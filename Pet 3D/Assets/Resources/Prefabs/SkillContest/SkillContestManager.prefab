@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 0}
   skillContestantParent: {fileID: 0}
   skillContestantPrefab: {fileID: 5401322523491176028, guid: 6a805f9399afc2e498a887c51f749037, type: 3}
+  uiTexts: []
   contestantScoreTexts:
   - {fileID: 0}
   - {fileID: 0}
@@ -61,4 +62,5 @@ MonoBehaviour:
   rounddt: 0
   roundTimer: 10
   timeLeft: 0
+  numberOfRounds: 3
   numberOfContestants: 3

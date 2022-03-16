@@ -18,6 +18,7 @@ public class SkillContestant : MonoBehaviour
 
     float movementSpeed = 2f;
 
+    public bool isPlayerPet { get; set; }
     bool isReleased;
     bool isActive;
     bool isMoving;
@@ -27,6 +28,8 @@ public class SkillContestant : MonoBehaviour
     float decideTimer;
 
     int score;
+    public int Rank { get; set; }
+    public int Winnings { get; set; }
 
     // Pet Stats
     public string Name { get; set; }
@@ -37,6 +40,9 @@ public class SkillContestant : MonoBehaviour
         Name = stats.name;
         this.name = Name;
         intellect = stats.intellect;
+
+        if (!isPlayerPet)
+            sr.color = Color.magenta;
     }
 
     public void Initialize(SkillContestManager bm, ContestantSlot slot)
@@ -116,8 +122,6 @@ public class SkillContestant : MonoBehaviour
 
             actionDecided = skillContestManager.GetInstructionInIndex(randomIndex);
         }
-
-        Debug.Log(this.name + "decided to do " + actionDecided);
     }
 
     private void DoAction()

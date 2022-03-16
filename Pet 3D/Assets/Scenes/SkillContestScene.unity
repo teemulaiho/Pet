@@ -926,6 +926,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1987559656 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6238340229724425056, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
+  m_PrefabInstance: {fileID: 8445934387801406060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca92f0c7fec77284bb498149e74ce728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2034592919 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6219648904705758033, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
@@ -989,6 +1000,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6219648904705758033, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
+      propertyPath: scoreScreen
+      value: 
+      objectReference: {fileID: 1987559656}
+    - target: {fileID: 6219648904705758033, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
       propertyPath: skillContestantParent
       value: 
       objectReference: {fileID: 283840448}
@@ -1033,6 +1048,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2021648139421140982, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8445934386704240260, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
