@@ -43,7 +43,7 @@ public class BattleManager : MonoBehaviour
         battlers[0].Name = "Player Pet";
         battlers[1].Name = "AI Pet";
 
-        foreach(var battler in battlers)
+        foreach (var battler in battlers)
         {
             battler.Initialize(this);
         }
@@ -74,9 +74,12 @@ public class BattleManager : MonoBehaviour
 
                 BattleUI.UpdateTurnText(battlers, isPlayerPetTurn);
                 BattleUI.UpdateHealthValues(battlers);
-                BattleUI.UpdateTurnAnimaton(isPlayerPetTurn);
 
                 turn++;
+                if (turn < 2)
+                    Invoke("UpdateTurnAnimation", 1.5f);
+                //BattleUI.UpdateTurnAnimaton(isPlayerPetTurn);
+
                 if (turn >= 2)
                 {
                     round++;
@@ -84,7 +87,9 @@ public class BattleManager : MonoBehaviour
                     turn = 0;
 
                     BattleUI.UpdateControlButtons();
-                    BattleUI.ResetTurnAnimations();
+
+                    Invoke("ResetTurnAnimations", 1f);
+                    //BattleUI.ResetTurnAnimations();
                 }
 
                 turnDT = 0f;
@@ -116,5 +121,15 @@ public class BattleManager : MonoBehaviour
     public void OnAnimationEnd()
     {
 
+    }
+
+    private void UpdateTurnAnimation()
+    {
+        BattleUI.UpdateTurnAnimaton(isPlayerPetTurn);
+    }
+
+    private void ResetTurnAnimations()
+    {
+        BattleUI.ResetTurnAnimations();
     }
 }

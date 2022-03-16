@@ -6,7 +6,10 @@ using TMPro;
 
 public class BattleUI : MonoBehaviour
 {
+    public static List<Animator> animators;
     public static Animator animator;
+
+    public static Animator damageAnimator;
 
     public static List<Button> controlButtons;
 
@@ -23,7 +26,18 @@ public class BattleUI : MonoBehaviour
 
     private void Awake()
     {
+        animators = new List<Animator>();
+        animators.AddRange(GetComponentsInChildren<Animator>());
+
         animator = GetComponent<Animator>();
+
+        foreach(Animator anim in animators)
+        {
+            if (anim.name.Contains("Damage"))
+            {
+                damageAnimator = anim;
+            }
+        }
 
         controlButtons = new List<Button>();
         petHealthSliders = new List<Slider>();
@@ -103,28 +117,30 @@ public class BattleUI : MonoBehaviour
 
     public static void UpdateDamageTakenUI(bool isPlayerPetTurn, float damageTaken)
     {
+        //Debug.Log("Called UpdateDamageTakenUI with parameter isPlayerTurn: " + isPlayerPetTurn);
+
         int damageTakenInt = Mathf.CeilToInt(damageTaken);
 
         string damageTakenString = damageTakenInt.ToString();
 
         if (isPlayerPetTurn)
         {
-            animator.SetTrigger("PlayerPetTakeDamage");
+            //animator.SetTrigger("PlayerPetTakeDamage");
+            damageAnimator.SetTrigger("PlayerPetTakeDamage");
             playerDamageTakenText.text = damageTakenString;
-
-            Debug.Log("Updating player pet damage taken by: " + damageTaken);
         }
         else
         {
-            animator.SetTrigger("OpponentPetTakeDamage");
+            //animator.SetTrigger("OpponentPetTakeDamage");
+            damageAnimator.SetTrigger("OpponentPetTakeDamage");
             opponentDamageTakenText.text = damageTakenString;
-
-            Debug.Log("Updating opponent pet damage taken by: " + damageTaken);
         }
     }
 
     public static void UpdateTurnAnimaton(bool isPlayerPetTurn)
     {
+        //Debug.Log("Called UpdateTurnAnimation with parameter isPlayerTurn: " + isPlayerPetTurn);
+
         if (isPlayerPetTurn)
         {
             animator.SetBool("OpponentPetTurn", false);
@@ -139,6 +155,8 @@ public class BattleUI : MonoBehaviour
 
     public static void ResetTurnAnimations()
     {
+        //Debug.Log("Called ResetTurnAnimations");
+
         animator.SetBool("OpponentPetTurn", false);
         animator.SetBool("PlayerPetTurn", false);
     }

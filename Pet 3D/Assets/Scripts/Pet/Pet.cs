@@ -587,4 +587,5 @@ public class Pet : MonoBehaviour
     {
         reactionAnimator.SetTrigger("PetPet");
     }
+
 }

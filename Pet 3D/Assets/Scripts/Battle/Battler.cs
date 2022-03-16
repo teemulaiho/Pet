@@ -44,6 +44,8 @@ public class Battler : MonoBehaviour
 
     public void DoDamage(Battler target)
     {
+        //Debug.Log("Called DoDamage to target: " + target.name);
+
         float totalDamage = baseDamage + strength;
         target.TakeDamage(totalDamage);
         animator.SetTrigger("Eat");
