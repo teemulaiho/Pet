@@ -43,6 +43,18 @@ public class ItemSpawner : MonoBehaviour
         Persistent.playerInventory.RemoveItem(item);
     }
 
+    public void ThrowItem(Item item, Player player)
+    {
+        Vector3 spawnPos = player.transform.position;
+        spawnPos += player.transform.forward;
+        spawnPos.y += 0.5f;
+        GameObject newGo = Instantiate(item.prefab, spawnPos, Quaternion.identity);
+
+        Vector3 forceToAdd = player.transform.forward;
+        forceToAdd *= 500f;
+        newGo.GetComponent<Rigidbody>().AddForce(forceToAdd);
+    }
+
     public void Track(bool value)
     {
         tracking = value;

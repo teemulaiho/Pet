@@ -75,7 +75,12 @@ public class Player : MonoBehaviour
                 itemSpawner.Track(true);
                 if (Input.GetMouseButtonDown(0))
                 {
-                    itemSpawner.SpawnItem(hotbar.GetSelectedItem().item);
+                    InventoryItem selectedItem = hotbar.GetSelectedItem();
+
+                    if (selectedItem.item.name.Contains("Ball"))
+                        itemSpawner.ThrowItem(selectedItem.item, this);
+                    else
+                        itemSpawner.SpawnItem(selectedItem.item);
                 }
             }
         }
