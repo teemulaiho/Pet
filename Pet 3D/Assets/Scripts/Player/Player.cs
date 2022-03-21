@@ -172,7 +172,7 @@ public class Player : MonoBehaviour
         {
             if (lookedAtObject.CompareTag("Pet"))
             {
-                lookedAtObject.GetComponent<Pet>().PetPet();
+                lookedAtObject.GetComponentInParent<Pet>().PetPet();
             }
             else if (lookedAtObject.CompareTag("Shop"))
             {

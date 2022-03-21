@@ -9,6 +9,7 @@ public enum PetState
     Sleep,
     FollowPlayer,
     SearchForFood,
+    Feeding,
     ChaseBall
 }
 
@@ -33,7 +34,9 @@ public class Pet : MonoBehaviour
     [SerializeField] private Ball ball;
     [SerializeField] private Ball capturedBall;
 
+    [SerializeField] private FeedingArea feedingArea;
     [SerializeField] private GameObject goal;
+    [SerializeField] private GameObject randomTarget;
 
     Transform movementTargetTransform;
     Vector3 movementTarget;
@@ -56,13 +59,18 @@ public class Pet : MonoBehaviour
     private float currentSpeed = 0f;
     private float speed = 1f;
 
+    private float waitdt = 0f;
+    private float waitdtCounter = 0f;
+
     private Vector3 previousPos = Vector3.zero;
     private float movementDirection = 0f;
 
+    private bool reachedIdleTarget;
     private bool spottedPlayer;
     private bool isEating;
     private bool isMoving;
     private bool isSleeping;
+    private bool isFeeding;
 
     [SerializeField] Animator petAnimator;
     [SerializeField] Animator healthAnimator;
@@ -125,7 +133,18 @@ public class Pet : MonoBehaviour
             }
 
             isEating = value;
+        }
+    }
 
+    public bool IsFeeding
+    {
+        get { return isFeeding; }
+        set
+        {
+            isFeeding = value;
+
+            if (isFeeding)
+                SetPetState = PetState.Feeding; 
         }
     }
 
@@ -186,6 +205,7 @@ public class Pet : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<Player>();
+        feedingArea = FindObjectOfType<FeedingArea>();
     }
 
     private void Start()
@@ -229,8 +249,14 @@ public class Pet : MonoBehaviour
 
         switch (petState)
         {
+            case PetState.Idle:
+            {
+                Play();
+                break;
+            }
             case PetState.Sleep:
             {
+                RestoreEnergy();
                 break;
             }
             case PetState.FollowPlayer:
@@ -252,8 +278,14 @@ public class Pet : MonoBehaviour
             case PetState.SearchForFood:
             {
                 if (!apple)
-                    FindNearestFood();
+                    if (!FindNearestFood())
+                        GoToFeedingArea();
                 GoToFood();
+                break;
+            }
+            case PetState.Feeding:
+            {
+                Feed();
                 break;
             }
         }
@@ -286,6 +318,17 @@ public class Pet : MonoBehaviour
         else if (dist > 5f && SpottedPlayer)
         {
             SpottedPlayer = false;
+        }
+    }
+
+    void RestoreEnergy()
+    {
+        energydt += Time.deltaTime;
+
+        if (energydt > energydtCounter)
+        {
+            CurrentEnergy += 5f;
+            energydt = 0f;
         }
     }
 
@@ -427,7 +470,7 @@ public class Pet : MonoBehaviour
         }
     }
 
-    void FindNearestFood()
+    bool FindNearestFood()
     {
         FindNearest(ObjectType.Food);
         apples.Clear();
@@ -452,13 +495,15 @@ public class Pet : MonoBehaviour
         }
 
         if (foodIndex > apples.Count)
-            return;
+            return false;
 
         apple = apples[foodIndex];
         MovementTargetTransform = apple.transform;
 
         currentEnergy = maxEnergy;
         IsSleeping = false;
+
+        return true;
     }
 
 
@@ -505,19 +550,6 @@ public class Pet : MonoBehaviour
         }
     }
 
-    void GoToFood()
-    {
-        if (apple && !IsEating)
-        {
-            float dist = Vector3.Distance(transform.position, apple.transform.position);
-
-            if (dist > 0.2f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, apple.transform.position, Time.deltaTime * speed);
-            }
-        }
-    }
-
     void GoToBall()
     {
         if (ball && !IsEating && !capturedBall)
@@ -531,6 +563,32 @@ public class Pet : MonoBehaviour
 
             if (IsSleeping)
                 IsSleeping = false;
+        }
+    }
+
+    void GoToFood()
+    {
+        if (apple && !IsEating)
+        {
+            float dist = Vector3.Distance(transform.position, apple.transform.position);
+
+            if (dist > 0.2f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, apple.transform.position, Time.deltaTime * speed);
+            }
+        }
+    }
+
+    void GoToFeedingArea()
+    {
+        if (feedingArea && !IsEating)
+        {
+            float dist = Vector3.Distance(transform.position, feedingArea.transform.position);
+
+            if (dist > 0.2f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, feedingArea.transform.position, Time.deltaTime * speed);
+            }
         }
     }
 
@@ -555,6 +613,90 @@ public class Pet : MonoBehaviour
         actionDt = eatingAnimationLength;
     }
 
+    void Feed()
+    {
+        if (IsFeeding)
+        {
+            CurrentHealth += feedingArea.HealthGain();
+
+            if (!canLoseEnergy)
+                canLoseEnergy = true;
+
+            if (CurrentRelativeHealth > 0.9f)
+            {
+                IsFeeding = false;
+                SetPetState = PetState.Idle;
+            }
+        }
+    }
+
+    bool Wait(float timeToWait)
+    {
+        waitdtCounter = timeToWait;
+        if (UpdateWaitTimer() >= waitdtCounter)
+        {
+            ResetWaitTimer();
+            return true;
+        }
+
+        return false;
+    }
+
+    float UpdateWaitTimer()
+    {
+        return waitdt += Time.deltaTime;
+    }
+
+    void ResetWaitTimer()
+    {
+        waitdt = 0f;
+    }
+
+    void Play()
+    {
+        if (reachedIdleTarget)
+        {
+            if (Wait(2f))
+            {
+                reachedIdleTarget = false;
+                randomTarget = null;
+            }
+        }
+
+        if (!randomTarget)
+            randomTarget = FindRandomGameObjectNearby("Environment");
+
+        if (!reachedIdleTarget)
+            transform.position = Vector3.MoveTowards(transform.position, randomTarget.transform.position, Time.deltaTime * speed);
+
+        if (Vector3.Distance(transform.position, randomTarget.transform.position) < 2.5f)
+            reachedIdleTarget = true;
+    }
+
+    GameObject FindRandomGameObjectNearby(string gameObjectTag)
+    {
+        List<GameObject> nearbyObjects = new List<GameObject>();
+        nearbyObjects.AddRange(GameObject.FindGameObjectsWithTag(gameObjectTag));
+
+        if (nearbyObjects.Count == 0)
+            return null;
+
+        nearbyObjects.Sort(SortByDistanceToPet);
+
+        int randomIndex = Random.Range(0, nearbyObjects.Count);
+        return nearbyObjects[randomIndex];
+    }
+
+    int SortByDistanceToPet(GameObject a, GameObject b)
+    {
+        return DistanceToPet(a).CompareTo(DistanceToPet(b));
+    }
+
+    float DistanceToPet(GameObject comparison)
+    {
+        return Vector3.Distance(transform.position, comparison.transform.position);
+    }
+
     void Feint()
     {
 
@@ -564,6 +706,12 @@ public class Pet : MonoBehaviour
     {
         if (other.CompareTag("Food"))
         {
+            EatFood();
+            petAnimator.SetTrigger("isEating");
+        }
+        else if (other.CompareTag("FeedingArea"))
+        {
+            IsFeeding = true;
             EatFood();
             petAnimator.SetTrigger("isEating");
         }
