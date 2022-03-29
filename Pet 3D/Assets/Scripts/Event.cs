@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
@@ -7,12 +5,15 @@ using UnityEngine.UI;
 
 public class Event : MonoBehaviour
 {
+    EventType eventType;
     EventManager eventManager;
 
+    DateTime currentTime;
     [SerializeField] DateTime startTime;
     
     [SerializeField] string eventName;
     [SerializeField] float timeLeft;
+    [SerializeField] int hoursLeft;
     [SerializeField] int minutesLeft;
     [SerializeField] int secondsLeft;
     bool countingDown;
@@ -28,14 +29,18 @@ public class Event : MonoBehaviour
     [SerializeField] Slider uiBarTimer;
 
     public string EventName { get { return eventName; } }
+    public DateTime EventStartTime { get { return startTime; } }
 
-    public void Initialize(EventManager em)
+    public void Initialize(EventManager em, EventType type)
     {
         eventManager = em;
+        eventType = type;
+        SetEventStartTime();
     }
 
     private void Awake()
     {
+        currentTime = DateTime.Now;
         startTime = DateTime.Now;
         uiButtonStartEvent.onClick.AddListener(StartEvent);
     }
@@ -44,7 +49,7 @@ public class Event : MonoBehaviour
     void Start()
     {
         SetEventUIInfo();
-        SetEventStartTime();
+        //SetEventStartTime();
 
         countingDown = true;
     }
@@ -55,6 +60,16 @@ public class Event : MonoBehaviour
         if (!countingDown)
             return;
 
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
+        UpdateEventUIText();
+    }
+    
+    void UpdateEventUIText()
+    {
         timeLeft = (float)startTime.Subtract(DateTime.Now).TotalSeconds;
 
         if (timeLeft <= 0)
@@ -65,18 +80,32 @@ public class Event : MonoBehaviour
 
         minutesLeft = (int)(timeLeft / 60);
         secondsLeft = (int)(timeLeft % 60);
+        hoursLeft = (minutesLeft / 60);
+        minutesLeft %= 60;
+
+        if (hoursLeft < 10)
+        {
+            uiTextTimeLeftUntilEventOpens.text = "0";
+            uiTextTimeLeftUntilEventOpens.text += hoursLeft.ToString();
+        }
+        else
+        {
+            uiTextTimeLeftUntilEventOpens.text = hoursLeft.ToString();
+        }
+
+        uiTextTimeLeftUntilEventOpens.text += "h ";
 
         if (minutesLeft < 10)
         {
-            uiTextTimeLeftUntilEventOpens.text = "0";
+            uiTextTimeLeftUntilEventOpens.text += "0";
             uiTextTimeLeftUntilEventOpens.text += minutesLeft.ToString();
         }
         else
         {
-            uiTextTimeLeftUntilEventOpens.text = minutesLeft.ToString();
+            uiTextTimeLeftUntilEventOpens.text += minutesLeft.ToString();
         }
 
-        uiTextTimeLeftUntilEventOpens.text += ":";
+        uiTextTimeLeftUntilEventOpens.text += "m ";
 
         if (secondsLeft < 10)
         {
@@ -87,28 +116,43 @@ public class Event : MonoBehaviour
         {
             uiTextTimeLeftUntilEventOpens.text += secondsLeft.ToString();
         }
+
+        uiTextTimeLeftUntilEventOpens.text += "s";
     }
 
     void SetEventUIInfo()
     {
-        uiTextEventName.text = eventName;
+        uiTextEventName.text = eventType.ToString();
         uiButtonStartEvent.interactable = false;
     }
 
     void SetEventStartTime()
     {
-        int curHour = startTime.Hour;
-        int curMin = startTime.Minute;
-
-        int hoursToAdd = startHour - curHour;
-        int minutesToAdd = startMinute - curMin;
-
-        startTime = startTime.AddHours(hoursToAdd);
-        startTime = startTime.AddMinutes(minutesToAdd);
+        startTime = GetNewStartTime();
     }
 
     void StartEvent()
     {
         eventManager.StartEvent(this);
+    }
+
+    DateTime GetNewStartTime()
+    {
+        //DateTime newStartTime = DateTime.Now;
+
+        DateTime newStartTime = eventManager.GetLastEventStartTime();
+        int curHour = currentTime.Hour;
+        int curMin = currentTime.Minute;
+
+        startHour = curHour + UnityEngine.Random.Range(0, 2);
+        startMinute = curMin + UnityEngine.Random.Range(0, 60 - curMin);
+
+        int hoursToAdd = startHour - curHour;
+        int minutesToAdd = startMinute - curMin;
+
+        newStartTime = newStartTime.AddHours(hoursToAdd);
+        newStartTime = newStartTime.AddMinutes(minutesToAdd);
+
+        return newStartTime;
     }
 }
