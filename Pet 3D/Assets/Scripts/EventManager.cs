@@ -10,12 +10,20 @@ public class EventManager : MonoBehaviour
     [SerializeField] Transform eventParentTransform;
 
     List<Event> eventList;
-    int maxEventsInQueue = 6;
+    int maxEventsInQueue = 3;
+
+    int eventCounter = 0;
 
     private void Awake()
     {
         eventPrefab = Resources.Load<Event>("Prefabs/UI/Event");
         eventList = new List<Event>();
+
+        if (Persistent.eventInfoList.Count > 0)
+        {
+            foreach(var eventInfo in Persistent.eventInfoList)
+                AddEventToQueue(eventInfo);
+        }
     }
 
     // Start is called before the first frame update
@@ -51,9 +59,16 @@ public class EventManager : MonoBehaviour
             case 0:
             {
                 AddEventToQueue();
+                UpdatePersistentEventList();
                 break;
             }
         }
+    }
+
+    void UpdatePersistentEventList()
+    {
+        foreach(var e in eventList)
+            Persistent.AddEvent(e.EventID ,e.GetEventType(), e.EventStartTime);
     }
 
     void AddEventToQueue()
@@ -66,11 +81,35 @@ public class EventManager : MonoBehaviour
         eventList.Sort(SortByEarliestTime);
     }
 
+    void AddEventToQueue(EventInfo eventInfo)
+    {
+        eventList.Add(CreatePreSetEvent(eventInfo));
+    }
+
+    Event CreatePreSetEvent(EventInfo eventInfo)
+    {
+        return InstantiateAndInitializeEvent(eventInfo, false);
+    }
+
     Event CreateNewRandomEvent()
     {
+        return InstantiateAndInitializeEvent(null, true);
+    }
+
+    Event InstantiateAndInitializeEvent(EventInfo eventInfo, bool isRandom)
+    {
         Event newEvent = Instantiate(eventPrefab, eventParentTransform);
-        EventType eventType = (EventType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(EventType)).Length - 1);
-        newEvent.Initialize(this, eventType);
+
+        if (isRandom)
+        {
+            EventType eventType = (EventType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(EventType)).Length - 1);
+            newEvent.Initialize(this, eventType, DateTime.MinValue, eventCounter);
+            eventCounter++;
+        }
+        else
+        {
+            newEvent.Initialize(this, eventInfo.eventType, eventInfo.startTime, eventInfo.ID);
+        }
 
         return newEvent;
     }
@@ -91,15 +130,24 @@ public class EventManager : MonoBehaviour
         return DateTime.Compare(e1.EventStartTime, e2.EventStartTime);
     }
 
+    void RemoveEventFromListAndDestroyGameObject(Event eventToRemove)
+    {
+        eventList.Remove(eventToRemove);
+        Persistent.RemoveEvent(eventToRemove.EventID);
+        Destroy(eventToRemove.gameObject);
+    }
+
     public void StartEvent(Event eventToStart)
     {
         string eventName = eventToStart.EventName;
+
+        RemoveEventFromListAndDestroyGameObject(eventToStart);
 
         if (eventName.Contains("Race"))
         {
             SceneManager.LoadScene("RaceScene");
         }
-        else if (eventName.Contains("Skill Contest"))
+        else if (eventName.Contains("Skill"))
         {
             SceneManager.LoadScene("SkillContestScene");
         }

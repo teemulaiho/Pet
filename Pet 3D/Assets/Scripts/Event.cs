@@ -3,14 +3,22 @@ using System;
 using TMPro;
 using UnityEngine.UI;
 
+public class EventInfo
+{
+    public int ID { get; set; }
+    public EventType eventType { get; set; }
+    public DateTime startTime { get; set; }
+}
+
 public class Event : MonoBehaviour
 {
+    int eventID;
     EventType eventType;
     EventManager eventManager;
 
     DateTime currentTime;
     [SerializeField] DateTime startTime;
-    
+
     [SerializeField] string eventName;
     [SerializeField] float timeLeft;
     [SerializeField] int hoursLeft;
@@ -28,14 +36,19 @@ public class Event : MonoBehaviour
     [SerializeField] Button uiButtonStartEvent;
     [SerializeField] Slider uiBarTimer;
 
+    public int EventID { get { return eventID; } set { eventID = value; } }
     public string EventName { get { return eventName; } }
-    public DateTime EventStartTime { get { return startTime; } }
+    public DateTime EventStartTime { get { return startTime; } set { startTime = value; } }
+    public EventType GetEventType() { return eventType; }
+    public void SetEventType(EventType type) { eventType = type; }
 
-    public void Initialize(EventManager em, EventType type)
+    public void Initialize(EventManager em, EventType type, DateTime eventStartTime, int id)
     {
+        eventID = id;
         eventManager = em;
         eventType = type;
-        SetEventStartTime();
+        eventName = eventType.ToString();
+        SetEventStartTime(eventStartTime);
     }
 
     private void Awake()
@@ -49,8 +62,6 @@ public class Event : MonoBehaviour
     void Start()
     {
         SetEventUIInfo();
-        //SetEventStartTime();
-
         countingDown = true;
     }
 
@@ -67,7 +78,7 @@ public class Event : MonoBehaviour
     {
         UpdateEventUIText();
     }
-    
+
     void UpdateEventUIText()
     {
         timeLeft = (float)startTime.Subtract(DateTime.Now).TotalSeconds;
@@ -126,9 +137,12 @@ public class Event : MonoBehaviour
         uiButtonStartEvent.interactable = false;
     }
 
-    void SetEventStartTime()
+    void SetEventStartTime(DateTime eventStartTime)
     {
-        startTime = GetNewStartTime();
+        if (eventStartTime != DateTime.MinValue) // using MinValue instead of null -check. -Teemu
+            startTime = eventStartTime;
+        else
+            startTime = GetNewStartTime();
     }
 
     void StartEvent()
@@ -138,13 +152,11 @@ public class Event : MonoBehaviour
 
     DateTime GetNewStartTime()
     {
-        //DateTime newStartTime = DateTime.Now;
-
         DateTime newStartTime = eventManager.GetLastEventStartTime();
         int curHour = currentTime.Hour;
         int curMin = currentTime.Minute;
 
-        startHour = curHour + UnityEngine.Random.Range(0, 2);
+        startHour = curHour + UnityEngine.Random.Range(0, 0);
         startMinute = curMin + UnityEngine.Random.Range(0, 60 - curMin);
 
         int hoursToAdd = startHour - curHour;
