@@ -337,7 +337,7 @@ public class SkillContestManager : MonoBehaviour
 
     public void ReturnHome()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("HomeScene");
     }
 
     private void SetContestantWinnings()

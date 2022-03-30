@@ -80,7 +80,7 @@ public class RaceManager : MonoBehaviour
             if (raceOver)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
-                    SceneManager.LoadScene(0);
+                    SceneManager.LoadScene("HomeScene");
             }
             else
             {

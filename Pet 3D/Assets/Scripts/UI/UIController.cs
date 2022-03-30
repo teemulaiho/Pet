@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
     [Space]
     [Header("Pet Info")]
     [SerializeField] Slider healthBar;
-    [SerializeField] Slider energyBar; 
+    [SerializeField] Slider energyBar;
     [SerializeField] TMP_Text petStateText;
     [SerializeField] GameObject eventWindow;
     [SerializeField] ShopWindow shopWindow;
@@ -31,8 +31,11 @@ public class UIController : MonoBehaviour
     [SerializeField] Image playerActionImage;
     [SerializeField] Sprite actionSprite;
 
+    SettingsMenu settingsMenu;
+
     private void Awake()
     {
+        settingsMenu = FindObjectOfType<SettingsMenu>();
         pet = FindObjectOfType<Pet>();
         player = FindObjectOfType<Player>();
         eventWindow.SetActive(false);
@@ -51,6 +54,16 @@ public class UIController : MonoBehaviour
                 CloseShopWindow();
             else if (eventWindow.activeSelf)
                 CloseEventWindow();
+            else if (!settingsMenu.SettingsWindowOpen())
+            {
+                OnWindowOpen();
+                settingsMenu.ToggleSettingsUI();
+            }
+            else if (settingsMenu.SettingsWindowOpen())
+            {
+                OnWindowClose();
+                settingsMenu.ToggleSettingsUI();
+            }
         }
     }
 

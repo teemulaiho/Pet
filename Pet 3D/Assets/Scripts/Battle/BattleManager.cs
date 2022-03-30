@@ -50,8 +50,8 @@ public class BattleManager : MonoBehaviour
             opponentPet.SetStats(stats);
         }
 
-        playerPet.SetStats(Persistent.petStats);
         playerPet.SetPlayerPet(true);
+        playerPet.SetStats(Persistent.petStats);
 
         battlers.Add(playerPet);
         battlers.Add(opponentPet);
@@ -129,7 +129,7 @@ public class BattleManager : MonoBehaviour
 
     public void ReturnHome()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("HomeScene");
     }
 
     public void OnAnimationStart()
