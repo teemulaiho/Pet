@@ -51,7 +51,7 @@ public class SkillContestManager : MonoBehaviour
     public event OnRoundStart onRoundStart;
 
     public delegate void OnRoundEnd();
-    public event OnRoundStart onRoundEnd;
+    public event OnRoundEnd onRoundEnd;
 
     public string GetCurrentInstruction() { return instruction.text; }
     public string GetInstructionInIndex(int i) { if (i < instructions.Count) return instructions[i]; else return null; }
