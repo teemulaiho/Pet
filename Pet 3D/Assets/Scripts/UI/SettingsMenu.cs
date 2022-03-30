@@ -28,9 +28,15 @@ public class SettingsMenu : MonoBehaviour
     public void ToggleSettingsUI()
     {
         if (canvasGroup.alpha == 0f)
+        {
             canvasGroup.alpha = 1f;
+            canvasGroup.blocksRaycasts = true;
+        }
         else
+        {
             canvasGroup.alpha = 0f;
+            canvasGroup.blocksRaycasts = false;
+        }
         //for (int i = 0; i < transform.childCount; i++)
         //{
         //    transform.GetChild(i).gameObject.SetActive(!transform.GetChild(i).gameObject.activeSelf);
