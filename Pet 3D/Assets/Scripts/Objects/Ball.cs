@@ -11,15 +11,29 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public Ball CaptureBall(Transform newParent)
+    public Ball CaptureBall(Transform newParent, bool isTakingToGoal)
     {
-        transform.parent = newParent;
-        Vector3 newLocalPos = new Vector3(0f,0.5f,0f);
-        transform.localPosition += newLocalPos;
-        rb.isKinematic = true;
-        Destroy(rb);
+        if (isTakingToGoal)
+        {
+            Vector3 newLocalPos = new Vector3(0f, 0.5f, 0f);
+            transform.localPosition += newLocalPos;
+            transform.parent = newParent;
+            rb.isKinematic = true;
+            Destroy(rb);
+        }
 
         return this;
+    }
+
+    public void Kick(Vector3 direction, float force)
+    {
+        Vector3 directionVariance = Vector3.zero;
+
+        directionVariance.x = Random.Range(-2f, 2f);
+        directionVariance.y = Random.Range(0.5f, 2f);
+        directionVariance.z = Random.Range(-2f, 2f);
+
+        rb.AddForce((direction + directionVariance) * force * 100f);
     }
 
     public void ReleaseBall()

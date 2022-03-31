@@ -276,7 +276,12 @@ public class Pet : MonoBehaviour
                     GoToBall();
                 }
                 else
-                    GoToGoal();
+                {
+                    if (goal)
+                        GoToGoal();
+                    else
+                        KickBall();
+                }
                 break;
             }
             case PetState.SearchForFood:
@@ -315,7 +320,7 @@ public class Pet : MonoBehaviour
             player = FindObjectOfType<Player>();
             if (!player)
                 return;
-        }    
+        }
 
         float dist = float.MaxValue;
 
@@ -616,6 +621,17 @@ public class Pet : MonoBehaviour
         }
     }
 
+    void KickBall()
+    {
+        if (ball && !IsEating && capturedBall)
+        {
+            if (Vector3.Distance(transform.position, ball.transform.position) < 1f)
+                ball.Kick(transform.forward, Persistent.petStats.strength);
+
+            capturedBall = null;
+        }
+    }
+
     void EatFood()
     {
         isMoving = false;
@@ -765,7 +781,9 @@ public class Pet : MonoBehaviour
         else if (other.CompareTag("Ball"))
         {
             if (capturedBall != other.gameObject.transform.parent.GetComponent<Ball>())
-                capturedBall = other.gameObject.transform.parent.GetComponent<Ball>().CaptureBall(this.transform);
+            {
+                capturedBall = other.gameObject.transform.parent.GetComponent<Ball>().CaptureBall(this.transform, goal != null);
+            }
         }
         else if (other.CompareTag("Goal"))
         {
