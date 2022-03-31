@@ -55,6 +55,11 @@ public class Ball : MonoBehaviour
         rb.AddForce((direction + directionVariance) * force * 100f);
     }
 
+    public void Nudge(Vector3 direction, float force)
+    {
+        rb.AddForce(direction * force);
+    }
+
     public void ReleaseBall()
     {
         Destroy(this.gameObject);
@@ -77,4 +82,13 @@ public class Ball : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Pet"))
+        {
+            Nudge(Vector3.up, 20f);
+        }
+    }
+
 }
