@@ -71,9 +71,9 @@ public class Ball : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("FoodCatcher"))
+        if (other.CompareTag("DropCatcher"))
         {
-            Debug.Log("Ball OnTriggerEnter With FoodCatcher.");
+            Debug.Log("Ball OnTriggerEnter With DropCatcher.");
             Destroy(this.gameObject);
         }
     }

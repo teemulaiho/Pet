@@ -38,6 +38,7 @@ public class Pet : MonoBehaviour
     [SerializeField] private GameObject goal;
     [SerializeField] private GameObject randomTarget;
     [SerializeField] private Vector3 randomNearbyPosition;
+    [SerializeField] private GameObject spawnPosition;
 
     Transform movementTargetTransform;
     Vector3 movementTarget;
@@ -208,12 +209,11 @@ public class Pet : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         feedingArea = FindObjectOfType<FeedingArea>();
+        spawnPosition = GameObject.FindGameObjectWithTag("SpawnPosition");
     }
 
     private void Start()
     {
-        Debug.Log("pet intellect: " + Persistent.petStats.intellect);
-
         SetPetState = PetState.Idle;
         randomNearbyPosition = transform.position;
         currentHealth = maxHealth;
@@ -813,6 +813,11 @@ public class Pet : MonoBehaviour
                 SetPetState = PetState.Idle;
             }
         }
+        else if (other.CompareTag("DropCatcher"))
+        {
+            Debug.Log("Pet OnTriggerEnter With DropCatcher.");
+            Respawn();
+        }
     }
 
     public void PetPet()
@@ -820,4 +825,11 @@ public class Pet : MonoBehaviour
         reactionAnimator.SetTrigger("PetPet");
     }
 
+    void Respawn()
+    {
+        if (spawnPosition)
+            transform.position = spawnPosition.transform.position;
+        else
+            transform.position = new Vector3(5, 6, 5);
+    }
 }
