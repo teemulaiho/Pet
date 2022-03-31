@@ -15,14 +15,33 @@ public class Ball : MonoBehaviour
     {
         if (isTakingToGoal)
         {
-            Vector3 newLocalPos = new Vector3(0f, 0.5f, 0f);
-            transform.localPosition += newLocalPos;
-            transform.parent = newParent;
-            rb.isKinematic = true;
-            Destroy(rb);
+            IsTakingToGoal(newParent);
+            //transform.parent = newParent;
+            //Vector3 newLocalPos = new Vector3(0f, 0.5f, 0f);
+            //transform.localPosition += newLocalPos;
+            //rb.isKinematic = true;
+            //Destroy(rb);
         }
 
         return this;
+    }
+
+    /// <summary>
+    /// Returns true if pet is already set as parent transform.
+    /// </summary>
+    /// <param name="newParent"></param>
+    /// <returns></returns>
+    public bool IsTakingToGoal(Transform newParent)
+    {
+        if (transform.parent == newParent)
+            return true;
+
+        transform.parent = newParent;
+        Vector3 newLocalPos = new Vector3(0f, 0.5f, 0f);
+        transform.localPosition += newLocalPos;
+        rb.isKinematic = true;
+        Destroy(rb);
+        return false;
     }
 
     public void Kick(Vector3 direction, float force)

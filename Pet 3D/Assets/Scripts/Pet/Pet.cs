@@ -212,6 +212,8 @@ public class Pet : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("pet intellect: " + Persistent.petStats.intellect);
+
         SetPetState = PetState.Idle;
         randomNearbyPosition = transform.position;
         currentHealth = maxHealth;
@@ -270,6 +272,7 @@ public class Pet : MonoBehaviour
             }
             case PetState.ChaseBall:
             {
+
                 if (!capturedBall)
                 {
                     FindNearestBall();
@@ -277,10 +280,23 @@ public class Pet : MonoBehaviour
                 }
                 else
                 {
-                    if (goal)
-                        GoToGoal();
-                    else
+                    if (Persistent.petStats.intellect < 2f)
+                    {
                         KickBall();
+                    }
+                    else if (Persistent.petStats.intellect >= 2f)
+                    {
+                        if (!goal)
+                            goal = GameObject.FindGameObjectWithTag("Goal");
+
+                        if (goal)
+                        {
+                            if (ball.IsTakingToGoal(this.transform))
+                                GoToGoal();
+                        }
+                        else
+                            KickBall();
+                    }
                 }
                 break;
             }
@@ -629,6 +645,9 @@ public class Pet : MonoBehaviour
                 ball.Kick(transform.forward, Persistent.petStats.strength);
 
             capturedBall = null;
+
+            Persistent.petStats.intellect += 0.1f;
+            Debug.Log("pet intellect: " + Persistent.petStats.intellect);
         }
     }
 
@@ -782,7 +801,7 @@ public class Pet : MonoBehaviour
         {
             if (capturedBall != other.gameObject.transform.parent.GetComponent<Ball>())
             {
-                capturedBall = other.gameObject.transform.parent.GetComponent<Ball>().CaptureBall(this.transform, goal != null);
+                capturedBall = other.gameObject.transform.parent.GetComponent<Ball>().CaptureBall(this.transform, Persistent.petStats.intellect >= 2f);
             }
         }
         else if (other.CompareTag("Goal"))

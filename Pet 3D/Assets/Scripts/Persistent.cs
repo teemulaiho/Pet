@@ -42,7 +42,7 @@ public static class Persistent
             health = 100f,
             energy = 100f,
             stamina = 2,
-            intellect = 2f,
+            intellect = 1f,
             strength = 1f,
             experience = 0f
         };
