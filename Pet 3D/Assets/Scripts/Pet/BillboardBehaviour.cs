@@ -6,12 +6,17 @@ public class BillboardBehaviour : MonoBehaviour
 
     public void Start()
     {
-        cam = Camera.main.transform;
+        if (Camera.main)
+            cam = Camera.main.transform;
     }
 
     void LateUpdate()
     {
-        LookAtCamera();
+        if (cam)
+            LookAtCamera();
+        else
+            if (Camera.main)
+                cam = Camera.main.transform;
     }
 
     private void LookAtCamera()

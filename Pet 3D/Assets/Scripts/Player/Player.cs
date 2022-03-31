@@ -43,7 +43,8 @@ public class Player : MonoBehaviour
         Persistent.playerInventory.AddItem(Persistent.itemDatabase[0], 10);
         Persistent.playerInventory.AddItem(Persistent.itemDatabase[1], 10);
 
-        hotbar.Init();
+        if (hotbar)
+            hotbar.Init();
 
         xAxisClamp = 0.0f;
 
@@ -68,19 +69,22 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (hotbar.GetSelectedItem() != null)
+        if (hotbar)
         {
-            if (hotbar.GetSelectedItem().item.type == Item.ItemType.Spawnable)
+            if (hotbar.GetSelectedItem() != null)
             {
-                itemSpawner.Track(true);
-                if (Input.GetMouseButtonDown(0))
+                if (hotbar.GetSelectedItem().item.type == Item.ItemType.Spawnable)
                 {
-                    InventoryItem selectedItem = hotbar.GetSelectedItem();
+                    itemSpawner.Track(true);
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        InventoryItem selectedItem = hotbar.GetSelectedItem();
 
-                    if (selectedItem.item.name.Contains("Ball"))
-                        itemSpawner.ThrowItem(selectedItem.item, this);
-                    else
-                        itemSpawner.SpawnItem(selectedItem.item);
+                        if (selectedItem.item.name.Contains("Ball"))
+                            itemSpawner.ThrowItem(selectedItem.item, this);
+                        else
+                            itemSpawner.SpawnItem(selectedItem.item);
+                    }
                 }
             }
         }
@@ -101,7 +105,7 @@ public class Player : MonoBehaviour
     {
         Vector2 movementInput = Vector2.zero;
         bool jumpInput = false;
-        
+
         if (CanMove)
         {
             movementInput.x = Input.GetAxis("Horizontal");

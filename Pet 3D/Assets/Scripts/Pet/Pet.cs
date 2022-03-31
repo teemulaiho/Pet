@@ -37,6 +37,7 @@ public class Pet : MonoBehaviour
     [SerializeField] private FeedingArea feedingArea;
     [SerializeField] private GameObject goal;
     [SerializeField] private GameObject randomTarget;
+    [SerializeField] private Vector3 randomNearbyPosition;
 
     Transform movementTargetTransform;
     Vector3 movementTarget;
@@ -65,6 +66,7 @@ public class Pet : MonoBehaviour
     private Vector3 previousPos = Vector3.zero;
     private float movementDirection = 0f;
 
+    private bool reachedRandomNearbyPosition;
     private bool reachedIdleTarget;
     private bool spottedPlayer;
     private bool isEating;
@@ -144,7 +146,7 @@ public class Pet : MonoBehaviour
             isFeeding = value;
 
             if (isFeeding)
-                SetPetState = PetState.Feeding; 
+                SetPetState = PetState.Feeding;
         }
     }
 
@@ -210,6 +212,8 @@ public class Pet : MonoBehaviour
 
     private void Start()
     {
+        SetPetState = PetState.Idle;
+        randomNearbyPosition = transform.position;
         currentHealth = maxHealth;
         currentEnergy = maxEnergy;
         healthAnimator.SetFloat("Health", currentHealth);
@@ -305,6 +309,13 @@ public class Pet : MonoBehaviour
     {
         if (ball || apple)
             return;
+
+        if (!player)
+        {
+            player = FindObjectOfType<Player>();
+            if (!player)
+                return;
+        }    
 
         float dist = float.MaxValue;
 
@@ -436,19 +447,13 @@ public class Pet : MonoBehaviour
             float distance = Vector3.Distance(transform.position, previousPos);
             isMoving = distance > 0f;
 
-            Vector3 prePosOnCamera = Camera.main.WorldToScreenPoint(previousPos);
-            Vector3 curPosOnCamera = Camera.main.WorldToScreenPoint(transform.position);
+            if (Camera.main != null)
+            {
+                Vector3 prePosOnCamera = Camera.main.WorldToScreenPoint(previousPos);
+                Vector3 curPosOnCamera = Camera.main.WorldToScreenPoint(transform.position);
 
-            movementDirection = prePosOnCamera.magnitude - curPosOnCamera.magnitude;
-
-            //float newDir = (prePosOnCamera.x - curPosOnCamera.x) ;
-            //movementDirection = newDir > 0.025f ? newDir : movementDirection;
-
-            //if (movementTargetTransform)
-            //    transform.LookAt(movementTargetTransform);
-
-            // Original
-            //movementDirection = previousPos.x - transform.position.x;
+                movementDirection = prePosOnCamera.magnitude - curPosOnCamera.magnitude;
+            }
 
             previousPos = transform.position;
         }
@@ -542,6 +547,12 @@ public class Pet : MonoBehaviour
 
     void GoToPlayer()
     {
+        if (!player)
+        {
+            SetPetState = PetState.Idle;
+            return;
+        }
+
         float dist = Vector3.Distance(transform.position, player.transform.position);
 
         if (dist > 5f)
@@ -660,17 +671,53 @@ public class Pet : MonoBehaviour
             {
                 reachedIdleTarget = false;
                 randomTarget = null;
+                reachedRandomNearbyPosition = true;
             }
         }
 
         if (!randomTarget)
             randomTarget = FindRandomGameObjectNearby("Environment");
 
-        if (!reachedIdleTarget)
-            transform.position = Vector3.MoveTowards(transform.position, randomTarget.transform.position, Time.deltaTime * speed);
+        // if no objects in scene, walk around
+        if (!randomTarget && reachedRandomNearbyPosition)
+        {
+            randomNearbyPosition = FindRandomPositionNearby();
+            reachedRandomNearbyPosition = false;
+        }
 
-        if (Vector3.Distance(transform.position, randomTarget.transform.position) < 2.5f)
-            reachedIdleTarget = true;
+        if (!reachedIdleTarget)
+        {
+            if (randomTarget)
+                transform.position = Vector3.MoveTowards(transform.position, randomTarget.transform.position, Time.deltaTime * speed);
+            else
+                transform.position = Vector3.MoveTowards(transform.position, randomNearbyPosition, Time.deltaTime * speed);
+        }
+
+        if (randomTarget)
+        {
+            if (Vector3.Distance(transform.position, randomTarget.transform.position) < 2.5f)
+                reachedIdleTarget = true;
+        }
+        else
+        {
+            if (Vector3.Distance(transform.position, randomNearbyPosition) < 0.5f)
+                reachedIdleTarget = true;
+        }
+    }
+
+    void LookAround()
+    {
+
+    }
+
+    Vector3 FindRandomPositionNearby()
+    {
+        Vector3 newPos = transform.position;
+
+        newPos.x += Random.Range(-3f, 3f);
+        newPos.z += Random.Range(-3f, 3f);
+
+        return newPos;
     }
 
     GameObject FindRandomGameObjectNearby(string gameObjectTag)
