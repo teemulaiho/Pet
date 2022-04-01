@@ -644,7 +644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328900407}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9, y: -1, z: 0}
+  m_LocalPosition: {x: 7, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1955746237}
@@ -791,7 +791,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1452933850}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: -1, z: 0}
+  m_LocalPosition: {x: -6, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1955746237}
@@ -906,17 +906,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1658835600 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8445934387311634684, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
-  m_PrefabInstance: {fileID: 8445934387801406060}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1668890214
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,17 +988,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1678551544 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8445934387197121428, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
-  m_PrefabInstance: {fileID: 8445934387801406060}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1813328718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,11 +1371,11 @@ PrefabInstance:
     - target: {fileID: 6219648904705758033, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
       propertyPath: contestantScoreTexts.Array.data[1]
       value: 
-      objectReference: {fileID: 1658835600}
+      objectReference: {fileID: 8445934387801406061}
     - target: {fileID: 6219648904705758033, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
       propertyPath: contestantScoreTexts.Array.data[2]
       value: 
-      objectReference: {fileID: 1678551544}
+      objectReference: {fileID: 8445934387801406062}
     - target: {fileID: 6219648904705758035, guid: d52e6ec8410035e46aa434d30c747fa2, type: 3}
       propertyPath: m_Name
       value: SkillContestManager
@@ -1577,3 +1555,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
+--- !u!114 &8445934387801406061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8207549454204760894, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
+  m_PrefabInstance: {fileID: 8445934387801406060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8445934387801406062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2325650558462482696, guid: bcaa2f08fdb46be438dfc3de8538ce64, type: 3}
+  m_PrefabInstance: {fileID: 8445934387801406060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
