@@ -35,9 +35,9 @@ public class TitleSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var aevent in animationEvents)
+        foreach (var animEvent in animationEvents)
         {
-            aevent.onAnimationEnd += OnAnimationEnd;
+            animEvent.onAnimationEnd += OnAnimationEnd;
         }
     }
 
@@ -46,12 +46,30 @@ public class TitleSceneManager : MonoBehaviour
         Debug.Log("TitleSceneManager Received onAnimationEnd(" + animationName + ")");
 
         if (animationName.Contains("Crossfade End"))
-            intro.SetTrigger("PlayIntro");
+        {
+            StartAnimationWithDelay("PlayIntro", 1f);
+        }
         else if (animationName.Contains("Intro End"))
-            crossfade.SetTrigger("Start");
+        {
+            StartAnimationWithDelay("PlayCrossfadeStart", 2f);
+        }
         else if (animationName.Contains("Crossfade Start"))
             LoadScene("HomeScene", 1f);
+    }
 
+    void StartAnimationWithDelay(string animationToPlay, float secondsToWait)
+    {
+        Invoke(animationToPlay, secondsToWait);
+    }
+
+    void PlayIntro()
+    {
+        intro.SetTrigger("PlayIntro");
+    }
+
+    void PlayCrossfadeStart()
+    {
+        crossfade.SetTrigger("Start");
     }
 
     void LoadScene(string sceneToLoad, float waitTime)
