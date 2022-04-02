@@ -6,43 +6,40 @@ public enum PetState
 {
     None,
     Idle,
-    Sleep,
+    Sleeping,
     FollowPlayer,
-    SearchForFood,
-    Feeding,
-    ChaseBall
+    GoToFood,
+    Eating,
+    ChaseBall,
+    ReturnBall,
+    Fainted
 }
 
 public class Pet : MonoBehaviour
 {
-    public PetState petState;
+    private BehaviorTree behavior; // to do
+    private PetState state;
 
     public bool canLoseHealth;
     public bool canLoseEnergy;
 
     [SerializeField] private Player player;
-    [SerializeField] private List<Ball> balls = new List<Ball>();
-    [SerializeField] private List<Apple> apples = new List<Apple>();
-    [SerializeField] private Apple apple;
+    [SerializeField] private Food food;
     [SerializeField] private Ball ball;
-    [SerializeField] private Ball capturedBall;
-
-    [SerializeField] private FeedingArea feedingArea;
     [SerializeField] private GameObject goal;
-    [SerializeField] private GameObject randomTarget;
-    [SerializeField] private Vector3 randomNearbyPosition;
-    [SerializeField] private GameObject spawnPosition;
 
-    Transform movementTargetTransform;
-    Vector3 movementTarget;
+    [SerializeField] private Entity grabbedObject;
+
+    [SerializeField] private Vector3 waypoint;
+    [SerializeField] private GameObject spawnPosition;
 
     private float healthPreviousFrame = 0f;
 
     private float maxHealth = 100f;
-    [SerializeField] private float currentHealth = Persistent.petStats.health;
+    [SerializeField] private float health = 100f;
 
     private float maxEnergy = 100f;
-    [SerializeField] private float currentEnergy = Persistent.petStats.energy;
+    [SerializeField] private float energy = 100f;
 
     private float healthdt = 0f;
     private float healthdtCounter = 20f;
@@ -51,22 +48,20 @@ public class Pet : MonoBehaviour
     private float energydtCounter = 2f;
 
     private float actionDt = 0f;
-    private float currentSpeed = 0f;
     private float speed = 1f;
 
-    private float waitdt = 0f;
-    private float waitdtCounter = 0f;
+    private float senseUpdateTimer = 0f;
+    private float senseUpdateInterval = 1f;
+
+    private float interactRange = 0.5f;
+    private float followRange = 5f;
+    private float detectionRange = 5f;
+    private float wanderRange = 3f;
 
     private Vector3 previousPos = Vector3.zero;
     private float movementDirection = 0f;
 
-    private bool reachedRandomNearbyPosition;
-    private bool reachedIdleTarget;
-    private bool spottedPlayer;
-    private bool isEating;
     private bool isMoving;
-    private bool isSleeping;
-    private bool isFeeding;
 
     [SerializeField] Animator petAnimator;
     [SerializeField] Animator healthAnimator;
@@ -79,140 +74,23 @@ public class Pet : MonoBehaviour
     float runAnimationLength = 0f;
     float jumpAnimationLength = 0f;
 
-    public PetState SetPetState
-    {
-        get { return petState; }
-        set { petState = value; }
-    }
-
-    public PetState GetCurrentState()
-    {
-        return petState;
-    }
-
-    public float GetCurrentRelativeHealth() { return CurrentRelativeHealth; }
-    public float GetCurrentRelativeEnergy() { return CurrentRelativeEnergy; }
-    private float CurrentRelativeHealth { get { return currentHealth / maxHealth; } }
-
-    private float CurrentRelativeEnergy { get { return currentEnergy / maxEnergy; } }
-
-    private float CurrentHealth
-    {
-        get { return currentHealth; }
-        set { currentHealth = value; }
-    }
-
-    private float CurrentEnergy
-    {
-        get { return currentEnergy; }
-        set { currentEnergy = value; }
-    }
-
-    public bool IsEating
-    {
-        get { return isEating; }
-        set
-        {
-            if (isEating && value == !isEating) // Finished eating
-            {
-                if (apple)
-                {
-                    currentHealth += apple.HealthGain;
-                    apple.Eat();
-                    apple = null;
-                    if (!canLoseEnergy)
-                        canLoseEnergy = true;
-
-                    if (CurrentRelativeHealth > 0.5f)
-                        SetPetState = PetState.Idle;
-                }
-            }
-
-            isEating = value;
-        }
-    }
-
-    public bool IsFeeding
-    {
-        get { return isFeeding; }
-        set
-        {
-            isFeeding = value;
-
-            if (isFeeding)
-                SetPetState = PetState.Feeding;
-        }
-    }
-
-    public bool IsSleeping
-    {
-        get { return isSleeping; }
-        set
-        {
-            isSleeping = value;
-
-            if (isSleeping)
-            {
-                SetPetState = PetState.Sleep;
-            }
-
-            petAnimator.SetBool("isSleeping", isSleeping);
-
-            if (IsSleeping && !SpottedPlayer)
-            {
-                reactionAnimator.SetTrigger("Sleep");
-            }
-
-            reactionAnimator.SetBool("isSleeping", IsSleeping);
-        }
-    }
-
-    public bool SpottedPlayer
-    {
-        get { return spottedPlayer; }
-        set
-        {
-            spottedPlayer = value;
-
-            if (spottedPlayer)
-            {
-                if (IsSleeping)
-                {
-                    IsSleeping = false;
-                    reactionAnimator.SetTrigger("Notice");
-                }
-
-                CurrentEnergy = maxEnergy;
-
-                if (spottedPlayer)
-                {
-                    SetPetState = PetState.FollowPlayer;
-                }
-            }
-        }
-    }
-
-    public Transform MovementTargetTransform
-    {
-        get { return movementTargetTransform; }
-        set { movementTargetTransform = value; }
-    }
+    public PetState GetState() { return state; }
+    public float HealthPercentage { get { return health / maxHealth; } }
+    public float EnergyPercentage { get { return energy / maxEnergy; } }
 
     private void Awake()
     {
         player = FindObjectOfType<Player>();
-        feedingArea = FindObjectOfType<FeedingArea>();
         spawnPosition = GameObject.FindGameObjectWithTag("SpawnPosition");
     }
 
     private void Start()
     {
-        SetPetState = PetState.Idle;
-        randomNearbyPosition = transform.position;
-        currentHealth = maxHealth;
-        currentEnergy = maxEnergy;
-        healthAnimator.SetFloat("Health", currentHealth);
-        petAnimator.SetFloat("Health", currentHealth);
+        state = PetState.Idle;
+        health = Persistent.petStats.health;
+        energy = Persistent.petStats.energy;
+        healthAnimator.SetFloat("Health", health);
+        petAnimator.SetFloat("Health", health);
         previousPos = transform.position;
 
         var clips = petAnimator.runtimeAnimatorController.animationClips;
@@ -239,122 +117,294 @@ public class Pet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForPlayer();
+        if (senseUpdateTimer < senseUpdateInterval) // sensing and deciding done slower than acting
+        {
+            senseUpdateTimer += Time.deltaTime;
+        }
+        else
+        {
+            Sense();
+            Decide();
+
+            senseUpdateTimer = 0f;
+        }
+
+        Act();
+
         UpdateMovement();
         UpdateHealth();
         UpdateEnergy();
-
-        Sense();
-
-        switch (petState)
-        {
-            case PetState.Idle:
-            {
-                Play();
-                break;
-            }
-            case PetState.Sleep:
-            {
-                RestoreEnergy();
-                break;
-            }
-            case PetState.FollowPlayer:
-            {
-                GoToPlayer();
-                break;
-            }
-            case PetState.ChaseBall:
-            {
-
-                if (!capturedBall)
-                {
-                    FindNearestBall();
-                    GoToBall();
-                }
-                else
-                {
-                    if (Persistent.petStats.intellect < 2f)
-                    {
-                        KickBall();
-                    }
-                    else if (Persistent.petStats.intellect >= 2f)
-                    {
-                        if (!goal)
-                            goal = GameObject.FindGameObjectWithTag("Goal");
-
-                        if (goal)
-                        {
-                            if (ball.IsTakingToGoal(this.transform))
-                                GoToGoal();
-                        }
-                        else
-                            KickBall();
-                    }
-                }
-                break;
-            }
-            case PetState.SearchForFood:
-            {
-                if (!apple)
-                    if (!FindNearestFood())
-                        GoToFeedingArea();
-                GoToFood();
-                break;
-            }
-            case PetState.Feeding:
-            {
-                Feed();
-                break;
-            }
-        }
-
         UpdateAnimator();
     }
 
     void Sense()
     {
-        if (!capturedBall)
-        {
-            FindNearestBall();
-        }
+        player = FindNearest<Player>(detectionRange);
+        ball = FindNearest<Ball>();
+        food = FindNearest<Food>();
+        goal = GameObject.FindGameObjectWithTag("Goal");
     }
-
-    void CheckForPlayer()
+    void Decide()
     {
-        if (ball || apple)
-            return;
-
-        if (!player)
+        if (state == PetState.GoToFood)
         {
-            player = FindObjectOfType<Player>();
-            if (!player)
-                return;
+            if (!food) // if the food magically disappeared
+            {
+                state = PetState.Idle;
+            }
+            else if (Vector3.Distance(transform.position, food.transform.position) <= interactRange) // if you're within range of the food
+            {
+                actionDt = eatingAnimationLength;
+                petAnimator.SetTrigger("isEating");
+                state = PetState.Eating;
+            }
         }
-
-        float dist = float.MaxValue;
-
-        if (player)
-            dist = Vector3.Distance(transform.position, player.transform.position);
-
-        if (dist < 5f && !SpottedPlayer)
+        else if (state == PetState.Eating)
         {
-            SpottedPlayer = true;
+            if (food == null) // if you ate the food or it magically disappeared
+            {
+                canLoseEnergy = true;
+                state = PetState.Idle;
+            }
+            else if (Vector3.Distance(transform.position, food.transform.position) > interactRange) // if it somehow got out of range while eating
+            {
+                canLoseEnergy = true;
+                state = PetState.GoToFood;
+            }
         }
-        else if (dist > 5f && SpottedPlayer)
+        else if (state == PetState.ChaseBall)
         {
-            SpottedPlayer = false;
+            if (!ball) // if the ball magically disappeared
+            {
+                state = PetState.Idle;
+            }
+            else if (Vector3.Distance(transform.position, ball.transform.position) <= interactRange) // if you're within range of the ball
+            {
+                if (Persistent.petStats.intellect < 2f) // if you a dummy
+                {
+                    Kick(ball);
+                }
+                else if (Persistent.petStats.intellect >= 2f) // if you not so dummy
+                {
+                    if (goal) // if there is a goal in the vicinity
+                    {
+                        Pickup(ball);
+                        state = PetState.ReturnBall;
+                    }
+                    else
+                        Kick(ball);
+                }
+            }
+        }
+        else if (state == PetState.ReturnBall)
+        {
+            if (!grabbedObject) // if whatever you were carrying magically disappeared
+            {
+                state = PetState.Idle;
+            }
+            else
+            {
+                if (!goal) // if the goal magically disappeared
+                {
+                    Drop();
+                    state = PetState.Idle;
+                }
+                else if (Vector3.Distance(transform.position, goal.transform.position) <= interactRange) // if you're within range of the goal
+                {
+                    Destroy(grabbedObject.gameObject);
+                    grabbedObject = null;
+                    state = PetState.Idle;
+                }
+            }
+        }
+        else if (state == PetState.FollowPlayer)
+        {
+            if (!player) // if the player disappeared
+            {
+                state = PetState.Idle;
+            }
+            else if (Vector3.Distance(transform.position, player.transform.position) <= followRange) // temporary reason to stop following
+            {
+                state = PetState.Idle;
+            }
+        }
+        else if (state == PetState.Sleeping)
+        {
+            if (EnergyPercentage > 0.9f)
+            {
+                petAnimator.SetBool("isSleeping", false);
+                reactionAnimator.SetBool("isSleeping", false);
+                state = PetState.Idle;
+            }
+        }
+        else if (state == PetState.Idle)
+        {
+            if (HealthPercentage < 0.5f && food) // if you're hungry and there is food around
+            {
+                state = PetState.GoToFood;
+                canLoseEnergy = false;
+            }
+            else if (EnergyPercentage < 0.1f)
+            {
+                petAnimator.SetBool("isSleeping", true);
+                reactionAnimator.SetBool("isSleeping", true);
+                reactionAnimator.SetTrigger("Sleep");
+                state = PetState.Sleeping;
+            }
+            else
+            {
+                float distance = Vector3.Distance(transform.position, waypoint);
+
+                if (distance > wanderRange)
+                    waypoint = GetRandomPositionAround(transform.position, wanderRange);
+                else if (distance <= interactRange)
+                {
+                    waypoint = GetRandomPositionAround(transform.position, wanderRange);
+                }
+
+            }
         }
     }
 
-    void RestoreEnergy()
+    void Act()
+    {
+        switch (state)
+        {
+            case PetState.Idle:
+                {
+                    Wander();
+                    break;
+                }
+            case PetState.Sleeping:
+                {
+                    Sleep();
+                    break;
+                }
+            case PetState.FollowPlayer:
+                {
+                    FollowPlayer();
+                    break;
+                }
+            case PetState.ChaseBall:
+                {
+                    ChaseBall();
+                    break;
+                }
+            case PetState.ReturnBall:
+                {
+                    ReturnBall();
+                    break;
+                }
+            case PetState.GoToFood:
+                {
+                    GoToFood();
+                    break;
+                }
+            case PetState.Eating:
+                {
+                    Eat();
+                    break;
+                }
+        }
+    }
+    void Sleep()
     {
         energydt += Time.deltaTime;
 
         if (energydt > energydtCounter)
         {
-            CurrentEnergy += 5f;
+            energy += 5f;
             energydt = 0f;
         }
+    }
+    void Wander()
+    {
+        MoveTowards(waypoint);
+    }
+    void FollowPlayer()
+    {
+        if (player)
+            MoveTowards(player.transform.position, followRange);
+    }
+    void ChaseBall()
+    {
+        if (ball)
+            MoveTowards(ball.transform.position, interactRange);
+    }
+    void ReturnBall()
+    {
+        if (goal)
+            MoveTowards(goal.transform.position, interactRange);
+    }
+    void GoToFood()
+    {
+        if (food)
+            MoveTowards(food.transform.position, interactRange);
+    }
+    void MoveTowards(Vector3 targetPosition, float range = 0f)
+    {
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, targetPosition);
+
+        Vector3 step = direction * Time.deltaTime * speed;
+
+        if (distance > range)
+        {
+            if (step.magnitude > distance)
+            {
+                transform.position = targetPosition;
+            }
+            else
+            {
+                transform.position += step;
+            }
+        }
+    }
+
+    void Eat()
+    {
+        if (food)
+        {
+            actionDt -= Time.deltaTime;
+
+            if (actionDt <= 0f)
+            {
+                health += food.HealthGain();
+                Destroy(food.gameObject);
+                food = null;
+            }
+        }
+    }
+    void Pickup(Entity entity)
+    {
+        entity.transform.parent = transform;
+        entity.transform.localPosition = new Vector3(0f, 0.5f, 0f);
+        entity.rb.isKinematic = true;
+
+        grabbedObject = entity;
+    }
+    void Drop()
+    {
+        if (grabbedObject != null)
+        {
+            grabbedObject.transform.parent = null;
+            grabbedObject.rb.isKinematic = false;
+
+            grabbedObject = null;
+        }
+    }
+    void Kick(Entity entity)
+    {
+        Vector3 directionVariance = Vector3.zero;
+
+        directionVariance.x = Random.Range(-2f, 2f);
+        directionVariance.y = Random.Range(0.5f, 2f);
+        directionVariance.z = Random.Range(-2f, 2f);
+
+        entity.rb.AddForce((transform.forward + directionVariance).normalized * Persistent.petStats.strength * 100f);
+
+        Persistent.petStats.intellect += 0.1f;
+        Debug.Log("pet intellect: " + Persistent.petStats.intellect);
     }
 
     void UpdateHealth()
@@ -366,41 +416,29 @@ public class Pet : MonoBehaviour
 
         if (healthdt > healthdtCounter)
         {
-            CurrentHealth -= 10f;
+            health -= 10f;
 
-            if (CurrentRelativeHealth < 0.5f)
-            {
-                SetPetState = PetState.SearchForFood;
-                canLoseEnergy = false;
-            }
-
-            if (CurrentRelativeHealth <= 0f)
+            if (HealthPercentage <= 0f)
                 Feint();
 
             healthdt = 0f;
         }
 
-        healthPreviousFrame = CurrentHealth;
+        healthPreviousFrame = health;
     }
 
     void UpdateEnergy()
     {
-        if (!canLoseEnergy || ball || apple)
+        if (!canLoseEnergy || ball || food)
             return;
 
         energydt += Time.deltaTime;
 
-        if (!IsSleeping)
+        if (state != PetState.Sleeping)
         {
             if (energydt > energydtCounter)
             {
-                CurrentEnergy -= 10f;
-
-                if (CurrentRelativeEnergy < 0.1f)
-                {
-                    IsSleeping = true;
-                    Feint();
-                }
+                energy -= 10f;
 
                 energydt = 0f;
             }
@@ -409,13 +447,7 @@ public class Pet : MonoBehaviour
         {
             if (energydt > energydtCounter)
             {
-                currentEnergy += 0.5f;
-
-                if (CurrentRelativeEnergy > 0.9f)
-                {
-                    IsSleeping = false;
-                    SetPetState = PetState.Idle;
-                }
+                energy += 0.5f;
 
                 energydt = 0f;
             }
@@ -424,39 +456,23 @@ public class Pet : MonoBehaviour
 
     void UpdateAnimator()
     {
-        if (CurrentHealth != healthPreviousFrame)
-            healthAnimator.SetFloat("Health", currentHealth);
+        if (health != healthPreviousFrame)
+            healthAnimator.SetFloat("Health", health);
 
-        if (!IsSleeping)
-            petAnimator.SetFloat("Health", currentHealth);
+        if (state != PetState.Sleeping)
+            petAnimator.SetFloat("Health", health);
 
-        if (!IsEating)
-        {
-            petAnimator.SetBool("isMoving", isMoving);
+        petAnimator.SetBool("isMoving", isMoving);
 
-            if (movementDirection > 0)
-                spriteRenderer.flipX = false;
-            else if (movementDirection < 0)
-                spriteRenderer.flipX = true;
-        }
-
-        if (IsEating)
-        {
-            actionDt -= Time.deltaTime;
-
-            if (actionDt <= 0f)
-            {
-                IsEating = false;
-                actionDt = 0f;
-            }
-        }
-
-
+        if (movementDirection > 0)
+            spriteRenderer.flipX = false;
+        else if (movementDirection < 0)
+            spriteRenderer.flipX = true;
     }
 
     void UpdateMovement()
     {
-        if (!IsEating)
+        if (state != PetState.Eating)
         {
             float distance = Vector3.Distance(transform.position, previousPos);
             isMoving = distance > 0f;
@@ -475,7 +491,7 @@ public class Pet : MonoBehaviour
             isMoving = false;
     }
 
-    T FindNearest<T>() where T : Component
+    T FindNearest<T>(float range = 0f) where T : Component
     {
         T nearest = null;
         float closestDistance = float.MaxValue;
@@ -483,6 +499,10 @@ public class Pet : MonoBehaviour
         foreach (T entity in FindObjectsOfType<T>())
         {
             float distance = Vector3.Distance(transform.position, entity.transform.position);
+
+            if (range > 0f)
+                if (distance > range)
+                    continue;
 
             if (nearest != null)
             {
@@ -502,246 +522,14 @@ public class Pet : MonoBehaviour
         return nearest;
     }
 
-    bool FindNearestFood()
+    Vector3 GetRandomPositionAround(Vector3 position, float range)
     {
-        apple = FindNearest<Apple>();
+        float direction = Random.Range(0f, 359f) * Mathf.Deg2Rad;
+        float distance = Random.Range(1f, range);
 
-        if (apple == null)
-            return false;
-
-        MovementTargetTransform = apple.transform;
-
-        currentEnergy = maxEnergy;
-        IsSleeping = false;
-
-        return true;
-    }
-
-
-    bool FindNearestBall()
-    {
-        ball = FindNearest<Ball>();
-
-        if (ball == null)
-            return false;
-
-        MovementTargetTransform = ball.transform;
-
-        SetPetState = PetState.ChaseBall;
-        return true;
-    }
-
-    void GoToPlayer()
-    {
-        if (!player)
-        {
-            SetPetState = PetState.Idle;
-            return;
-        }
-
-        float dist = Vector3.Distance(transform.position, player.transform.position);
-
-        if (dist > 5f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * speed);
-        }
-    }
-
-    void GoToBall()
-    {
-        if (ball && !IsEating && !capturedBall)
-        {
-            float dist = Vector3.Distance(transform.position, ball.transform.position);
-
-            if (dist > 0.2f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, ball.transform.position, Time.deltaTime * speed);
-            }
-
-            if (IsSleeping)
-                IsSleeping = false;
-        }
-    }
-
-    void GoToFood()
-    {
-        if (apple && !IsEating)
-        {
-            float dist = Vector3.Distance(transform.position, apple.transform.position);
-
-            if (dist > 0.2f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, apple.transform.position, Time.deltaTime * speed);
-            }
-        }
-    }
-
-    void GoToFeedingArea()
-    {
-        if (feedingArea && !IsEating)
-        {
-            float dist = Vector3.Distance(transform.position, feedingArea.transform.position);
-
-            if (dist > 0.2f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, feedingArea.transform.position, Time.deltaTime * speed);
-            }
-        }
-    }
-
-    void GoToGoal()
-    {
-        if (ball && !IsEating && capturedBall)
-        {
-            float dist = Vector3.Distance(transform.position, goal.transform.position);
-
-            if (dist > 0.2f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, goal.transform.position, Time.deltaTime * speed);
-            }
-        }
-    }
-
-    void KickBall()
-    {
-        if (ball && !IsEating && capturedBall)
-        {
-            if (Vector3.Distance(transform.position, ball.transform.position) < 1f)
-                ball.Kick(transform.forward, Persistent.petStats.strength);
-
-            capturedBall = null;
-
-            Persistent.petStats.intellect += 0.1f;
-            Debug.Log("pet intellect: " + Persistent.petStats.intellect);
-        }
-    }
-
-    void EatFood()
-    {
-        isMoving = false;
-        petAnimator.SetBool("isMoving", isMoving);
-        IsEating = true;
-        actionDt = eatingAnimationLength;
-    }
-
-    void Feed()
-    {
-        if (IsFeeding)
-        {
-            CurrentHealth += feedingArea.HealthGain();
-
-            if (!canLoseEnergy)
-                canLoseEnergy = true;
-
-            if (CurrentRelativeHealth > 0.9f)
-            {
-                IsFeeding = false;
-                SetPetState = PetState.Idle;
-            }
-        }
-    }
-
-    bool Wait(float timeToWait)
-    {
-        waitdtCounter = timeToWait;
-        if (UpdateWaitTimer() >= waitdtCounter)
-        {
-            ResetWaitTimer();
-            return true;
-        }
-
-        return false;
-    }
-
-    float UpdateWaitTimer()
-    {
-        return waitdt += Time.deltaTime;
-    }
-
-    void ResetWaitTimer()
-    {
-        waitdt = 0f;
-    }
-
-    void Play()
-    {
-        if (reachedIdleTarget)
-        {
-            if (Wait(2f))
-            {
-                reachedIdleTarget = false;
-                randomTarget = null;
-                reachedRandomNearbyPosition = true;
-            }
-        }
-
-        if (!randomTarget)
-            randomTarget = FindRandomGameObjectNearby("Environment");
-
-        // if no objects in scene, walk around
-        if (!randomTarget && reachedRandomNearbyPosition)
-        {
-            randomNearbyPosition = FindRandomPositionNearby();
-            reachedRandomNearbyPosition = false;
-        }
-
-        if (!reachedIdleTarget)
-        {
-            if (randomTarget)
-                transform.position = Vector3.MoveTowards(transform.position, randomTarget.transform.position, Time.deltaTime * speed);
-            else
-                transform.position = Vector3.MoveTowards(transform.position, randomNearbyPosition, Time.deltaTime * speed);
-        }
-
-        if (randomTarget)
-        {
-            if (Vector3.Distance(transform.position, randomTarget.transform.position) < 2.5f)
-                reachedIdleTarget = true;
-        }
-        else
-        {
-            if (Vector3.Distance(transform.position, randomNearbyPosition) < 0.5f)
-                reachedIdleTarget = true;
-        }
-    }
-
-    void LookAround()
-    {
-
-    }
-
-    Vector3 FindRandomPositionNearby()
-    {
-        Vector3 newPos = transform.position;
-
-        newPos.x += Random.Range(-3f, 3f);
-        newPos.z += Random.Range(-3f, 3f);
+        Vector3 newPos = position + new Vector3(distance * Mathf.Cos(direction), 0, distance * Mathf.Sin(direction));
 
         return newPos;
-    }
-
-    GameObject FindRandomGameObjectNearby(string gameObjectTag)
-    {
-        List<GameObject> nearbyObjects = new List<GameObject>();
-        nearbyObjects.AddRange(GameObject.FindGameObjectsWithTag(gameObjectTag));
-
-        if (nearbyObjects.Count == 0)
-            return null;
-
-        nearbyObjects.Sort(SortByDistanceToPet);
-
-        int randomIndex = Random.Range(0, nearbyObjects.Count);
-        return nearbyObjects[randomIndex];
-    }
-
-    int SortByDistanceToPet(GameObject a, GameObject b)
-    {
-        return DistanceToPet(a).CompareTo(DistanceToPet(b));
-    }
-
-    float DistanceToPet(GameObject comparison)
-    {
-        return Vector3.Distance(transform.position, comparison.transform.position);
     }
 
     void Feint()
@@ -753,30 +541,15 @@ public class Pet : MonoBehaviour
     {
         if (other.CompareTag("Food"))
         {
-            EatFood();
-            petAnimator.SetTrigger("isEating");
-        }
-        else if (other.CompareTag("FeedingArea"))
-        {
-            IsFeeding = true;
-            EatFood();
-            petAnimator.SetTrigger("isEating");
+
         }
         else if (other.CompareTag("Ball"))
         {
-            if (capturedBall != other.gameObject.transform.parent.GetComponent<Ball>())
-            {
-                capturedBall = other.gameObject.transform.parent.GetComponent<Ball>().CaptureBall(this.transform, Persistent.petStats.intellect >= 2f);
-            }
+
         }
         else if (other.CompareTag("Goal"))
         {
-            if (capturedBall)
-            {
-                capturedBall.ReleaseBall();
-                capturedBall = null;
-                SetPetState = PetState.Idle;
-            }
+
         }
         else if (other.CompareTag("DropCatcher"))
         {

@@ -21,5 +21,19 @@ public class InventoryItem
 
 public class ItemDatabase
 {
-    List<Item> items;
+    public List<Item> items;
+
+    public ItemDatabase()
+    {
+        items = new List<Item>();
+    }
+
+    public Item ItemByName(string name)
+    {
+        foreach (Item item in items)
+            if (item.itemName == name)
+                return item;
+
+        return null;
+    }
 }

@@ -34,14 +34,14 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         // initialize database on game launch
-        if (Persistent.itemDatabase.Count == 0)
+        if (Persistent.itemDatabase.items.Count == 0)
         {
-            Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
-            Persistent.itemDatabase.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
+            Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
+            Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
         }
 
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase[0], 10);
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase[1], 10);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 10);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Ball"), 10);
 
         if (hotbar)
             hotbar.Init();

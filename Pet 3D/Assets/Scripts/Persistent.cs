@@ -9,8 +9,7 @@ using System;
 public static class Persistent
 {
     public static List<EventInfo> eventInfoList;
-    public static InventorySystem inventorySystem;
-    public static List<Item> itemDatabase;
+    public static ItemDatabase itemDatabase;
     public static PlayerInventory playerInventory;
     public static PetStats petStats;
 
@@ -28,9 +27,7 @@ public static class Persistent
     {
         eventInfoList = new List<EventInfo>();
 
-        inventorySystem = new InventorySystem();
-        itemDatabase = new List<Item>();
-
+        itemDatabase = new ItemDatabase();
         playerInventory = new PlayerInventory
         {
             money = 100

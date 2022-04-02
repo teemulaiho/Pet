@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Apple : MonoBehaviour
+public class Apple : Food
 {
     public Item itemData;
-    float healthGain = 0.5f;
 
-    public float HealthGain
+    private void Awake()
     {
-        get { return healthGain; }
-        set { healthGain = value; }
-    }
-
-    public void Eat()
-    {
-        Destroy(this.gameObject);
+        healthGain = 25.0f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

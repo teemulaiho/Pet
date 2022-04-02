@@ -31,7 +31,7 @@ public class ShopWindow : MonoBehaviour
 
     private void Start()
     {
-        foreach (Item item in Persistent.itemDatabase)
+        foreach (Item item in Persistent.itemDatabase.items)
             shopItems.Add(item);
 
         UpdateSlots();

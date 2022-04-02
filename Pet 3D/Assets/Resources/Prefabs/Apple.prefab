@@ -47,7 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820102d874cf4564894224a34c65647c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 629c2e37ff6f6d848a239dcfc05bdef7, type: 2}
+  rb: {fileID: 4372437824026719144}
+  healthGain: 0
+  itemData: {fileID: 11400000, guid: da3995d536aab084bbf9586ab76bea1b, type: 2}
 --- !u!54 &4372437824026719144
 Rigidbody:
   m_ObjectHideFlags: 0

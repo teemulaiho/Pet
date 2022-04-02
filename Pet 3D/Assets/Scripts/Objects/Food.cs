@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeedingArea : MonoBehaviour
+public class Food : Entity
 {
-    [SerializeField] private float healthGain;
+    [SerializeField] protected float healthGain;
     public float HealthGain() { return healthGain; }
 }

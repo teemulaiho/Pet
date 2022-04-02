@@ -70,15 +70,15 @@ public class UIController : MonoBehaviour
     private void UpdatePetInfo()
     {
         UpdatePetStateInfo();
-        UpdateSlider(healthBar, pet.GetCurrentRelativeHealth());
-        UpdateSlider(energyBar, pet.GetCurrentRelativeEnergy());
+        UpdateSlider(healthBar, pet.HealthPercentage);
+        UpdateSlider(energyBar, pet.EnergyPercentage);
     }
 
     private void UpdatePetStateInfo()
     {
         if (pet)
         {
-            petStateText.text = pet.GetCurrentState().ToString();
+            petStateText.text = pet.GetState().ToString();
             petIntelligence.text = Persistent.petStats.intellect.ToString();
             petStrength.text = Persistent.petStats.strength.ToString();
             petStamina.text = Persistent.petStats.stamina.ToString();
