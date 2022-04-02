@@ -13,13 +13,6 @@ public enum PetState
     ChaseBall
 }
 
-public enum ObjectType
-{
-    None,
-    Food,
-    Ball
-}
-
 public class Pet : MonoBehaviour
 {
     public PetState petState;
@@ -482,48 +475,40 @@ public class Pet : MonoBehaviour
             isMoving = false;
     }
 
-
-    // TODO: IMPLEMENT FINDNEAREST FUNCTION.
-    void FindNearest(ObjectType type)
+    T FindNearest<T>() where T : Component
     {
-        if (type == ObjectType.Food)
-        {
+        T nearest = null;
+        float closestDistance = float.MaxValue;
 
-        }
-        else if (type == ObjectType.Ball)
+        foreach (T entity in FindObjectsOfType<T>())
         {
+            float distance = Vector3.Distance(transform.position, entity.transform.position);
 
+            if (nearest != null)
+            {
+                if (distance < closestDistance)
+                {
+                    nearest = entity;
+                    closestDistance = distance;
+                }
+            }
+            else
+            {
+                nearest = entity;
+                closestDistance = distance;
+            }
         }
+
+        return nearest;
     }
 
     bool FindNearestFood()
     {
-        FindNearest(ObjectType.Food);
-        apples.Clear();
-        apples.AddRange(FindObjectsOfType<Apple>());
-        apple = null;
+        apple = FindNearest<Apple>();
 
-        float minDistance = float.MaxValue;
-        int foodIndex = int.MaxValue;
-        int index = 0;
-
-        foreach (var food in apples)
-        {
-            float dist = Vector3.Distance(transform.position, food.transform.position);
-
-            if (dist < minDistance)
-            {
-                minDistance = dist;
-                foodIndex = index;
-            }
-
-            index++;
-        }
-
-        if (foodIndex > apples.Count)
+        if (apple == null)
             return false;
 
-        apple = apples[foodIndex];
         MovementTargetTransform = apple.transform;
 
         currentEnergy = maxEnergy;
@@ -533,37 +518,17 @@ public class Pet : MonoBehaviour
     }
 
 
-    void FindNearestBall()
+    bool FindNearestBall()
     {
-        FindNearest(ObjectType.Ball);
-        balls.Clear();
-        balls.AddRange(FindObjectsOfType<Ball>());
-        ball = null;
+        ball = FindNearest<Ball>();
 
-        float minDistance = float.MaxValue;
-        int ballIndex = int.MaxValue;
-        int index = 0;
+        if (ball == null)
+            return false;
 
-        foreach (var food in balls)
-        {
-            float dist = Vector3.Distance(transform.position, food.transform.position);
-
-            if (dist < minDistance)
-            {
-                minDistance = dist;
-                ballIndex = index;
-            }
-
-            index++;
-        }
-
-        if (ballIndex > balls.Count)
-            return;
-
-        ball = balls[ballIndex];
         MovementTargetTransform = ball.transform;
 
         SetPetState = PetState.ChaseBall;
+        return true;
     }
 
     void GoToPlayer()
