@@ -186,6 +186,10 @@ public class Player : MonoBehaviour
             {
                 lookedAtObject.GetComponent<EventObject>().OpenEvents();
             }
+            else if (lookedAtObject.CompareTag("NPC"))
+            {
+                lookedAtObject.GetComponentInParent<NPC>().Interact();
+            }
         }
     }
 

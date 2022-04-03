@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mole : MonoBehaviour
+[System.Serializable]
+public class Mole : NPC
 {
-    // Start is called before the first frame update
-    void Start()
+    public DialogueTrigger dialogueTrigger;
+
+    private void Start()
     {
-        
+        dialogueTrigger = GetComponent<DialogueTrigger>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Interact()
     {
-        
+        Debug.Log("Overriding NPC Interact() with Mole.Interact()");
+
+        dialogueTrigger.TriggerDialogue();
     }
 }
