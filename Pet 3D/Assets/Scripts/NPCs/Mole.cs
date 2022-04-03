@@ -2,34 +2,191 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MoleState
+{
+    Idle,
+    Moving
+}
+
 [System.Serializable]
 public class Mole : NPC
 {
-    float interactRange = 5f;
+    [SerializeField] MoleState moleState;
+
+    Animator[] animators;
+    Animator moleAnimator;
+    Animator reactionAnimator;
+
+    private float senseUpdateTimer = 0f;
+    private float senseUpdateInterval = 3f;
+
+    float interactRange = 3f;
+    float wanderRange = 3f;
     Player player;
-    bool dialogueInitiated;
     public DialogueTrigger dialogueTrigger;
+    bool dialogueInitiated;
+    bool noticedPlayer;
+
+    [SerializeField] private Vector3 waypoint;
+    private Vector3 previousPos = Vector3.zero;
+    bool isMoving;
+
+    float speed = 1.0f;
 
     private void Start()
     {
+        player = FindObjectOfType<Player>();
+
+        animators = GetComponentsInChildren<Animator>();
+
+        foreach (var anim in animators)
+        {
+            if (anim.name.Contains("Sprite"))
+                moleAnimator = anim;
+            else if (anim.name.Contains("Reaction"))
+                reactionAnimator = anim;
+
+        }
         dialogueTrigger = GetComponent<DialogueTrigger>();
     }
 
     void Update()
     {
-        if (player)
+        if (senseUpdateTimer < senseUpdateInterval) // sensing and deciding done slower than acting
         {
-            if (Vector3.Distance(transform.position, player.transform.position) > interactRange)
+            senseUpdateTimer += Time.deltaTime;
+        }
+        else
+        {
+            Decide();
+
+            senseUpdateTimer = 0f;
+        }
+
+        Act();
+
+        UpdatePlayerFocus();
+        UpdateMovement();
+        UpdateAnimator();
+    }
+
+    void Decide()
+    {
+        if (moleState == MoleState.Moving)
+        {
+            float distance = Vector3.Distance(transform.position, waypoint);
+
+            if (distance > wanderRange)
+                waypoint = GetRandomPositionAround(transform.position, wanderRange);
+            else if (distance <= interactRange)
             {
-                dialogueInitiated = false;
-                player = null;
+                waypoint = GetRandomPositionAround(transform.position, wanderRange);
             }
         }
     }
 
-    public override void SetPlayer(Player p)
+    void Act()
     {
-        player = p;
+        if (moleState == MoleState.Moving)
+        {
+            Wander();
+        }
+        else if (moleState == MoleState.Idle)
+        {
+
+        }
+    }
+
+    void UpdateAnimator()
+    {
+        if (moleState == MoleState.Idle)
+        {
+            if (!moleAnimator.GetBool("isIdle"))
+            {
+                moleAnimator.SetBool("isIdle", true);
+                moleAnimator.SetBool("isMoving", false);
+            }
+        }
+        else if (moleState == MoleState.Moving)
+        {
+            if (!moleAnimator.GetBool("isMoving"))
+            {
+                moleAnimator.SetBool("isMoving", true);
+                moleAnimator.SetBool("isIdle", false);
+            }
+        }
+    }
+
+    void UpdateMovement()
+    {
+        float distance = Vector3.Distance(transform.position, previousPos);
+        isMoving = distance > 0f;
+        previousPos = transform.position;
+    }
+
+    void Wander()
+    {
+        Debug.Log("moving towards: " + waypoint);
+        MoveTowards(waypoint);
+    }
+
+    void MoveTowards(Vector3 targetPosition, float range = 0f)
+    {
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, targetPosition);
+
+        Vector3 step = direction * Time.deltaTime * speed;
+
+        if (distance > range)
+        {
+            if (step.magnitude > distance)
+            {
+                transform.position = targetPosition;
+            }
+            else
+            {
+                transform.position += step;
+            }
+        }
+    }
+
+    Vector3 GetRandomPositionAround(Vector3 position, float range)
+    {
+        float direction = Random.Range(0f, 359f) * Mathf.Deg2Rad;
+        float distance = Random.Range(1f, range);
+
+        Vector3 newPos = position + new Vector3(distance * Mathf.Cos(direction), 0, distance * Mathf.Sin(direction));
+
+        return newPos;
+    }
+
+    void UpdatePlayerFocus()
+    {
+        if (player)
+        {
+            if (Vector3.Distance(transform.position, player.transform.position) > interactRange)
+            {
+                PlayerOutOfReach();
+            }
+            else if (!noticedPlayer)
+            {
+                PlayerInReach();
+            }
+        }
+    }
+
+    void PlayerInReach()
+    {
+        reactionAnimator.SetTrigger("Notice");
+        noticedPlayer = true;
+        moleState = MoleState.Idle;
+    }
+
+    void PlayerOutOfReach()
+    {
+        dialogueInitiated = false;
+        noticedPlayer = false;
+        moleState = MoleState.Moving;
     }
 
     public override void Interact()

@@ -188,7 +188,7 @@ public class Player : MonoBehaviour
             }
             else if (lookedAtObject.CompareTag("NPC"))
             {
-                lookedAtObject.GetComponentInParent<NPC>().SetPlayer(this);
+                //lookedAtObject.GetComponentInParent<NPC>().SetPlayer(this);
                 lookedAtObject.GetComponentInParent<NPC>().Interact();
             }
         }

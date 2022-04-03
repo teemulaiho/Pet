@@ -5,5 +5,4 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     public virtual void Interact() { }
-    public virtual void SetPlayer(Player p) { }
 }
