@@ -776,7 +776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &237786755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2097,7 +2097,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This is dummy dialogue... It's not really too interesting
+  m_text: This is dummy <color=green>dialogue</color>... It's not really too interesting
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4220,6 +4220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f799e9acb2590974787854d72ce780d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueBox: {fileID: 237786754}
   nameText: {fileID: 1438807368}
   dialogueText: {fileID: 684422158}
 --- !u!1001 &1255444259
@@ -7868,6 +7869,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1274583340, guid: 626dd3d011a9d2646887b16a8ab8bd8e, type: 3}
+      propertyPath: dialogue.sentences.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274583340, guid: 626dd3d011a9d2646887b16a8ab8bd8e, type: 3}
+      propertyPath: dialogue.sentences.Array.data[0]
+      value: Hello stranger! How nice to meet you here in our lush forest home. My
+        name is <color=green>Mole</color>. But you can call me <color=green>Mr. Mole</color>.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274583340, guid: 626dd3d011a9d2646887b16a8ab8bd8e, type: 3}
+      propertyPath: dialogue.sentences.Array.data[1]
+      value: Say, I haven't seen you around before. Are you new?
+      objectReference: {fileID: 0}
     - target: {fileID: 4523381903268563571, guid: 626dd3d011a9d2646887b16a8ab8bd8e, type: 3}
       propertyPath: m_Name
       value: Mole

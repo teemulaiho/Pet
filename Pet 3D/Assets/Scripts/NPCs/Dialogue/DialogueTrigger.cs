@@ -10,4 +10,13 @@ public class DialogueTrigger : MonoBehaviour
     {
         FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
     }
+
+    /// <summary>
+    /// Return true if not end of dialogue. Return false if end of dialogue.
+    /// </summary>
+    /// <returns></returns>
+    public bool TriggerNextDialogueSentence()
+    {
+        return FindObjectOfType<DialogueManager>().DisplayNextSentence();
+    }
 }

@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
 {
     private Queue<string> sentences;
 
+    public GameObject dialogueBox;
     public TMP_Text nameText;
     public TMP_Text dialogueText;
 
@@ -19,8 +20,20 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
+    public void OpenDialogueBox()
+    {
+        dialogueBox.SetActive(true);
+    }
+
+    public void CloseDialogueBox()
+    {
+        dialogueBox.SetActive(false);
+    }
+
     public void StartDialogue(Dialogue dialogue)
     {
+        OpenDialogueBox();
+
         nameText.text = dialogue.name;
         sentences.Clear();
 
@@ -32,12 +45,16 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
-    public void DisplayNextSentence()
+    /// <summary>
+    /// Return true if not end of dialogue. Return false if end of dialogue.
+    /// </summary>
+    /// <returns></returns>
+    public bool DisplayNextSentence()
     {
         if (sentences.Count == 0)
         {
             EndDialogue();
-            return;
+            return false;
         }
 
         string sentence = sentences.Dequeue();
@@ -45,22 +62,26 @@ public class DialogueManager : MonoBehaviour
         if (typeSentence != null)
             StopCoroutine(typeSentence);
 
-        typeSentence = StartCoroutine(TypeSentence(sentence));
+        typeSentence = StartCoroutine(TypeSentence(sentence, 0.016f));
+
+        return true;
     }
 
-    IEnumerator TypeSentence(string sentence)
+    IEnumerator TypeSentence(string sentence, float typeSpeed)
     {
         dialogueText.text = "";
 
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return null;
+            yield return new WaitForSeconds(typeSpeed);
         }
     }
 
     void EndDialogue()
     {
         Debug.Log("End of conversation.");
+
+        CloseDialogueBox();
     }
 }
