@@ -64,7 +64,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0aa99031acc04493b3512ab83a969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moleState: 0
   dialogueTrigger: {fileID: 0}
+  waypoint: {x: 0, y: 0, z: 0}
 --- !u!114 &1274583340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +85,8 @@ MonoBehaviour:
     - Hello stranger! How nice to meet you here in our lush forest home. My name
       is <color=green>Mole</color>. But you can call me <color=green>Mr. Mole</color>.
     - Say, I haven't seen you around before. Are you new?
+    - "Anyways, there's a race starting soon. \n\nAre you in?"
+    activatePlayerChoiceLine: 3
 --- !u!1 &4523381904895320079
 GameObject:
   m_ObjectHideFlags: 0

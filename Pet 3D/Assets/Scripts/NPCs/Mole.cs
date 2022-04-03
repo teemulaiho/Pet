@@ -126,7 +126,6 @@ public class Mole : NPC
 
     void Wander()
     {
-        Debug.Log("moving towards: " + waypoint);
         MoveTowards(waypoint);
     }
 
@@ -187,6 +186,7 @@ public class Mole : NPC
         dialogueInitiated = false;
         noticedPlayer = false;
         moleState = MoleState.Moving;
+        dialogueTrigger.CloseDialoge();
     }
 
     public override void Interact()
@@ -196,6 +196,7 @@ public class Mole : NPC
         if (!dialogueInitiated)
         {
             dialogueTrigger.TriggerDialogue();
+            dialogueTrigger.TriggerDialogueChoice(0);
             dialogueInitiated = true;
         }
         else

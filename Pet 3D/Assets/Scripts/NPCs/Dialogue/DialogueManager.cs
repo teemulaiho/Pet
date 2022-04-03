@@ -11,6 +11,10 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialogueBox;
     public TMP_Text nameText;
     public TMP_Text dialogueText;
+    public Button dialogueChoiceButton;
+
+    int dialogueLines = 0;
+    int playerChoiceLine = -1;
 
     Coroutine typeSentence;
 
@@ -28,6 +32,9 @@ public class DialogueManager : MonoBehaviour
     public void CloseDialogueBox()
     {
         dialogueBox.SetActive(false);
+        DeActivatePlayerChoiceButton();
+        playerChoiceLine = -1;
+        dialogueLines = 0;
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -58,16 +65,41 @@ public class DialogueManager : MonoBehaviour
         }
 
         string sentence = sentences.Dequeue();
+        dialogueLines++;
+
 
         if (typeSentence != null)
             StopCoroutine(typeSentence);
 
-        typeSentence = StartCoroutine(TypeSentence(sentence, 0.016f));
+        typeSentence = StartCoroutine(TypeSentence(sentence, 0.016f, dialogueLines == playerChoiceLine));
 
         return true;
     }
 
-    IEnumerator TypeSentence(string sentence, float typeSpeed)
+    void ActivatePlayerChoiceButton()
+    {
+        dialogueChoiceButton.gameObject.SetActive(true);
+    }
+
+    void DeActivatePlayerChoiceButton()
+    {
+        dialogueChoiceButton.gameObject.SetActive(false);
+    }
+
+    public void SetButtonMethod(int methodType, int lineToActivatePlayerChoice)
+    {
+        playerChoiceLine = lineToActivatePlayerChoice;
+
+        dialogueChoiceButton.onClick.RemoveAllListeners();
+
+        if (methodType == 0)
+        {
+            string sceneToLoad = "RaceScene";
+            dialogueChoiceButton.onClick.AddListener(() => SceneLoader.LoadScene(sceneToLoad));
+        }
+    }
+
+    IEnumerator TypeSentence(string sentence, float typeSpeed, bool activatePlayerChoice)
     {
         dialogueText.text = "";
 
@@ -76,6 +108,9 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(typeSpeed);
         }
+
+        if (activatePlayerChoice)
+            ActivatePlayerChoiceButton();
     }
 
     void EndDialogue()
