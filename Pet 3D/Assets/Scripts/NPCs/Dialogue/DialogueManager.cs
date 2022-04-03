@@ -16,6 +16,8 @@ public class DialogueManager : MonoBehaviour
     int dialogueLines = 0;
     int playerChoiceLine = -1;
 
+    [SerializeField] string sentenceBeingTyped;
+    [SerializeField] bool isTyping;
     Coroutine typeSentence;
 
     // Start is called before the first frame update
@@ -58,20 +60,37 @@ public class DialogueManager : MonoBehaviour
     /// <returns></returns>
     public bool DisplayNextSentence()
     {
-        if (sentences.Count == 0)
+        if (dialogueLines == playerChoiceLine && !dialogueChoiceButton.gameObject.activeSelf)
+        {
+            ActivatePlayerChoiceButton();
+        }
+        else if (sentences.Count == 0)
         {
             EndDialogue();
             return false;
         }
 
-        string sentence = sentences.Dequeue();
-        dialogueLines++;
+        if (!isTyping)
+        {
+            if (sentences.Count != 0)
+            {
+                string sentence = sentences.Dequeue();
 
+                if (typeSentence != null)
+                    StopCoroutine(typeSentence);
 
-        if (typeSentence != null)
-            StopCoroutine(typeSentence);
+                typeSentence = StartCoroutine(TypeSentence(sentence, 0.008f, dialogueLines == playerChoiceLine));
+            }
+            dialogueLines++;
+        }
+        else
+        {
+            if (typeSentence != null)
+                StopCoroutine(typeSentence);
 
-        typeSentence = StartCoroutine(TypeSentence(sentence, 0.016f, dialogueLines == playerChoiceLine));
+            dialogueText.text = sentenceBeingTyped;
+            isTyping = false;
+        }
 
         return true;
     }
@@ -101,6 +120,8 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypeSentence(string sentence, float typeSpeed, bool activatePlayerChoice)
     {
+        sentenceBeingTyped = sentence;
+        isTyping = true;
         dialogueText.text = "";
 
         foreach (char letter in sentence.ToCharArray())
@@ -111,6 +132,8 @@ public class DialogueManager : MonoBehaviour
 
         if (activatePlayerChoice)
             ActivatePlayerChoiceButton();
+
+        isTyping = false;
     }
 
     void EndDialogue()
