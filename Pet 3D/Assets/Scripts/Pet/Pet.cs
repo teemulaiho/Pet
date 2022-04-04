@@ -74,6 +74,9 @@ public class Pet : MonoBehaviour
     float runAnimationLength = 0f;
     float jumpAnimationLength = 0f;
 
+
+    [SerializeField] SphereCollider collider;
+
     public PetState GetState() { return state; }
     public float HealthPercentage { get { return health / maxHealth; } }
     public float EnergyPercentage { get { return energy / maxEnergy; } }
@@ -86,6 +89,8 @@ public class Pet : MonoBehaviour
 
     private void Start()
     {
+        collider.radius = interactRange - 0.05f;
+
         state = PetState.Idle;
         health = Persistent.petStats.health;
         energy = Persistent.petStats.energy;
@@ -251,6 +256,10 @@ public class Pet : MonoBehaviour
                 reactionAnimator.SetTrigger("Sleep");
                 state = PetState.Sleeping;
             }
+            else if (ball)
+            {
+                state = PetState.ChaseBall;
+            }
             else
             {
                 float distance = Vector3.Distance(transform.position, waypoint);
@@ -380,6 +389,7 @@ public class Pet : MonoBehaviour
         entity.transform.parent = transform;
         entity.transform.localPosition = new Vector3(0f, 0.5f, 0f);
         entity.rb.isKinematic = true;
+        entity.rb.detectCollisions = false;
 
         grabbedObject = entity;
     }
@@ -389,6 +399,7 @@ public class Pet : MonoBehaviour
         {
             grabbedObject.transform.parent = null;
             grabbedObject.rb.isKinematic = false;
+            grabbedObject.rb.detectCollisions = true;
 
             grabbedObject = null;
         }
@@ -401,7 +412,7 @@ public class Pet : MonoBehaviour
         directionVariance.y = Random.Range(0.5f, 2f);
         directionVariance.z = Random.Range(-2f, 2f);
 
-        entity.rb.AddForce((transform.forward + directionVariance).normalized * Persistent.petStats.strength * 100f);
+        entity.rb.AddForce((transform.forward + directionVariance).normalized * Persistent.petStats.strength * 200f);
 
         Persistent.petStats.intellect += 0.1f;
         Debug.Log("pet intellect: " + Persistent.petStats.intellect);

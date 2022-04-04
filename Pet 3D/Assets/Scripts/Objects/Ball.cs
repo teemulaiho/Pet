@@ -9,6 +9,7 @@ public class Ball : Entity
     public void Nudge(Vector3 direction, float force)
     {
         rb.AddForce(direction * force);
+        Debug.Log("Ball nudging itself.");
     }
 
     private void OnCollisionEnter(Collision collision)

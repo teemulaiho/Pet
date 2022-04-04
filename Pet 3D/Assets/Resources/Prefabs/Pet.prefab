@@ -193,24 +193,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37669a0ae7a2c94e9b1ac4c33fc7f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petState: 0
   canLoseHealth: 1
   canLoseEnergy: 1
   player: {fileID: 0}
-  balls: []
-  apples: []
-  apple: {fileID: 0}
+  food: {fileID: 0}
   ball: {fileID: 0}
-  capturedBall: {fileID: 0}
-  feedingArea: {fileID: 0}
   goal: {fileID: 0}
-  randomTarget: {fileID: 0}
-  currentHealth: 1
-  currentEnergy: 10
+  grabbedObject: {fileID: 0}
+  waypoint: {x: 0, y: 0, z: 0}
+  spawnPosition: {fileID: 0}
+  health: 100
+  energy: 100
   petAnimator: {fileID: 5392455371692587694}
   healthAnimator: {fileID: 5392455373258041313}
   reactionAnimator: {fileID: 71881938469167705}
   spriteRenderer: {fileID: 5392455371692587695}
+  collider: {fileID: 1877545610}
 --- !u!1 &5392455372772399994
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5392455372772399995}
-  - component: {fileID: 3179681731835454943}
+  - component: {fileID: 1877545610}
   m_Layer: 8
   m_Name: Collider
   m_TagString: Pet
@@ -236,14 +234,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5392455372772399994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.304, z: 0}
+  m_LocalScale: {x: 0.55457, y: 0.55457, z: 0.55457}
   m_Children: []
   m_Father: {fileID: 5392455372623680842}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3179681731835454943
-BoxCollider:
+--- !u!135 &1877545610
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -253,7 +251,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5392455373258041118
 GameObject:

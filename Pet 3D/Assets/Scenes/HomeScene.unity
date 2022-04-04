@@ -1986,6 +1986,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1877545610, guid: aa2cfa991ed589c4cbbea72982f3f9ce, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5392455372623680840, guid: aa2cfa991ed589c4cbbea72982f3f9ce, type: 3}
       propertyPath: m_Name
       value: Pet

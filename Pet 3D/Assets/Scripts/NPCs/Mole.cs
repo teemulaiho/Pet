@@ -248,15 +248,4 @@ public class Mole : NPC
             //Debug.Log(transitionInfo);
         }
     }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-        // Testing trigger collider layers. NOT IMPLEMENTED ATM. -Teemu
-        switch (other.tag)
-        {
-
-        }
-    }
 }
