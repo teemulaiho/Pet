@@ -20,12 +20,15 @@ public class Mole : NPC
     private float senseUpdateTimer = 0f;
     private float senseUpdateInterval = 3f;
 
+    float distanceToPlayer = 0f;
+    float visionRange = 5f;
     float interactRange = 3f;
     float wanderRange = 3f;
     Player player;
     public DialogueTrigger dialogueTrigger;
     bool dialogueInitiated;
     bool noticedPlayer;
+    int noticedPlayerThisFrame;
 
     [SerializeField] private Vector3 waypoint;
     private Vector3 previousPos = Vector3.zero;
@@ -48,6 +51,9 @@ public class Mole : NPC
 
         }
         dialogueTrigger = GetComponent<DialogueTrigger>();
+
+
+        SetAnimationTransitions();
     }
 
     void Update()
@@ -89,7 +95,8 @@ public class Mole : NPC
     {
         if (moleState == MoleState.Moving)
         {
-            Wander();
+            if (distanceToPlayer > visionRange)
+                Wander();
         }
         else if (moleState == MoleState.Idle)
         {
@@ -99,21 +106,18 @@ public class Mole : NPC
 
     void UpdateAnimator()
     {
-        if (moleState == MoleState.Idle)
+        if (moleAnimator)
         {
-            if (!moleAnimator.GetBool("isIdle"))
-            {
-                moleAnimator.SetBool("isIdle", true);
-                moleAnimator.SetBool("isMoving", false);
-            }
+            moleAnimator.SetFloat("distanceToPlayer", distanceToPlayer);
+            moleAnimator.SetBool("isInteracting", distanceToPlayer <= interactRange);
+            moleAnimator.SetBool("isPeeking", distanceToPlayer <= visionRange && distanceToPlayer > interactRange);
+            moleAnimator.SetBool("isMoving", distanceToPlayer > visionRange);
         }
-        else if (moleState == MoleState.Moving)
+
+        if (reactionAnimator)
         {
-            if (!moleAnimator.GetBool("isMoving"))
-            {
-                moleAnimator.SetBool("isMoving", true);
-                moleAnimator.SetBool("isIdle", false);
-            }
+            if (distanceToPlayer <= visionRange && noticedPlayerThisFrame == Time.frameCount)
+                reactionAnimator.SetTrigger("Notice");
         }
     }
 
@@ -163,28 +167,50 @@ public class Mole : NPC
     {
         if (player)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) > interactRange)
+            distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+            if (distanceToPlayer <= interactRange)
             {
-                PlayerOutOfReach();
+                PlayerInInteractRange();
             }
-            else if (!noticedPlayer)
+            else
             {
-                PlayerInReach();
+                PlayerOutOfInteractRange();
+            }
+
+            if (distanceToPlayer <= visionRange && distanceToPlayer > interactRange)
+            {
+                PlayerInVisionRange();
+            }
+            else if (distanceToPlayer > visionRange)
+            {
+                PlayerOutOfVisionRange();
             }
         }
     }
 
-    void PlayerInReach()
+    void PlayerInVisionRange()
     {
-        reactionAnimator.SetTrigger("Notice");
-        noticedPlayer = true;
+        if (!noticedPlayer)
+        {
+            noticedPlayer = true;
+            noticedPlayerThisFrame = Time.frameCount;
+        }
+    }
+
+    void PlayerOutOfVisionRange()
+    {
+        noticedPlayer = false;
+    }
+
+    void PlayerInInteractRange()
+    {
         moleState = MoleState.Idle;
     }
 
-    void PlayerOutOfReach()
+    void PlayerOutOfInteractRange()
     {
         dialogueInitiated = false;
-        noticedPlayer = false;
         moleState = MoleState.Moving;
         dialogueTrigger.CloseDialoge();
     }
@@ -203,6 +229,13 @@ public class Mole : NPC
         {
             if (!dialogueTrigger.TriggerNextDialogueSentence())
                 dialogueInitiated = false;
+        }
+    }
+
+    void SetAnimationTransitions()
+    {
+        if (moleAnimator)
+        {
         }
     }
 }
