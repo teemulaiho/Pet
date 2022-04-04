@@ -33,11 +33,13 @@ public class Mole : NPC
     [SerializeField] private Vector3 waypoint;
     private Vector3 previousPos = Vector3.zero;
     bool isMoving;
+    bool isWaiting;
 
     float speed = 1.0f;
 
     [SerializeField] Collider interactCollider;
     [SerializeField] Collider visionCollider;
+    Coroutine waitCoroutine;
 
     private void Start()
     {
@@ -85,11 +87,18 @@ public class Mole : NPC
         {
             float distance = Vector3.Distance(transform.position, waypoint);
 
-            if (distance > wanderRange)
-                waypoint = GetRandomPositionAround(transform.position, wanderRange);
-            else if (distance <= interactRange)
+            if (!isWaiting)
             {
-                waypoint = GetRandomPositionAround(transform.position, wanderRange);
+                if (distance > wanderRange)
+                    waypoint = GetRandomPositionAround(transform.position, wanderRange);
+                else if (distance <= interactRange)
+                {
+                    waypoint = GetRandomPositionAround(transform.position, wanderRange);
+                }
+
+                if (waitCoroutine != null)
+                    StopCoroutine(waitCoroutine);
+                waitCoroutine = StartCoroutine(Wait(5.0f));
             }
         }
     }
@@ -220,8 +229,6 @@ public class Mole : NPC
 
     public override void Interact()
     {
-        Debug.Log("Overriding NPC Interact() with Mole.Interact()");
-
         if (!dialogueInitiated)
         {
             dialogueTrigger.TriggerDialogue();
@@ -247,5 +254,12 @@ public class Mole : NPC
             //var transitionInfo = moleAnimator.GetAnimatorTransitionInfo(0);
             //Debug.Log(transitionInfo);
         }
+    }
+
+    IEnumerator Wait(float timeToWaitInSeconds)
+    {
+        isWaiting = true;
+        yield return new WaitForSecondsRealtime(timeToWaitInSeconds);
+        isWaiting = false;
     }
 }

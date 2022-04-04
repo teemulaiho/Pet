@@ -60,6 +60,7 @@ public class Pet : MonoBehaviour
 
     private Vector3 previousPos = Vector3.zero;
     private float movementDirection = 0f;
+    private float movementDirectionPreviousFrame = 0f;
 
     private bool isMoving;
 
@@ -68,11 +69,15 @@ public class Pet : MonoBehaviour
     [SerializeField] Animator reactionAnimator;
 
     [SerializeField] SpriteRenderer spriteRenderer;
+    public float spriteFlipThreshold;
 
     float eatingAnimationLength = 0f;
     float idleAnimationLength = 0f;
     float runAnimationLength = 0f;
     float jumpAnimationLength = 0f;
+
+    Coroutine waitCoroutine;
+    bool isWaiting;
 
 
     [SerializeField] SphereCollider collider;
@@ -264,13 +269,21 @@ public class Pet : MonoBehaviour
             {
                 float distance = Vector3.Distance(transform.position, waypoint);
 
-                if (distance > wanderRange)
-                    waypoint = GetRandomPositionAround(transform.position, wanderRange);
-                else if (distance <= interactRange)
+                if (!isWaiting)
                 {
-                    waypoint = GetRandomPositionAround(transform.position, wanderRange);
-                }
+                    if (distance > wanderRange)
+                    {
+                        waypoint = GetRandomPositionAround(transform.position, wanderRange);
+                    }
+                    else if (distance <= interactRange)
+                    {
+                        waypoint = GetRandomPositionAround(transform.position, wanderRange);
+                    }
 
+                    if (waitCoroutine != null)
+                        StopCoroutine(waitCoroutine);
+                    waitCoroutine = StartCoroutine(Wait(5.0f));
+                }
             }
         }
     }
@@ -280,40 +293,40 @@ public class Pet : MonoBehaviour
         switch (state)
         {
             case PetState.Idle:
-                {
-                    Wander();
-                    break;
-                }
+            {
+                Wander();
+                break;
+            }
             case PetState.Sleeping:
-                {
-                    Sleep();
-                    break;
-                }
+            {
+                Sleep();
+                break;
+            }
             case PetState.FollowPlayer:
-                {
-                    FollowPlayer();
-                    break;
-                }
+            {
+                FollowPlayer();
+                break;
+            }
             case PetState.ChaseBall:
-                {
-                    ChaseBall();
-                    break;
-                }
+            {
+                ChaseBall();
+                break;
+            }
             case PetState.ReturnBall:
-                {
-                    ReturnBall();
-                    break;
-                }
+            {
+                ReturnBall();
+                break;
+            }
             case PetState.GoToFood:
-                {
-                    GoToFood();
-                    break;
-                }
+            {
+                GoToFood();
+                break;
+            }
             case PetState.Eating:
-                {
-                    Eat();
-                    break;
-                }
+            {
+                Eat();
+                break;
+            }
         }
     }
     void Sleep()
@@ -475,10 +488,13 @@ public class Pet : MonoBehaviour
 
         petAnimator.SetBool("isMoving", isMoving);
 
-        if (movementDirection > 0)
-            spriteRenderer.flipX = false;
-        else if (movementDirection < 0)
-            spriteRenderer.flipX = true;
+        if (!WithinLimits(movementDirection, movementDirectionPreviousFrame, spriteFlipThreshold))
+        {
+            if (movementDirection > 0)
+                spriteRenderer.flipX = false;
+            else if (movementDirection < 0)
+                spriteRenderer.flipX = true;
+        }
     }
 
     void UpdateMovement()
@@ -493,13 +509,31 @@ public class Pet : MonoBehaviour
                 Vector3 prePosOnCamera = Camera.main.WorldToScreenPoint(previousPos);
                 Vector3 curPosOnCamera = Camera.main.WorldToScreenPoint(transform.position);
 
-                movementDirection = prePosOnCamera.magnitude - curPosOnCamera.magnitude;
+                movementDirectionPreviousFrame = movementDirection;
+                //movementDirection = prePosOnCamera.magnitude - curPosOnCamera.magnitude;
+                //movementDirection = (prePosOnCamera.x - curPosOnCamera.x) > 0 ? 1 : -1;
+                movementDirection = (prePosOnCamera.x - curPosOnCamera.x);
             }
 
             previousPos = transform.position;
         }
         else
             isMoving = false;
+    }
+
+    bool WithinLimits(float movementDirection, float movementDirectionPreviousFrame, float threshold)
+    {
+        float difference = Mathf.Abs(movementDirectionPreviousFrame - movementDirection);
+
+        if (difference < threshold) // is within threshold value.
+        {
+            return true;
+        }
+        else // is not within threshold value.
+        {
+            Debug.Log("not within threshold " + difference);
+            return false;
+        }
     }
 
     T FindNearest<T>(float range = 0f) where T : Component
@@ -539,6 +573,7 @@ public class Pet : MonoBehaviour
         float distance = Random.Range(1f, range);
 
         Vector3 newPos = position + new Vector3(distance * Mathf.Cos(direction), 0, distance * Mathf.Sin(direction));
+        newPos.y = 0.3f;
 
         return newPos;
     }
@@ -580,5 +615,12 @@ public class Pet : MonoBehaviour
             transform.position = spawnPosition.transform.position;
         else
             transform.position = new Vector3(5, 6, 5);
+    }
+
+    IEnumerator Wait(float timeToWaitInSeconds)
+    {
+        isWaiting = true;
+        yield return new WaitForSecondsRealtime(timeToWaitInSeconds);
+        isWaiting = false;
     }
 }

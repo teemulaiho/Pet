@@ -54,7 +54,11 @@ public class UIController : MonoBehaviour
                 CloseShopWindow();
             else if (eventWindow.activeSelf)
                 CloseEventWindow();
-            else if (!settingsMenu.SettingsWindowOpen())
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (!settingsMenu.SettingsWindowOpen())
             {
                 OnWindowOpen();
                 settingsMenu.ToggleSettingsUI();
