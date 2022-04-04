@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 
 public enum MoleState
 {
@@ -36,6 +35,9 @@ public class Mole : NPC
     bool isMoving;
 
     float speed = 1.0f;
+
+    [SerializeField] Collider interactCollider;
+    [SerializeField] Collider visionCollider;
 
     private void Start()
     {
@@ -237,6 +239,24 @@ public class Mole : NPC
     {
         if (moleAnimator)
         {
+            //var condition = GetComponent<AnimatorCondition>();
+            //condition.mode = AnimatorConditionMode.Less;
+            //condition.parameter = "playerDistance"; 
+            //condition.threshold = visionRange;
+
+            //var transitionInfo = moleAnimator.GetAnimatorTransitionInfo(0);
+            //Debug.Log(transitionInfo);
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        // Testing trigger collider layers. NOT IMPLEMENTED ATM. -Teemu
+        switch (other.tag)
+        {
+
         }
     }
 }
