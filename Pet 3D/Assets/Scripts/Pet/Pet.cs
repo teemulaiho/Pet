@@ -79,6 +79,9 @@ public class Pet : MonoBehaviour
     Coroutine waitCoroutine;
     bool isWaiting;
 
+    bool noticedPlayer;
+    int noticedPlayerOnFrame;
+
 
     [SerializeField] SphereCollider collider;
 
@@ -232,10 +235,12 @@ public class Pet : MonoBehaviour
             if (!player) // if the player disappeared
             {
                 state = PetState.Idle;
+                noticedPlayer = false;
             }
-            else if (Vector3.Distance(transform.position, player.transform.position) <= followRange) // temporary reason to stop following
+            else if (Vector3.Distance(transform.position, player.transform.position) > followRange) // temporary reason to stop following
             {
                 state = PetState.Idle;
+                noticedPlayer = false;
             }
         }
         else if (state == PetState.Sleeping)
@@ -264,6 +269,13 @@ public class Pet : MonoBehaviour
             else if (ball)
             {
                 state = PetState.ChaseBall;
+            }
+            else if (player && Vector3.Distance(transform.position, player.transform.position) < followRange)
+            {
+                state = PetState.FollowPlayer;
+
+                noticedPlayer = true;
+                noticedPlayerOnFrame = Time.frameCount;
             }
             else
             {
@@ -501,6 +513,12 @@ public class Pet : MonoBehaviour
                 spriteRenderer.flipX = false;
             else if (movementDirection < 0)
                 spriteRenderer.flipX = true;
+        }
+
+        if (reactionAnimator)
+        {
+            if (noticedPlayer && noticedPlayerOnFrame == Time.frameCount)
+                reactionAnimator.SetTrigger("Notice");
         }
     }
 
