@@ -87,6 +87,7 @@ public class Event : MonoBehaviour
         {
             uiButtonStartEvent.interactable = true;
             countingDown = false;
+            eventManager.EventAvailable(this);
         }
 
         minutesLeft = (int)(timeLeft / 60);
@@ -157,7 +158,8 @@ public class Event : MonoBehaviour
         int curMin = currentTime.Minute;
 
         startHour = curHour + UnityEngine.Random.Range(0, 0);
-        startMinute = curMin + UnityEngine.Random.Range(0, 60 - curMin);
+        //startMinute = curMin + UnityEngine.Random.Range(0, 60 - curMin);
+        startMinute = curMin + UnityEngine.Random.Range(0, 5);
 
         int hoursToAdd = startHour - curHour;
         int minutesToAdd = startMinute - curMin;

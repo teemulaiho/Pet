@@ -14,6 +14,11 @@ public class EventManager : MonoBehaviour
 
     int eventCounter = 0;
 
+    public Event availableEvent;
+
+    public delegate void OnEventAvailable();
+    public event OnEventAvailable onEventAvailable;
+
     private void Awake()
     {
         eventPrefab = Resources.Load<Event>("Prefabs/UI/Event");
@@ -155,5 +160,11 @@ public class EventManager : MonoBehaviour
         {
             SceneManager.LoadScene("BattleScene");
         }
+    }
+
+    public void EventAvailable(Event eventAvailable)
+    {
+        availableEvent = eventAvailable;
+        onEventAvailable(); 
     }
 }

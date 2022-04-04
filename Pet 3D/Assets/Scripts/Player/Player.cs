@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    MouseLock mouseLock;
+
     public float walkSpeed;
     public float runSpeed;
     private float movementSpeed;
@@ -53,6 +55,20 @@ public class Player : MonoBehaviour
         movementSpeed = walkSpeed;
 
         LockCursor();
+
+        mouseLock = FindObjectOfType<MouseLock>();
+    }
+
+    private void Start()
+    {
+        mouseLock.onMouseLockStateChange += SetCursorLockState;
+    }
+
+    void SetCursorLockState()
+    {
+        //CanLook = (Cursor.lockState != CursorLockMode.Locked);
+        if (Cursor.lockState == CursorLockMode.None)
+            ReleaseCursor();
     }
 
     public void LockCursor()

@@ -41,6 +41,8 @@ public class Mole : NPC
     [SerializeField] Collider visionCollider;
     Coroutine waitCoroutine;
 
+    EventManager eventManager;
+
     private void Start()
     {
         player = FindObjectOfType<Player>();
@@ -56,6 +58,8 @@ public class Mole : NPC
 
         }
         dialogueTrigger = GetComponent<DialogueTrigger>();
+
+        eventManager = FindObjectOfType<EventManager>();
 
 
         SetAnimationTransitions();
@@ -232,7 +236,17 @@ public class Mole : NPC
         if (!dialogueInitiated)
         {
             dialogueTrigger.TriggerDialogue();
-            dialogueTrigger.TriggerDialogueChoice(0);
+
+            if (eventManager)
+            {
+                dialogueTrigger.TriggerDialogueChoice(eventManager.availableEvent.EventName);
+
+            }
+            else
+            {
+                dialogueTrigger.TriggerDialogueChoice(0);
+            }
+
             dialogueInitiated = true;
         }
         else

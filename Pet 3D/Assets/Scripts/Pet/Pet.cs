@@ -281,7 +281,10 @@ public class Pet : MonoBehaviour
                     }
 
                     if (waitCoroutine != null)
+                    {
                         StopCoroutine(waitCoroutine);
+                        isWaiting = false;
+                    }
                     waitCoroutine = StartCoroutine(Wait(5.0f));
                 }
             }
@@ -365,22 +368,26 @@ public class Pet : MonoBehaviour
     }
     void MoveTowards(Vector3 targetPosition, float range = 0f)
     {
-        Vector3 direction = (targetPosition - transform.position).normalized;
-        float distance = Vector3.Distance(transform.position, targetPosition);
+        if (Vector3.Distance(transform.position, targetPosition) > interactRange)
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        Vector3 step = direction * Time.deltaTime * speed;
 
-        if (distance > range)
-        {
-            if (step.magnitude > distance)
-            {
-                transform.position = targetPosition;
-            }
-            else
-            {
-                transform.position += step;
-            }
-        }
+        //Vector3 direction = (targetPosition - transform.position).normalized;
+        //float distance = Vector3.Distance(transform.position, targetPosition);
+
+        //Vector3 step = direction * Time.deltaTime * speed;
+
+        //if (distance > range)
+        //{
+        //    if (step.magnitude > distance)
+        //    {
+        //        transform.position = targetPosition;
+        //    }
+        //    else
+        //    {
+        //        transform.position += step;
+        //    }
+        //}
     }
 
     void Eat()
@@ -526,14 +533,9 @@ public class Pet : MonoBehaviour
         float difference = Mathf.Abs(movementDirectionPreviousFrame - movementDirection);
 
         if (difference < threshold) // is within threshold value.
-        {
             return true;
-        }
         else // is not within threshold value.
-        {
-            Debug.Log("not within threshold " + difference);
             return false;
-        }
     }
 
     T FindNearest<T>(float range = 0f) where T : Component

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4068133238882180486}
   - component: {fileID: 4314855692844196077}
   - component: {fileID: 8824316573655683041}
+  - component: {fileID: 4821697175476377436}
   m_Layer: 5
   m_Name: EventInfo
   m_TagString: Untagged
@@ -93,6 +94,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventPrefab: {fileID: 4975491621868387197, guid: 75355f24f31e4bc46b59ec669dbeb3a5, type: 3}
   eventParentTransform: {fileID: 3453407852585379272}
+  availableEvent: {fileID: 0}
+--- !u!225 &4821697175476377436
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998585381776019190}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &2479978729896909893
 GameObject:
   m_ObjectHideFlags: 0

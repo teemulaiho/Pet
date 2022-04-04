@@ -6,6 +6,8 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
+    MouseLock mouseLock;
+
     private Queue<string> sentences;
 
     public GameObject dialogueBox;
@@ -19,6 +21,11 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] string sentenceBeingTyped;
     [SerializeField] bool isTyping;
     Coroutine typeSentence;
+
+    private void Awake()
+    {
+        mouseLock = FindObjectOfType<MouseLock>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -98,6 +105,7 @@ public class DialogueManager : MonoBehaviour
     void ActivatePlayerChoiceButton()
     {
         dialogueChoiceButton.gameObject.SetActive(true);
+        mouseLock.ReleaseCursor();
     }
 
     void DeActivatePlayerChoiceButton()
@@ -116,6 +124,33 @@ public class DialogueManager : MonoBehaviour
             string sceneToLoad = "RaceScene";
             dialogueChoiceButton.onClick.AddListener(() => SceneLoader.LoadScene(sceneToLoad));
         }
+    }
+
+    public void SetButtonMethod(string contestName, int lineToActivatePlayerChoice)
+    {
+        playerChoiceLine = lineToActivatePlayerChoice;
+
+        dialogueChoiceButton.onClick.RemoveAllListeners();
+
+        string sceneToLoad = "";
+
+        if (contestName.Contains("Race"))
+        {
+            sceneToLoad = "RaceScene";
+            dialogueChoiceButton.GetComponentInChildren<TMP_Text>().text = "Start Race";
+        }
+        else if (contestName.Contains("Skill"))
+        {
+            sceneToLoad = "SkillContestScene";
+            dialogueChoiceButton.GetComponentInChildren<TMP_Text>().text = "Start Skill Contest";
+        }
+        else if (contestName.Contains("Battle"))
+        {
+            sceneToLoad = "BattleScene";
+            dialogueChoiceButton.GetComponentInChildren<TMP_Text>().text = "Start Battle";
+        }
+
+        dialogueChoiceButton.onClick.AddListener(() => SceneLoader.LoadScene(sceneToLoad));
     }
 
     IEnumerator TypeSentence(string sentence, float typeSpeed, bool activatePlayerChoice)

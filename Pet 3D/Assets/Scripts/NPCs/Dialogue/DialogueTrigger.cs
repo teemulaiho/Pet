@@ -30,4 +30,9 @@ public class DialogueTrigger : MonoBehaviour
     {
         FindObjectOfType<DialogueManager>().SetButtonMethod(choiceType, dialogue.activatePlayerChoiceLine);
     }
+
+    public void TriggerDialogueChoice(string contestName)
+    {
+        FindObjectOfType<DialogueManager>().SetButtonMethod(contestName, dialogue.activatePlayerChoiceLine);
+    }
 }
