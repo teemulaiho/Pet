@@ -6,9 +6,19 @@ public class Ball : Entity
 {
     public Item itemData;
 
-    public void Kick(Vector3 direction, float force)
+    public delegate void OnKickEvent(Transform kicker);
+    public event OnKickEvent onKick;
+
+    public void Kick(Transform kicker, Vector3 direction, float force)
     {
+        if (!kicker.CompareTag("Pet"))
+            this.transform.SetParent(null);
+
+        rb.isKinematic = false;
         rb.AddForce(direction * force);
+
+        if (onKick != null) // onKick is null if nothing has subsrcibed to it. (ie. Pet hasn't detected the ball yet.) -Teemu
+            onKick(kicker);
     }
 
     public void Nudge(Vector3 direction, float force)

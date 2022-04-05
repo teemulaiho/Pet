@@ -164,6 +164,10 @@ public class Pet : MonoBehaviour
     {
         player = FindNearest<Player>(detectionRange);
         ball = FindNearest<Ball>();
+
+        if (ball)
+            ball.onKick += OnBallKickEvent;
+
         food = FindNearest<Food>();
         goal = GameObject.FindGameObjectWithTag("Goal");
 
@@ -442,7 +446,7 @@ public class Pet : MonoBehaviour
         entity.transform.parent = transform;
         entity.transform.localPosition = new Vector3(0f, 0.5f, 0f);
         entity.rb.isKinematic = true;
-        entity.rb.detectCollisions = false;
+        //entity.rb.detectCollisions = false;
 
         grabbedObject = entity;
     }
@@ -470,7 +474,7 @@ public class Pet : MonoBehaviour
         Persistent.petStats.intellect += 0.1f;
         Debug.Log("pet intellect: " + Persistent.petStats.intellect);
 
-        rigidbody.velocity = Vector3.zero;
+        rigidbody.velocity = Vector3.zero; // reset pet velocity if it collided with ball. This fixes pet wobbly movement. -Teemu
     }
 
     void UpdateHealth()
@@ -686,5 +690,13 @@ public class Pet : MonoBehaviour
         isWaiting = true;
         yield return new WaitForSecondsRealtime(timeToWaitInSeconds);
         isWaiting = false;
+    }
+
+    void OnBallKickEvent(Transform kicker)
+    {
+        if (kicker != this.transform)
+        {
+            grabbedObject = null;
+        }
     }
 }

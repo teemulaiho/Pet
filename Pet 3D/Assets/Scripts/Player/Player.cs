@@ -224,12 +224,11 @@ public class Player : MonoBehaviour
                 if (lookedAtObject.CompareTag("Ball"))
                 {
                     if (lookedAtObject.GetComponent<Ball>())
-                        lookedAtObject.GetComponent<Ball>().Kick(transform.forward + transform.up, 200f); 
+                        lookedAtObject.GetComponent<Ball>().Kick(this.transform, transform.forward + transform.up, 200f);
                     else if (lookedAtObject.GetComponentInParent<Ball>())
-                        lookedAtObject.GetComponentInParent<Ball>().Kick(transform.forward + transform.up, 200f);
+                        lookedAtObject.GetComponentInParent<Ball>().Kick(this.transform, transform.forward + transform.up, 200f);
                 }
             }
-
         }
     }
 
