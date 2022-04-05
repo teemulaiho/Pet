@@ -54,8 +54,8 @@ public class Pet : MonoBehaviour
     private float senseUpdateInterval = 1f;
 
     private float interactRange = 0.5f;
-    private float followRange = 5f;
-    private float detectionRange = 5f;
+    private float followRange = 3f;
+    private float detectionRange = 8f;
     private float wanderRange = 3f;
 
     private Vector3 previousPos = Vector3.zero;
@@ -69,7 +69,13 @@ public class Pet : MonoBehaviour
     [SerializeField] Animator reactionAnimator;
 
     [SerializeField] SpriteRenderer spriteRenderer;
+
+    // sprite juggling testing
     public float spriteFlipThreshold;
+    public float totalFlipSpriteCount;
+    public float flipSpriteFalseCount;
+    public float flipSpriteTrueCount;
+
 
     float eatingAnimationLength = 0f;
     float idleAnimationLength = 0f;
@@ -82,7 +88,10 @@ public class Pet : MonoBehaviour
     bool noticedPlayer;
     int noticedPlayerOnFrame;
 
+    public float hoverPos = 0.3f;
 
+
+    [SerializeField] Rigidbody rigidbody;
     [SerializeField] SphereCollider collider;
 
     public PetState GetState() { return state; }
@@ -93,6 +102,7 @@ public class Pet : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         spawnPosition = GameObject.FindGameObjectWithTag("SpawnPosition");
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -232,12 +242,16 @@ public class Pet : MonoBehaviour
         }
         else if (state == PetState.FollowPlayer)
         {
+            //reasons to transfer to another state
+            if (ball) // if player throws ball
+                state = PetState.ChaseBall;
+
             if (!player) // if the player disappeared
             {
                 state = PetState.Idle;
                 noticedPlayer = false;
             }
-            else if (Vector3.Distance(transform.position, player.transform.position) > followRange) // temporary reason to stop following
+            else if (Vector3.Distance(transform.position, player.transform.position) > detectionRange) // temporary reason to stop following
             {
                 state = PetState.Idle;
                 noticedPlayer = false;
@@ -270,7 +284,7 @@ public class Pet : MonoBehaviour
             {
                 state = PetState.ChaseBall;
             }
-            else if (player && Vector3.Distance(transform.position, player.transform.position) < followRange)
+            else if (player && Vector3.Distance(transform.position, player.transform.position) < detectionRange)
             {
                 state = PetState.FollowPlayer;
 
@@ -380,8 +394,12 @@ public class Pet : MonoBehaviour
     }
     void MoveTowards(Vector3 targetPosition, float range = 0f)
     {
-        if (Vector3.Distance(transform.position, targetPosition) > interactRange)
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, targetPosition) > range)
+        {
+            Vector3 newPos = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            newPos.y = hoverPos;
+            transform.position = newPos;
+        }
 
 
         //Vector3 direction = (targetPosition - transform.position).normalized;
@@ -448,6 +466,8 @@ public class Pet : MonoBehaviour
 
         Persistent.petStats.intellect += 0.1f;
         Debug.Log("pet intellect: " + Persistent.petStats.intellect);
+
+        rigidbody.velocity = Vector3.zero;
     }
 
     void UpdateHealth()
@@ -510,9 +530,30 @@ public class Pet : MonoBehaviour
         if (!WithinLimits(movementDirection, movementDirectionPreviousFrame, spriteFlipThreshold))
         {
             if (movementDirection > 0)
-                spriteRenderer.flipX = false;
+            {
+                flipSpriteFalseCount++;
+                //spriteRenderer.flipX = false;
+
+            }
             else if (movementDirection < 0)
-                spriteRenderer.flipX = true;
+            {
+                flipSpriteTrueCount++;
+                //spriteRenderer.flipX = true;
+            }
+
+            totalFlipSpriteCount = flipSpriteFalseCount + flipSpriteTrueCount;
+
+            if (totalFlipSpriteCount > 10f)
+            {
+                if (flipSpriteTrueCount / totalFlipSpriteCount > 0.5f)
+                    spriteRenderer.flipX = true;
+                else
+                    spriteRenderer.flipX = false;
+
+                totalFlipSpriteCount = 0f;
+                flipSpriteFalseCount = 0f;
+                flipSpriteTrueCount = 0f;
+            }
         }
 
         if (reactionAnimator)
@@ -593,7 +634,7 @@ public class Pet : MonoBehaviour
         float distance = Random.Range(1f, range);
 
         Vector3 newPos = position + new Vector3(distance * Mathf.Cos(direction), 0, distance * Mathf.Sin(direction));
-        newPos.y = 0.3f;
+        newPos.y = hoverPos;
 
         return newPos;
     }

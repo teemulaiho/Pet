@@ -179,7 +179,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &5392455372623680841
 MonoBehaviour:
@@ -209,6 +209,11 @@ MonoBehaviour:
   reactionAnimator: {fileID: 71881938469167705}
   spriteRenderer: {fileID: 5392455371692587695}
   spriteFlipThreshold: 0
+  totalFlipSpriteCount: 0
+  flipSpriteFalseCount: 0
+  flipSpriteTrueCount: 0
+  hoverPos: 0.3
+  rigidbody: {fileID: 0}
   collider: {fileID: 1877545610}
 --- !u!1 &5392455372772399994
 GameObject:
