@@ -6,10 +6,20 @@ public class Ball : Entity
 {
     public Item itemData;
 
+    public void Kick(Vector3 direction, float force)
+    {
+        rb.AddForce(direction * force);
+    }
+
     public void Nudge(Vector3 direction, float force)
     {
         //rb.AddForce(direction * force);
         //Debug.Log("Ball nudging itself.");
+    }
+
+    public void Pickup()
+    {
+        Destroy(this.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -28,8 +28,16 @@ public class UIController : MonoBehaviour
 
     [Space]
     [Header("Player")]
+    [SerializeField] Transform playerUIActionParent;
     [SerializeField] Image playerActionImage;
+    [SerializeField] TMP_Text playerActionText;
     [SerializeField] Sprite actionSprite;
+
+    [SerializeField] Transform playerUIAction2Parent;
+    [SerializeField] Image playerAction2Background;
+    [SerializeField] Image playerAction2Image;
+    [SerializeField] TMP_Text playerAction2Text;
+    [SerializeField] Sprite action2Sprite;
 
     SettingsMenu settingsMenu;
 
@@ -142,10 +150,44 @@ public class UIController : MonoBehaviour
     {
         if (player.lookedAtObject)
         {
+            if (player.lookedAtObject.CompareTag("Pet"))
+            {
+                playerActionText.text = "Pet";
+            }
+            else if (player.lookedAtObject.CompareTag("Shop"))
+            {
+                playerActionText.text = "Open Shop";
+            }
+            else if (player.lookedAtObject.CompareTag("Event"))
+            {
+                playerActionText.text = "Open Event";
+            }
+            else if (player.lookedAtObject.CompareTag("NPC"))
+            {
+                playerActionText.text = "Talk";
+            }
+            else if (player.lookedAtObject.CompareTag("Ball"))
+            {
+                playerAction2Image.sprite = action2Sprite;
+
+                playerActionText.text = "Pickup";
+                playerAction2Text.text = "Kick";
+
+                playerAction2Image.color = Color.white;
+                playerUIAction2Parent.GetComponent<CanvasGroup>().alpha = 0.75f;
+            }
+
             playerActionImage.sprite = actionSprite;
-            playerActionImage.color = Color.white;
+            playerUIActionParent.GetComponent<CanvasGroup>().alpha = 0.75f;
+            //playerActionImage.color = Color.white;
         }
         else
-            playerActionImage.color = Color.clear;
+        {
+            playerActionText.text = "";
+            playerAction2Text.text = "";
+            playerUIActionParent.GetComponent<CanvasGroup>().alpha = 0f;
+            playerUIAction2Parent.GetComponent<CanvasGroup>().alpha = 0f;
+            //playerActionImage.color = Color.clear;
+        }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8736740573640901532}
   - component: {fileID: 8202602208835729599}
   - component: {fileID: 3955308753183534741}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8202602208835729599}
-  collider: {fileID: 3955308753183534741}
   itemData: {fileID: 11400000, guid: b83f319a31cbc294abbd3acfa9b1f87e, type: 2}
 --- !u!54 &8202602208835729599
 Rigidbody:
@@ -139,7 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8874575902260566928}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8156261449721727583}
   - component: {fileID: 5973952328411908849}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Trigger
   m_TagString: Ball
   m_Icon: {fileID: 0}

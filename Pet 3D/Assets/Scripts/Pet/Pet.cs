@@ -166,6 +166,9 @@ public class Pet : MonoBehaviour
         ball = FindNearest<Ball>();
         food = FindNearest<Food>();
         goal = GameObject.FindGameObjectWithTag("Goal");
+
+        if (rigidbody.velocity != Vector3.zero)
+            rigidbody.velocity = Vector3.zero;
     }
     void Decide()
     {

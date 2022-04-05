@@ -114,7 +114,9 @@ public class Player : MonoBehaviour
         Movement();
 
         if (Input.GetKeyDown(KeyCode.F))
-            Interact();
+            Interact(KeyCode.F);
+        else if (Input.GetKeyDown(KeyCode.E))
+            Interact(KeyCode.E);
     }
 
     private void Movement()
@@ -186,27 +188,48 @@ public class Player : MonoBehaviour
             lookedAtObject = null;
     }
 
-    private void Interact()
+    private void Interact(KeyCode keyPressed)
     {
         if (lookedAtObject)
         {
-            if (lookedAtObject.CompareTag("Pet"))
+            if (keyPressed == KeyCode.F)
             {
-                lookedAtObject.GetComponentInParent<Pet>().PetPet();
+                if (lookedAtObject.CompareTag("Pet"))
+                {
+                    lookedAtObject.GetComponentInParent<Pet>().PetPet();
+                }
+                else if (lookedAtObject.CompareTag("Shop"))
+                {
+                    lookedAtObject.GetComponent<ShopObject>().OpenShop();
+                }
+                else if (lookedAtObject.CompareTag("Event"))
+                {
+                    lookedAtObject.GetComponent<EventObject>().OpenEvents();
+                }
+                else if (lookedAtObject.CompareTag("NPC"))
+                {
+                    //lookedAtObject.GetComponentInParent<NPC>().SetPlayer(this);
+                    lookedAtObject.GetComponentInParent<NPC>().Interact();
+                }
+                else if (lookedAtObject.CompareTag("Ball"))
+                {
+                    if (lookedAtObject.GetComponent<Ball>())
+                        lookedAtObject.GetComponent<Ball>().Pickup();
+                    else if (lookedAtObject.GetComponentInParent<Ball>())
+                        lookedAtObject.GetComponentInParent<Ball>().Pickup();
+                }
             }
-            else if (lookedAtObject.CompareTag("Shop"))
+            else if (keyPressed == KeyCode.E)
             {
-                lookedAtObject.GetComponent<ShopObject>().OpenShop();
+                if (lookedAtObject.CompareTag("Ball"))
+                {
+                    if (lookedAtObject.GetComponent<Ball>())
+                        lookedAtObject.GetComponent<Ball>().Kick(transform.forward + transform.up, 200f); 
+                    else if (lookedAtObject.GetComponentInParent<Ball>())
+                        lookedAtObject.GetComponentInParent<Ball>().Kick(transform.forward + transform.up, 200f);
+                }
             }
-            else if (lookedAtObject.CompareTag("Event"))
-            {
-                lookedAtObject.GetComponent<EventObject>().OpenEvents();
-            }
-            else if (lookedAtObject.CompareTag("NPC"))
-            {
-                //lookedAtObject.GetComponentInParent<NPC>().SetPlayer(this);
-                lookedAtObject.GetComponentInParent<NPC>().Interact();
-            }
+
         }
     }
 
