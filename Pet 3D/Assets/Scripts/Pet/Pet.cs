@@ -219,6 +219,10 @@ public class Pet : MonoBehaviour
                     if (goal) // if there is a goal in the vicinity
                     {
                         Pickup(ball);
+                        if (!ball.hasBounced)
+                        {
+                            NotificationManager.ReceiveNotification(NotificationType.Experience);
+                        }
                         state = PetState.ReturnBall;
                     }
                     else

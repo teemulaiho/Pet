@@ -9,10 +9,15 @@ public class Ball : Entity
     public delegate void OnKickEvent(Transform kicker);
     public event OnKickEvent onKick;
 
+    public bool hasBounced = true;
+
     public void Kick(Transform kicker, Vector3 direction, float force)
     {
-        if (!kicker.CompareTag("Pet"))
+        if (kicker.CompareTag("Player"))
+        {
             this.transform.SetParent(null);
+            hasBounced = false;
+        }
 
         rb.isKinematic = false;
         rb.AddForce(direction * force);
@@ -39,6 +44,7 @@ public class Ball : Entity
             //Debug.Log("collision with ground.");
             //rb.velocity = Vector3.zero;
             //rb.angularVelocity = Vector3.zero;
+            hasBounced = true;
         }
     }
     private void OnTriggerEnter(Collider other)
