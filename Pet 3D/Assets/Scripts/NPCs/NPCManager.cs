@@ -31,11 +31,12 @@ public class NPCManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void EventAvailable()
     {
-        instantiatedNPCList.Add(Instantiate(molePrefab,npcParent));
+        if (instantiatedNPCList.Count == 0)
+            instantiatedNPCList.Add(Instantiate(molePrefab, npcParent));
     }
 }

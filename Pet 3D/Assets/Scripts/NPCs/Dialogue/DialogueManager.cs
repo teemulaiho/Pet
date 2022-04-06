@@ -22,9 +22,12 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] bool isTyping;
     Coroutine typeSentence;
 
+    EventManager eventManager;
+
     private void Awake()
     {
         mouseLock = FindObjectOfType<MouseLock>();
+        eventManager = FindObjectOfType<EventManager>();
     }
 
     // Start is called before the first frame update
@@ -122,7 +125,15 @@ public class DialogueManager : MonoBehaviour
         if (methodType == 0)
         {
             string sceneToLoad = "RaceScene";
-            dialogueChoiceButton.onClick.AddListener(() => SceneLoader.LoadScene(sceneToLoad));
+
+            if (eventManager)
+            {
+                Mole mole = FindObjectOfType<Mole>();
+                if (mole)
+                    dialogueChoiceButton.onClick.AddListener(() => eventManager.StartEvent(mole.GetCurrentEvent()));
+            }
+            //else
+            //    dialogueChoiceButton.onClick.AddListener(() => SceneLoader.LoadScene(sceneToLoad));
         }
     }
 
@@ -150,7 +161,15 @@ public class DialogueManager : MonoBehaviour
             dialogueChoiceButton.GetComponentInChildren<TMP_Text>().text = "Start Battle";
         }
 
-        dialogueChoiceButton.onClick.AddListener(() => SceneLoader.LoadScene(sceneToLoad));
+
+        if (eventManager)
+        {
+            Mole mole = FindObjectOfType<Mole>();
+            if (mole)
+                dialogueChoiceButton.onClick.AddListener(() => eventManager.StartEvent(mole.GetCurrentEvent()));
+        }
+        //else
+        //    dialogueChoiceButton.onClick.AddListener(() => SceneLoader.LoadScene(sceneToLoad));
     }
 
     IEnumerator TypeSentence(string sentence, float typeSpeed, bool activatePlayerChoice)

@@ -26,7 +26,7 @@ public class EventManager : MonoBehaviour
 
         if (Persistent.eventInfoList.Count > 0)
         {
-            foreach(var eventInfo in Persistent.eventInfoList)
+            foreach (var eventInfo in Persistent.eventInfoList)
                 AddEventToQueue(eventInfo);
         }
     }
@@ -72,8 +72,8 @@ public class EventManager : MonoBehaviour
 
     void UpdatePersistentEventList()
     {
-        foreach(var e in eventList)
-            Persistent.AddEvent(e.EventID ,e.GetEventType(), e.EventStartTime);
+        foreach (var e in eventList)
+            Persistent.AddEvent(e.EventID, e.GetEventType(), e.EventStartTime);
     }
 
     void AddEventToQueue()
@@ -165,6 +165,11 @@ public class EventManager : MonoBehaviour
     public void EventAvailable(Event eventAvailable)
     {
         availableEvent = eventAvailable;
-        onEventAvailable(); 
+        onEventAvailable();
+    }
+
+    public Event GetAvailableEvent()
+    {
+        return availableEvent;
     }
 }

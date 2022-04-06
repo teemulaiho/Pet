@@ -42,6 +42,9 @@ public class Mole : NPC
     Coroutine waitCoroutine;
 
     EventManager eventManager;
+    Event currentEvent;
+
+    public Event GetCurrentEvent() { return currentEvent; }
 
     private void Start()
     {
@@ -60,7 +63,7 @@ public class Mole : NPC
         dialogueTrigger = GetComponent<DialogueTrigger>();
 
         eventManager = FindObjectOfType<EventManager>();
-
+        currentEvent = eventManager.GetAvailableEvent();
 
         SetAnimationTransitions();
     }
