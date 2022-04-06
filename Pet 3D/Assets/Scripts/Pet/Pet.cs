@@ -94,6 +94,8 @@ public class Pet : MonoBehaviour
     [SerializeField] Rigidbody rigidbody;
     [SerializeField] SphereCollider collider;
 
+    [SerializeField] Transform feetPos;
+
     public PetState GetState() { return state; }
     public float HealthPercentage { get { return health / maxHealth; } }
     public float EnergyPercentage { get { return energy / maxEnergy; } }
@@ -216,7 +218,6 @@ public class Pet : MonoBehaviour
 
                     Persistent.AddExperience(1f);
                     Persistent.AddIntellect(0.1f);
-
                 }
                 else if (Persistent.petStats.intellect >= 2f) // if you not so dummy
                 {
@@ -236,8 +237,6 @@ public class Pet : MonoBehaviour
 
                         Persistent.AddExperience(1f);
                         Persistent.AddIntellect(0.1f);
-
-
                     }
                 }
             }
@@ -267,7 +266,10 @@ public class Pet : MonoBehaviour
         {
             //reasons to transfer to another state
             if (ball) // if player throws ball
+            {
                 state = PetState.ChaseBall;
+                SpawnSpeedCloud();
+            }
 
             if (!player) // if the player disappeared
             {
@@ -710,5 +712,11 @@ public class Pet : MonoBehaviour
         {
             grabbedObject = null;
         }
+    }
+
+    void SpawnSpeedCloud()
+    {
+        SpeedCloud newCloud = Instantiate(Resources.Load<SpeedCloud>("Prefabs/Effects/SpeedCloud"), feetPos.transform.position, transform.rotation,null);
+        newCloud.Initialize();
     }
 }
