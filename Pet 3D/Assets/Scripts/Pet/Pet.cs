@@ -213,6 +213,10 @@ public class Pet : MonoBehaviour
                 if (Persistent.petStats.intellect < 2f) // if you a dummy
                 {
                     Kick(ball);
+
+                    Persistent.AddExperience(1f);
+                    Persistent.AddIntellect(0.1f);
+
                 }
                 else if (Persistent.petStats.intellect >= 2f) // if you not so dummy
                 {
@@ -221,12 +225,20 @@ public class Pet : MonoBehaviour
                         Pickup(ball);
                         if (!ball.hasBounced)
                         {
-                            NotificationManager.ReceiveNotification(NotificationType.Experience);
+                            Persistent.AddExperience(5f);
+                            NotificationManager.ReceiveNotification(NotificationType.Experience, 5f);
                         }
                         state = PetState.ReturnBall;
                     }
                     else
+                    {
                         Kick(ball);
+
+                        Persistent.AddExperience(1f);
+                        Persistent.AddIntellect(0.1f);
+
+
+                    }
                 }
             }
         }
@@ -474,10 +486,6 @@ public class Pet : MonoBehaviour
         directionVariance.z = Random.Range(-2f, 2f);
 
         entity.rb.AddForce((transform.forward + directionVariance).normalized * Persistent.petStats.strength * 200f);
-
-        Persistent.petStats.intellect += 0.1f;
-        Debug.Log("pet intellect: " + Persistent.petStats.intellect);
-
         rigidbody.velocity = Vector3.zero; // reset pet velocity if it collided with ball. This fixes pet wobbly movement. -Teemu
     }
 

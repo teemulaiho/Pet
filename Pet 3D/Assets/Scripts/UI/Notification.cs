@@ -6,6 +6,7 @@ using TMPro;
 public enum NotificationType
 {
     Experience,
+    LevelUp,
     Count
 }
 
@@ -13,26 +14,24 @@ public class Notification : MonoBehaviour
 {
     [SerializeField] TMP_Text notificationText;
 
+    void Awake()
+    {
+        notificationText = GetComponentInChildren<TMP_Text>();
+    }
+
 
     public void Initialize(string text)
     {
         notificationText.text = text;
     }
 
-    void Awake()
+    public void SetText(string text)
     {
-        notificationText = GetComponentInChildren<TMP_Text>();
+        notificationText.text = text;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void AddText(string textToAdd)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        notificationText.text += textToAdd;
     }
 }

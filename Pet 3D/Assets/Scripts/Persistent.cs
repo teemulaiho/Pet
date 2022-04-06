@@ -50,6 +50,16 @@ public static class Persistent
         petStats.experience += experienceToAdd;
     }
 
+    public static void AddIntellect(float intellectToAdd)
+    {
+        petStats.intellect += intellectToAdd;
+
+        if ((int)petStats.intellect == 2)
+        {
+            NotificationManager.ReceiveNotification(NotificationType.LevelUp, petStats.intellect);
+        }
+    }
+
     public static void AddEvent(int id, EventType type, DateTime eventStartTime)
     {
         foreach (var ei in eventInfoList)

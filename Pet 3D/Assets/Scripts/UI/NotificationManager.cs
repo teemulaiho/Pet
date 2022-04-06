@@ -17,23 +17,30 @@ public class NotificationManager : MonoBehaviour
         notificationList = new List<Notification>();
     }
 
-    public static void ReceiveNotification(NotificationType notificationType)
+    public static void ReceiveNotification(NotificationType notificationType, float value)
     {
-        if (notificationType == NotificationType.Experience)
-        {
-            if (notificationList.Count == 0)
-            {
-                Notification notification = Instantiate(notificationPrefab, notificationParent);
-                notification.Initialize("Nice Catch! + 50xp");
-                notificationList.Add(notification);
-                
-            }
-            else
-            {
-                notificationList[0].Initialize("Nice Catch! + 50xp");
-            }
+        Notification notification;
 
-            notificationAnimator.SetTrigger("Show");
+        if (notificationList.Count == 0)
+        {
+            notification = Instantiate(notificationPrefab, notificationParent);
+            notificationList.Add(notification);
         }
+        else
+            notification = notificationList[0];
+
+        if (notificationType == NotificationType.Experience)
+            notification.Initialize("Nice Catch! " + "+" + value.ToString() + "XP");
+        else if (notificationType == NotificationType.LevelUp)
+        {
+            notification.Initialize("Intellect leveled up to " + value.ToString() + "!");
+
+            if ((int)value == 2)
+            {
+                notification.AddText("\n New Skill: Pet can now catch the ball!");
+            }
+        }
+
+        notificationAnimator.SetTrigger("Show");
     }
 }
