@@ -11,8 +11,12 @@ public class UIController : MonoBehaviour
     private Pet pet;
     private Player player;
 
+    private MouseLock mouseLock;
+
     [Space]
     [Header("Pet Info")]
+    [SerializeField] TMP_Text petName;
+    [SerializeField] TMP_Text petLevel;
     [SerializeField] Slider healthBar;
     [SerializeField] Slider energyBar;
     [SerializeField] TMP_Text petStateText;
@@ -39,15 +43,26 @@ public class UIController : MonoBehaviour
     [SerializeField] TMP_Text playerAction2Text;
     [SerializeField] Sprite action2Sprite;
 
+    [Space]
+    [Header("Other")]
+    [SerializeField] MailBox mailbox; // the gameobject, not the UI object
+
     SettingsMenu settingsMenu;
 
     private void Awake()
     {
+        mouseLock = FindObjectOfType<MouseLock>();
         settingsMenu = FindObjectOfType<SettingsMenu>();
         pet = FindObjectOfType<Pet>();
         player = FindObjectOfType<Player>();
         eventWindow.SetActive(false);
         shopWindow.gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        if (player)
+            player.onGameObjectInteraction += OnObjectInteract;
     }
 
     // Update is called once per frame
@@ -90,6 +105,8 @@ public class UIController : MonoBehaviour
     {
         if (pet)
         {
+            petName.text = Persistent.petStats.name;
+            petLevel.text = Persistent.petStats.level.ToString();
             petStateText.text = pet.GetState().ToString();
             petIntelligence.text = Persistent.petStats.intellect.ToString();
             petStrength.text = Persistent.petStats.strength.ToString();
@@ -176,6 +193,10 @@ public class UIController : MonoBehaviour
                 playerAction2Image.color = Color.white;
                 playerUIAction2Parent.GetComponent<CanvasGroup>().alpha = 0.75f;
             }
+            else if (player.lookedAtObject.CompareTag("Mailbox"))
+            {
+                playerActionText.text = "Open Mailbox";
+            }
 
             playerActionImage.sprite = actionSprite;
             playerUIActionParent.GetComponent<CanvasGroup>().alpha = 0.75f;
@@ -188,6 +209,19 @@ public class UIController : MonoBehaviour
             playerUIActionParent.GetComponent<CanvasGroup>().alpha = 0f;
             playerUIAction2Parent.GetComponent<CanvasGroup>().alpha = 0f;
             //playerActionImage.color = Color.clear;
+        }
+    }
+
+    void OnObjectInteract(string objectInteractedWith)
+    {
+        Debug.Log("Interacted with " + objectInteractedWith);
+
+        if (objectInteractedWith.Contains("Mailbox"))
+        {
+            if (mailbox.ToggleMailBoxUI())
+                mouseLock.ReleaseCursor();
+            else
+                mouseLock.LockCursor();
         }
     }
 }

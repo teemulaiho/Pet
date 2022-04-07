@@ -36,6 +36,7 @@ public static class Persistent
         petStats = new PetStats
         {
             name = "Player Pet",
+            level = 1,
             health = 100f,
             energy = 100f,
             stamina = 2,

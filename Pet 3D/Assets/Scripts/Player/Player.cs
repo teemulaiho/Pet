@@ -36,6 +36,9 @@ public class Player : MonoBehaviour
     public delegate void OnPetCall();
     public event OnPetCall onPetCall;
 
+    public delegate void OnGameObjectInteraction(string objectInteractedWith);
+    public event OnGameObjectInteraction onGameObjectInteraction;
+
     private void Awake()
     {
         // initialize database on game launch
@@ -76,19 +79,20 @@ public class Player : MonoBehaviour
             ReleaseCursor();
         else if (Cursor.lockState == CursorLockMode.Locked)
             LockCursor();
-
     }
 
     public void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
         CanLook = true;
+        CanMove = true;
     }
 
     public void ReleaseCursor()
     {
         Cursor.lockState = CursorLockMode.None;
         CanLook = false;
+        CanMove = false;
     }
 
     void Update()
@@ -235,6 +239,11 @@ public class Player : MonoBehaviour
                     else if (lookedAtObject.GetComponentInParent<Ball>())
                         lookedAtObject.GetComponentInParent<Ball>().Pickup();
                 }
+                else if (lookedAtObject.CompareTag("Mailbox"))
+                {
+                    if (lookedAtObject.transform.parent)
+                        onGameObjectInteraction(lookedAtObject.transform.parent.name);
+                }
             }
             else if (keyPressed == KeyCode.E)
             {
@@ -260,7 +269,7 @@ public class Player : MonoBehaviour
     {
         if (item.item.type == Item.ItemType.Usable)
         {
-            if( item.item.itemName.Contains("Whistle"))
+            if (item.item.itemName.Contains("Whistle"))
             {
                 onPetCall();
             }

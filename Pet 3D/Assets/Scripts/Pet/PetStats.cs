@@ -5,6 +5,7 @@ using UnityEngine;
 public class PetStats
 {
     public string name;
+    public int level;
     public float health;
     public float energy;
     public int stamina;
