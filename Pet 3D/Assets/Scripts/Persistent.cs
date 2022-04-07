@@ -12,6 +12,7 @@ public static class Persistent
     public static ItemDatabase itemDatabase;
     public static PlayerInventory playerInventory;
     public static PetStats petStats;
+    public static PetSkills petSkills;
 
 #if UNITY_EDITOR
     static Persistent()
@@ -35,7 +36,7 @@ public static class Persistent
 
         petStats = new PetStats
         {
-            name = "Player Pet",
+            name = "Pet",
             level = 1,
             health = 100f,
             energy = 100f,
@@ -44,6 +45,15 @@ public static class Persistent
             strength = 1f,
             experience = 0f
         };
+
+        petSkills = new PetSkills
+        {
+            throwSkill = false,
+            catchSkill = false,
+            whistleSkill = false
+        };
+
+        petSkills.Init();
     }
 
     public static void AddExperience(float experienceToAdd)
@@ -57,6 +67,7 @@ public static class Persistent
 
         if ((int)petStats.intellect == 2)
         {
+            petSkills.UnlockSkill("Catch");
             NotificationManager.ReceiveNotification(NotificationType.LevelUp, petStats.intellect);
         }
     }

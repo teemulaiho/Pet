@@ -239,7 +239,9 @@ public class Pet : MonoBehaviour
                 {
                     if (goal) // if there is a goal in the vicinity
                     {
-                        Pickup(ball);
+                        if (Persistent.petSkills.skillDictionary["Catch"])
+                            Pickup(ball);
+
                         if (!ball.hasBounced)
                         {
                             Persistent.AddExperience(5f);
