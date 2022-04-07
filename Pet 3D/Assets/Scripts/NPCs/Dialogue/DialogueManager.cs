@@ -47,6 +47,8 @@ public class DialogueManager : MonoBehaviour
         DeActivatePlayerChoiceButton();
         playerChoiceLine = -1;
         dialogueLines = 0;
+
+        mouseLock.LockCursor();
     }
 
     public void StartDialogue(Dialogue dialogue)

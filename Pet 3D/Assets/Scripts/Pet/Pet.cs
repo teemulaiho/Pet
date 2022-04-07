@@ -56,6 +56,7 @@ public class Pet : MonoBehaviour
     private float interactRange = 0.5f;
     private float followRange = 3f;
     private float detectionRange = 8f;
+    private float callRange = 16f;
     private float wanderRange = 3f;
 
     private Vector3 previousPos = Vector3.zero;
@@ -85,6 +86,7 @@ public class Pet : MonoBehaviour
     Coroutine waitCoroutine;
     bool isWaiting;
 
+    bool calledByPlayer;
     bool noticedPlayer;
     int noticedPlayerOnFrame;
 
@@ -100,9 +102,21 @@ public class Pet : MonoBehaviour
     public float HealthPercentage { get { return health / maxHealth; } }
     public float EnergyPercentage { get { return energy / maxEnergy; } }
 
+    Player Player
+    {
+        get { return player; }
+        set
+        {
+            player = value;
+
+            if (player)
+                player.onPetCall += PlayerCallPet;
+        }
+    }
+
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
+        Player = FindObjectOfType<Player>();
         spawnPosition = GameObject.FindGameObjectWithTag("SpawnPosition");
         rigidbody = GetComponent<Rigidbody>();
     }
@@ -164,7 +178,9 @@ public class Pet : MonoBehaviour
 
     void Sense()
     {
-        player = FindNearest<Player>(detectionRange);
+        if (!calledByPlayer)
+            Player = FindNearest<Player>(detectionRange);
+
         ball = FindNearest<Ball>();
 
         if (ball)
@@ -271,12 +287,17 @@ public class Pet : MonoBehaviour
                 SpawnSpeedCloud();
             }
 
-            if (!player) // if the player disappeared
+            if (!Player) // if the player disappeared
             {
                 state = PetState.Idle;
                 noticedPlayer = false;
             }
-            else if (Vector3.Distance(transform.position, player.transform.position) > detectionRange) // temporary reason to stop following
+            else if (calledByPlayer)
+            {
+                if (Vector3.Distance(transform.position, Player.transform.position) < detectionRange)
+                    calledByPlayer = false;
+            }
+            else if (Vector3.Distance(transform.position, Player.transform.position) > detectionRange) // temporary reason to stop following
             {
                 state = PetState.Idle;
                 noticedPlayer = false;
@@ -305,11 +326,15 @@ public class Pet : MonoBehaviour
                 reactionAnimator.SetTrigger("Sleep");
                 state = PetState.Sleeping;
             }
+            else if (calledByPlayer)
+            {
+                state = PetState.FollowPlayer;
+            }
             else if (ball)
             {
                 state = PetState.ChaseBall;
             }
-            else if (player && Vector3.Distance(transform.position, player.transform.position) < detectionRange)
+            else if (Player && Vector3.Distance(transform.position, Player.transform.position) < detectionRange)
             {
                 state = PetState.FollowPlayer;
 
@@ -399,8 +424,8 @@ public class Pet : MonoBehaviour
     }
     void FollowPlayer()
     {
-        if (player)
-            MoveTowards(player.transform.position, followRange);
+        if (Player)
+            MoveTowards(Player.transform.position, followRange);
     }
     void ChaseBall()
     {
@@ -716,7 +741,16 @@ public class Pet : MonoBehaviour
 
     void SpawnSpeedCloud()
     {
-        SpeedCloud newCloud = Instantiate(Resources.Load<SpeedCloud>("Prefabs/Effects/SpeedCloud"), feetPos.transform.position, transform.rotation,null);
+        SpeedCloud newCloud = Instantiate(Resources.Load<SpeedCloud>("Prefabs/Effects/SpeedCloud"), feetPos.transform.position, transform.rotation, null);
         newCloud.Initialize();
+    }
+
+    void PlayerCallPet()
+    {
+        Player = FindObjectOfType<Player>();
+
+        float dist = Vector3.Distance(transform.position, Player.transform.position);
+        if (dist < callRange)
+            calledByPlayer = true;
     }
 }

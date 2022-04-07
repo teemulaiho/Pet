@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     public bool CanMove { get; set; }
     public bool CanLook { get; set; }
 
+    public delegate void OnPetCall();
+    public event OnPetCall onPetCall;
+
     private void Awake()
     {
         // initialize database on game launch
@@ -40,10 +43,12 @@ public class Player : MonoBehaviour
         {
             Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
             Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
+            Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/WhistleItem"));
         }
 
         Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 10);
         Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Ball"), 10);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Whistle"), 1);
 
         if (hotbar)
             hotbar.Init();
@@ -69,6 +74,9 @@ public class Player : MonoBehaviour
         //CanLook = (Cursor.lockState != CursorLockMode.Locked);
         if (Cursor.lockState == CursorLockMode.None)
             ReleaseCursor();
+        else if (Cursor.lockState == CursorLockMode.Locked)
+            LockCursor();
+
     }
 
     public void LockCursor()
@@ -100,6 +108,15 @@ public class Player : MonoBehaviour
                             itemSpawner.ThrowItem(selectedItem.item, this);
                         else
                             itemSpawner.SpawnItem(selectedItem.item);
+                    }
+                }
+                else if (hotbar.GetSelectedItem().item.type == Item.ItemType.Usable)
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        InventoryItem selectedItem = hotbar.GetSelectedItem();
+
+                        UseItem(selectedItem);
                     }
                 }
             }
@@ -237,5 +254,16 @@ public class Player : MonoBehaviour
         Vector3 eulerRotation = transform.eulerAngles;
         eulerRotation.x = value;
         transform.eulerAngles = eulerRotation;
+    }
+
+    private void UseItem(InventoryItem item)
+    {
+        if (item.item.type == Item.ItemType.Usable)
+        {
+            if( item.item.itemName.Contains("Whistle"))
+            {
+                onPetCall();
+            }
+        }
     }
 }

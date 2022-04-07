@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     {
         Default,
         Spawnable,
+        Usable
     }
 
     public string itemName;
