@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    // Debug
+    [SerializeField] GameObject debugPointer;
+    [SerializeField] GameObject debugPointerTip;
+    // Debug end
+
     MouseLock mouseLock;
 
     public float walkSpeed;
@@ -41,9 +46,18 @@ public class Player : MonoBehaviour
 
     float maxThrowPower = 40f;
     public float MaxThrowPower { get { return maxThrowPower; } }
+
+    bool leftMouseDown;
+
+    Vector3 forwardOnFrameMouseDown;
+    Vector3 mousePosInWorldSpaceOnFrameMouseDown;
+
     public float MouseLeftButtonHoldFrameCount { get; set; }
     public delegate void OnMouseLeftButtonHold(float currentValue);
     public event OnMouseLeftButtonHold onMouseLeftButtonHold;
+
+    public delegate void OnAim(Vector3 aimDirection);
+    public event OnAim onAim;
 
     private void Awake()
     {
@@ -103,6 +117,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            if (!leftMouseDown)
+            {
+                leftMouseDown = true;
+                forwardOnFrameMouseDown = transform.forward;
+            }
+        }
+
         if (hotbar)
         {
             if (hotbar.GetSelectedItem() != null)
@@ -113,6 +136,7 @@ public class Player : MonoBehaviour
 
                     if (Input.GetMouseButton(0))
                     {
+                        leftMouseDown = true;
                         MouseLeftButtonHoldFrameCount++; // Hold down for more power!
                         onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
                     }
@@ -129,9 +153,11 @@ public class Player : MonoBehaviour
                     {
                         InventoryItem selectedItem = hotbar.GetSelectedItem();
 
-                        itemSpawner.ThrowItem(selectedItem.item, this);
+                        itemSpawner.ThrowItem(selectedItem.item, this, debugPointer.transform.forward);
                         MouseLeftButtonHoldFrameCount = 0;
                         onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
+                        onAim(Vector3.zero);
+                        leftMouseDown = false;
                     }
                 }
                 else if (hotbar.GetSelectedItem().item.type == Item.ItemType.Usable)
@@ -146,6 +172,13 @@ public class Player : MonoBehaviour
             }
         }
 
+        CanLook = !leftMouseDown;
+
+        if (leftMouseDown)
+        {
+            MouseAim();
+        }
+
         if (CanLook)
         {
             MouseLook();
@@ -158,6 +191,14 @@ public class Player : MonoBehaviour
             Interact(KeyCode.F);
         else if (Input.GetKeyDown(KeyCode.E))
             Interact(KeyCode.E);
+
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            leftMouseDown = false;
+            debugPointer.transform.rotation = transform.rotation;
+            onAim(Vector3.zero);
+        }
     }
 
     private void Movement()
@@ -217,6 +258,18 @@ public class Player : MonoBehaviour
 
         playerCamera.transform.Rotate(Vector3.left * mouseY);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    public void MouseAim()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        debugPointer.transform.Rotate(Vector3.left * mouseY);
+        debugPointer.transform.Rotate(Vector3.up * mouseX);
+
+        //onAim(debugPointer.transform.forward);
+        onAim(Camera.main.WorldToScreenPoint(debugPointerTip.transform.position));
     }
 
     private void LookCast()
