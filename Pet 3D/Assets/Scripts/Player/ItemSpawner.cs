@@ -52,6 +52,7 @@ public class ItemSpawner : MonoBehaviour
 
         Vector3 forceToAdd = player.transform.forward;
         forceToAdd *= 500f;
+        forceToAdd *= Mathf.Clamp(player.MouseLeftButtonHoldFrameCount * 0.1f, 1f, player.MaxThrowPower);
         newGo.GetComponent<Rigidbody>().AddForce(forceToAdd);
     }
 

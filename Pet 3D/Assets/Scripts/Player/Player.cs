@@ -39,6 +39,12 @@ public class Player : MonoBehaviour
     public delegate void OnGameObjectInteraction(string objectInteractedWith);
     public event OnGameObjectInteraction onGameObjectInteraction;
 
+    float maxThrowPower = 40f;
+    public float MaxThrowPower { get { return maxThrowPower; } }
+    public float MouseLeftButtonHoldFrameCount { get; set; }
+    public delegate void OnMouseLeftButtonHold(float currentValue);
+    public event OnMouseLeftButtonHold onMouseLeftButtonHold;
+
     private void Awake()
     {
         // initialize database on game launch
@@ -104,14 +110,28 @@ public class Player : MonoBehaviour
                 if (hotbar.GetSelectedItem().item.type == Item.ItemType.Spawnable)
                 {
                     itemSpawner.Track(true);
+
+                    if (Input.GetMouseButton(0))
+                    {
+                        MouseLeftButtonHoldFrameCount++; // Hold down for more power!
+                        onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
+                    }
+
                     if (Input.GetMouseButtonDown(0))
                     {
                         InventoryItem selectedItem = hotbar.GetSelectedItem();
 
-                        if (selectedItem.item.name.Contains("Ball"))
-                            itemSpawner.ThrowItem(selectedItem.item, this);
-                        else
+                        if (!selectedItem.item.name.Contains("Ball"))
                             itemSpawner.SpawnItem(selectedItem.item);
+                    }
+
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        InventoryItem selectedItem = hotbar.GetSelectedItem();
+
+                        itemSpawner.ThrowItem(selectedItem.item, this);
+                        MouseLeftButtonHoldFrameCount = 0;
+                        onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
                     }
                 }
                 else if (hotbar.GetSelectedItem().item.type == Item.ItemType.Usable)
