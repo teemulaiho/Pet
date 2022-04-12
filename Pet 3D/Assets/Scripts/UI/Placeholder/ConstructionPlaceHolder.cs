@@ -19,15 +19,19 @@ public class ConstructionPlaceHolder : MonoBehaviour
         moveableArea = this.GetComponent<RectTransform>();
         mask = transform.GetChild(0);
 
-        for (int i = 0; i< mask.childCount; i++)
+        for (int i = 0; i < mask.childCount; i++)
         {
             if (mask.GetChild(i).name.Contains("ObjectToMove"))
                 objectToMove = mask.GetChild(i).GetComponent<RectTransform>();
         }
 
         objectToMoveSpriteList = new List<Sprite>();
-        objectToMoveSpriteList.AddRange(Resources.LoadAll<Sprite>("Sprites/UI/PlaceHolder"));
+        objectToMoveSpriteList.AddRange(Resources.LoadAll<Sprite>("Sprites/UI/PlaceHolder/Color"));
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         if (objectToMoveSpriteList.Count == 0)
         {
             objectToMove.GetComponentInChildren<Image>().sprite = defaultSprite;
@@ -39,11 +43,6 @@ public class ConstructionPlaceHolder : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -51,11 +50,18 @@ public class ConstructionPlaceHolder : MonoBehaviour
         nextPos.x -= speed * Time.deltaTime;
         objectToMove.anchoredPosition = nextPos;
 
-        if(objectToMove.anchoredPosition.x <= -moveableArea.rect.width)
+        if (objectToMove.anchoredPosition.x <= -moveableArea.rect.width)
         {
             nextPos = objectToMove.anchoredPosition;
             nextPos.x = moveableArea.rect.width;
             objectToMove.anchoredPosition = nextPos;
         }
+    }
+
+    private void OnDisable()
+    {
+        nextPos = objectToMove.anchoredPosition;
+        nextPos.x = moveableArea.rect.width;
+        objectToMove.anchoredPosition = nextPos;
     }
 }

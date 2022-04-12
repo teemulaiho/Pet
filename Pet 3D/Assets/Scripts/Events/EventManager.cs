@@ -10,7 +10,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] Transform eventParentTransform;
 
     List<Event> eventList;
-    int maxEventsInQueue = 3;
+    int maxEventsInQueue = 1;
 
     int eventCounter = 0;
 
