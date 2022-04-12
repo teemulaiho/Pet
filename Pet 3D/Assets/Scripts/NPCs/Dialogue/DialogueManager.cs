@@ -110,7 +110,7 @@ public class DialogueManager : MonoBehaviour
     void ActivatePlayerChoiceButton()
     {
         dialogueChoiceButton.gameObject.SetActive(true);
-        mouseLock.ReleaseCursor();
+        mouseLock.ReleaseCursor(false);
     }
 
     void DeActivatePlayerChoiceButton()

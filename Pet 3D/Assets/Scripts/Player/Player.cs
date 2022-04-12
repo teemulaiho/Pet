@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
 
     public bool CanMove { get; set; }
     public bool CanLook { get; set; }
+    public bool CanAim { get; set; }
 
     public delegate void OnPetCall();
     public event OnPetCall onPetCall;
@@ -48,9 +49,6 @@ public class Player : MonoBehaviour
     public float MaxThrowPower { get { return maxThrowPower; } }
 
     bool leftMouseDown;
-
-    Vector3 forwardOnFrameMouseDown;
-    Vector3 mousePosInWorldSpaceOnFrameMouseDown;
 
     public float MouseLeftButtonHoldFrameCount { get; set; }
     public delegate void OnMouseLeftButtonHold(float currentValue);
@@ -119,11 +117,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            if (!leftMouseDown)
-            {
-                leftMouseDown = true;
-                forwardOnFrameMouseDown = transform.forward;
-            }
+            leftMouseDown = true;
         }
 
         if (hotbar)
@@ -136,9 +130,17 @@ public class Player : MonoBehaviour
 
                     if (Input.GetMouseButton(0))
                     {
-                        leftMouseDown = true;
-                        MouseLeftButtonHoldFrameCount++; // Hold down for more power!
-                        onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
+
+
+                        if (hotbar.GetSelectedItem().item.name.Contains("Ball"))
+                        {
+                            CanAim = true;
+
+                            if (leftMouseDown)
+                            {
+                                mouseLock.ReleaseCursor(true);
+                            }
+                        }
                     }
 
                     if (Input.GetMouseButtonDown(0))
@@ -148,16 +150,18 @@ public class Player : MonoBehaviour
                         if (!selectedItem.item.name.Contains("Ball"))
                             itemSpawner.SpawnItem(selectedItem.item);
                     }
-
-                    if (Input.GetMouseButtonUp(0))
+                    else if (Input.GetMouseButtonUp(0))
                     {
                         InventoryItem selectedItem = hotbar.GetSelectedItem();
 
-                        itemSpawner.ThrowItem(selectedItem.item, this, debugPointer.transform.forward);
-                        MouseLeftButtonHoldFrameCount = 0;
-                        onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
-                        onAim(Vector3.zero);
-                        leftMouseDown = false;
+                        if (selectedItem.item.name.Contains("Ball"))
+                        {
+                            itemSpawner.ThrowItem(selectedItem.item, this, debugPointer.transform.forward);
+                            MouseLeftButtonHoldFrameCount = 0;
+                            onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
+                            onAim(Vector3.zero);
+                            leftMouseDown = false;
+                        }
                     }
                 }
                 else if (hotbar.GetSelectedItem().item.type == Item.ItemType.Usable)
@@ -172,10 +176,13 @@ public class Player : MonoBehaviour
             }
         }
 
-        CanLook = !leftMouseDown;
+        CanLook = !CanAim;
 
-        if (leftMouseDown)
+        if (leftMouseDown && CanAim)
         {
+            MouseLeftButtonHoldFrameCount++; // Hold down for more power!
+            onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
+
             MouseAim();
         }
 
@@ -196,8 +203,10 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             leftMouseDown = false;
+            CanAim = false;
             debugPointer.transform.rotation = transform.rotation;
             onAim(Vector3.zero);
+            mouseLock.LockCursor();
         }
     }
 
@@ -268,8 +277,7 @@ public class Player : MonoBehaviour
         debugPointer.transform.Rotate(Vector3.left * mouseY);
         debugPointer.transform.Rotate(Vector3.up * mouseX);
 
-        //onAim(debugPointer.transform.forward);
-        onAim(Camera.main.WorldToScreenPoint(debugPointerTip.transform.position));
+        onAim(Input.mousePosition);
     }
 
     private void LookCast()

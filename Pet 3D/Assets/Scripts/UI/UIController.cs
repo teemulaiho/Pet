@@ -219,7 +219,7 @@ public class UIController : MonoBehaviour
         if (objectInteractedWith.Contains("Mailbox"))
         {
             if (mailbox.ToggleMailBoxUI())
-                mouseLock.ReleaseCursor();
+                mouseLock.ReleaseCursor(false);
             else
                 mouseLock.LockCursor();
         }

@@ -12,9 +12,10 @@ public class MouseLock : MonoBehaviour
         onMouseLockStateChange();
     }
 
-    public void ReleaseCursor()
+    public void ReleaseCursor(bool hideCursor)
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = hideCursor;
         onMouseLockStateChange();
     }
 }

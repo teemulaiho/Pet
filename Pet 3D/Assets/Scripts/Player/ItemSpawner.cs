@@ -59,7 +59,7 @@ public class ItemSpawner : MonoBehaviour
 
         float forceToAdd = 1f;
         forceToAdd *= 500f;
-        forceToAdd *= Mathf.Clamp(player.MouseLeftButtonHoldFrameCount * 0.025f, 1f, player.MaxThrowPower);
+        forceToAdd *= Mathf.Clamp(player.MouseLeftButtonHoldFrameCount * 0.015f, 1f, player.MaxThrowPower);
         newGo.GetComponent<Rigidbody>().AddForce(forceDirection * forceToAdd);
     }
 
