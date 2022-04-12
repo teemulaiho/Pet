@@ -174,10 +174,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        CanLook = !CanAim;
-
         if (leftMouseDown && CanAim)
         {
+            CanLook = !CanAim;
+
             MouseLeftButtonHoldTime += Time.unscaledDeltaTime; // Hold down for more power!
             onMouseLeftButtonHold(MouseLeftButtonHoldTime);
 
@@ -201,10 +201,14 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             leftMouseDown = false;
-            CanAim = false;
-            debugPointer.transform.rotation = transform.rotation;
-            onAim(Vector3.zero);
-            mouseLock.LockCursor();
+
+            if (CanAim)
+            {
+                CanAim = false;
+                debugPointer.transform.rotation = transform.rotation;
+                onAim(Vector3.zero);
+                mouseLock.LockCursor();
+            }
         }
     }
 
