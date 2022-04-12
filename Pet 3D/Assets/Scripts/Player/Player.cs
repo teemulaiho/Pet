@@ -45,12 +45,12 @@ public class Player : MonoBehaviour
     public delegate void OnGameObjectInteraction(string objectInteractedWith);
     public event OnGameObjectInteraction onGameObjectInteraction;
 
-    float maxThrowPower = 40f;
+    float maxThrowPower = 4f;
     public float MaxThrowPower { get { return maxThrowPower; } }
 
     bool leftMouseDown;
 
-    public float MouseLeftButtonHoldFrameCount { get; set; }
+    public float MouseLeftButtonHoldTime { get; set; }
     public delegate void OnMouseLeftButtonHold(float currentValue);
     public event OnMouseLeftButtonHold onMouseLeftButtonHold;
 
@@ -128,10 +128,8 @@ public class Player : MonoBehaviour
                 {
                     itemSpawner.Track(true);
 
-                    if (Input.GetMouseButton(0))
+                    if (Input.GetMouseButtonDown(0))
                     {
-
-
                         if (hotbar.GetSelectedItem().item.name.Contains("Ball"))
                         {
                             CanAim = true;
@@ -157,8 +155,8 @@ public class Player : MonoBehaviour
                         if (selectedItem.item.name.Contains("Ball"))
                         {
                             itemSpawner.ThrowItem(selectedItem.item, this, debugPointer.transform.forward);
-                            MouseLeftButtonHoldFrameCount = 0;
-                            onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
+                            MouseLeftButtonHoldTime = 0;
+                            onMouseLeftButtonHold(MouseLeftButtonHoldTime);
                             onAim(Vector3.zero);
                             leftMouseDown = false;
                         }
@@ -180,8 +178,8 @@ public class Player : MonoBehaviour
 
         if (leftMouseDown && CanAim)
         {
-            MouseLeftButtonHoldFrameCount++; // Hold down for more power!
-            onMouseLeftButtonHold(MouseLeftButtonHoldFrameCount);
+            MouseLeftButtonHoldTime += Time.unscaledDeltaTime; // Hold down for more power!
+            onMouseLeftButtonHold(MouseLeftButtonHoldTime);
 
             MouseAim();
         }
