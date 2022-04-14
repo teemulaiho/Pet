@@ -10,6 +10,13 @@ public class Ball : Entity
     public event OnKickEvent onKick;
 
     public bool hasBounced = true;
+    private bool _isGhost;
+
+    public void Throw(Vector3 startPos, Vector3 direction, float force, bool isGhost)
+    {
+        _isGhost = isGhost;
+        GetComponent<Rigidbody>().AddForce(direction * force);
+    }
 
     public void Kick(Transform kicker, Vector3 direction, float force)
     {
@@ -39,6 +46,9 @@ public class Ball : Entity
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (_isGhost)
+            return;
+
         if (collision.collider.CompareTag("Ground"))
         {
             //Debug.Log("collision with ground.");
@@ -49,6 +59,9 @@ public class Ball : Entity
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (_isGhost)
+            return;
+
         if (other.CompareTag("DropCatcher"))
         {
             Debug.Log("Ball OnTriggerEnter With DropCatcher.");
@@ -58,10 +71,12 @@ public class Ball : Entity
 
     private void OnCollisionStay(Collision collision)
     {
+        if (_isGhost)
+            return;
+
         if (collision.gameObject.CompareTag("Pet"))
         {
             Nudge(Vector3.up, 20f);
         }
     }
-
 }

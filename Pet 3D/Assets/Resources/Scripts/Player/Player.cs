@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     // Debug
-    [SerializeField] GameObject debugPointer;
-    [SerializeField] GameObject debugPointerTip;
+    [SerializeField] public GameObject debugPointer;
+    [SerializeField] public GameObject debugPointerTip;
     // Debug end
+
+    [SerializeField] private Trajectory _trajectory;
 
     MouseLock mouseLock;
 
@@ -182,6 +184,7 @@ public class Player : MonoBehaviour
             onMouseLeftButtonHold(MouseLeftButtonHoldTime);
 
             MouseAim();
+            _trajectory.SimulateTrajectory(hotbar.GetSelectedItem().item, GetThrowStartPos(), GetThrowDirection() * GetThrowForce());
         }
 
         if (CanLook)
@@ -208,6 +211,7 @@ public class Player : MonoBehaviour
                 debugPointer.transform.rotation = transform.rotation;
                 onAim(Vector3.zero);
                 mouseLock.LockCursor();
+                _trajectory.RemoveTrajectory();
             }
         }
     }
@@ -357,5 +361,23 @@ public class Player : MonoBehaviour
                 onPetCall();
             }
         }
+    }
+
+    public Vector3 GetThrowStartPos()
+    {
+        return debugPointerTip.transform.position;
+    }
+
+    public Vector3 GetThrowDirection()
+    {
+        if (debugPointer.transform.forward.magnitude > 0)
+            return debugPointer.transform.forward;
+        else
+            return transform.forward;
+    }
+
+    public float GetThrowForce()
+    {
+        return 500f * Mathf.Clamp(MouseLeftButtonHoldTime * 0.5f, 1f, MaxThrowPower);
     }
 }
