@@ -39,8 +39,7 @@ public class Trajectory : MonoBehaviour
     {
         foreach (var item in _spawnedObjects)
         {
-            item.Value.position = item.Key.position;
-            item.Value.rotation = item.Key.rotation;
+            item.Value.SetPositionAndRotation(item.Key.position,item.Key.rotation);
         }
     }
 
@@ -56,6 +55,7 @@ public class Trajectory : MonoBehaviour
         {
             ball.Throw(player.debugPointerTip.transform.position, player.GetThrowDirection(), player.GetThrowForce(), true);
         }
+
         _line.positionCount = _maxPhysicsFrameIterations;
 
         for (int i = 0; i < _maxPhysicsFrameIterations; i++)
