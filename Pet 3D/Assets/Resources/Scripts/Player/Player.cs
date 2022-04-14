@@ -180,7 +180,7 @@ public class Player : MonoBehaviour
         {
             CanLook = !CanAim;
 
-            MouseLeftButtonHoldTime += Time.unscaledDeltaTime; // Hold down for more power!
+            MouseLeftButtonHoldTime = Mathf.Clamp(MouseLeftButtonHoldTime += Time.unscaledDeltaTime, 0f, maxThrowPower); // Hold down for more power!
             onMouseLeftButtonHold(MouseLeftButtonHoldTime);
 
             MouseAim();
