@@ -7,6 +7,7 @@ using TMPro;
 public class RaceManager : MonoBehaviour
 {
     private Camera cam;
+    private CameraController camController;
     private Vector3 camStartPosition;
     private Vector3 camTargetPosition;
     public Transform finishLine;
@@ -33,6 +34,7 @@ public class RaceManager : MonoBehaviour
     private void Awake()
     {
         cam = Camera.main;
+        camController = cam.GetComponent<CameraController>();
         camStartPosition = cam.transform.position;
         camTargetPosition = cam.transform.position;
 
@@ -71,6 +73,16 @@ public class RaceManager : MonoBehaviour
 
         raceTimer = 0f;
         racersFinished = 0;
+
+        int racerCount = 0;
+        foreach(var racer in racers)
+        {
+            camController.AddFollowCollider(racer.GetComponent<Collider2D>());
+            racerCount++;
+
+            if (racerCount == racers.Length)
+                camController.cameraSetOrthographicSize = true;
+        }
     }
 
     private void Update()
