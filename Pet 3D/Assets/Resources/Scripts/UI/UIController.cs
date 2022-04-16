@@ -47,12 +47,12 @@ public class UIController : MonoBehaviour
     [Header("Other")]
     [SerializeField] MailBox mailbox; // the gameobject, not the UI object
 
-    SettingsMenu settingsMenu;
+    PauseMenu pauseMenu;
 
     private void Awake()
     {
         mouseLock = FindObjectOfType<MouseLock>();
-        settingsMenu = FindObjectOfType<SettingsMenu>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
         pet = FindObjectOfType<Pet>();
         player = FindObjectOfType<Player>();
         eventWindow.SetActive(false);
@@ -81,15 +81,15 @@ public class UIController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (!settingsMenu.SettingsWindowOpen())
+            if (!pauseMenu.SettingsWindowOpen())
             {
                 OnWindowOpen();
-                settingsMenu.ToggleSettingsUI();
+                pauseMenu.ToggleSettingsUI();
             }
-            else if (settingsMenu.SettingsWindowOpen())
+            else if (pauseMenu.SettingsWindowOpen())
             {
                 OnWindowClose();
-                settingsMenu.ToggleSettingsUI();
+                pauseMenu.ToggleSettingsUI();
             }
         }
     }

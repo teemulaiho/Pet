@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     CanvasGroup canvasGroup;
     Button quitButton;
