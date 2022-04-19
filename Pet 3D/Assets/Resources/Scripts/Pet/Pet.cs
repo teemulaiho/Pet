@@ -181,7 +181,9 @@ public class Pet : MonoBehaviour
         if (!calledByPlayer)
             Player = FindNearest<Player>(detectionRange);
 
-        ball = FindNearest<Ball>();
+        var newBall = FindNearest<Ball>();
+        if (newBall && !newBall._isGhost)
+            ball = newBall;
 
         if (ball)
             ball.onKick += OnBallKickEvent;
@@ -374,40 +376,40 @@ public class Pet : MonoBehaviour
         switch (state)
         {
             case PetState.Idle:
-            {
-                Wander();
-                break;
-            }
+                {
+                    Wander();
+                    break;
+                }
             case PetState.Sleeping:
-            {
-                Sleep();
-                break;
-            }
+                {
+                    Sleep();
+                    break;
+                }
             case PetState.FollowPlayer:
-            {
-                FollowPlayer();
-                break;
-            }
+                {
+                    FollowPlayer();
+                    break;
+                }
             case PetState.ChaseBall:
-            {
-                ChaseBall();
-                break;
-            }
+                {
+                    ChaseBall();
+                    break;
+                }
             case PetState.ReturnBall:
-            {
-                ReturnBall();
-                break;
-            }
+                {
+                    ReturnBall();
+                    break;
+                }
             case PetState.GoToFood:
-            {
-                GoToFood();
-                break;
-            }
+                {
+                    GoToFood();
+                    break;
+                }
             case PetState.Eating:
-            {
-                Eat();
-                break;
-            }
+                {
+                    Eat();
+                    break;
+                }
         }
     }
     void Sleep()

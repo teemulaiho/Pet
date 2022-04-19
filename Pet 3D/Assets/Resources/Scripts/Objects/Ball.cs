@@ -10,7 +10,7 @@ public class Ball : Entity
     public event OnKickEvent onKick;
 
     public bool hasBounced = true;
-    private bool _isGhost;
+    public bool _isGhost;
 
     public void Throw(Vector3 startPos, Vector3 direction, float force, bool isGhost)
     {

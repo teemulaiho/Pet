@@ -231,7 +231,9 @@ public class Mole : NPC
     {
         dialogueInitiated = false;
         moleState = MoleState.Moving;
-        dialogueTrigger.CloseDialoge();
+
+        if (dialogueInitiated)
+            dialogueTrigger.CloseDialoge();
     }
 
     public override void Interact()
