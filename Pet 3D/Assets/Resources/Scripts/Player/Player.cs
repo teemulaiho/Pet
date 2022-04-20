@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     public delegate void OnPetCall();
     public event OnPetCall onPetCall;
 
-    public delegate void OnGameObjectInteraction(string objectInteractedWith);
+    public delegate void OnGameObjectInteraction(GameObject objectInteractedWith);
     public event OnGameObjectInteraction onGameObjectInteraction;
 
     float maxThrowPower = 4f;
@@ -329,7 +329,7 @@ public class Player : MonoBehaviour
                 else if (lookedAtObject.CompareTag("Mailbox"))
                 {
                     if (lookedAtObject.transform.parent)
-                        onGameObjectInteraction(lookedAtObject.transform.parent.name);
+                        onGameObjectInteraction(lookedAtObject.transform.parent.gameObject);
                 }
             }
             else if (keyPressed == KeyCode.E)

@@ -46,8 +46,13 @@ public class UIController : MonoBehaviour
     [Space]
     [Header("Other")]
     [SerializeField] MailBox mailbox; // the gameobject, not the UI object
+    
+    MailBoxManager mailBoxManager;
+    SkillTreeManager skillTreeManager;
 
     PauseMenu pauseMenu;
+
+    List<GameObject> openWindows;
 
     private void Awake()
     {
@@ -55,12 +60,21 @@ public class UIController : MonoBehaviour
         pauseMenu = FindObjectOfType<PauseMenu>();
         pet = FindObjectOfType<Pet>();
         player = FindObjectOfType<Player>();
+
+        mailBoxManager = FindObjectOfType<MailBoxManager>();
+        skillTreeManager = FindObjectOfType<SkillTreeManager>();
+
         eventWindow.SetActive(false);
         shopWindow.gameObject.SetActive(false);
+
+        openWindows = new List<GameObject>();
     }
 
     private void Start()
     {
+        mailBoxManager.gameObject.SetActive(false);
+        skillTreeManager.gameObject.SetActive(false);
+
         if (player)
             player.onGameObjectInteraction += OnObjectInteract;
     }
@@ -127,6 +141,36 @@ public class UIController : MonoBehaviour
             fillImage.color = Color.Lerp(Color.red, Color.yellow, slider.value * 2.0f);
     }
 
+    public void OpenUIWindow(GameObject windowToOpen)
+    {
+        windowToOpen.gameObject.SetActive(true);
+
+        if (!openWindows.Contains(windowToOpen))
+            openWindows.Add(windowToOpen);
+
+        OnWindowOpen();
+    }
+
+    public void CloseUIWindw(GameObject windowToClose, bool closeAllOpenWindows)
+    {
+        if (closeAllOpenWindows)
+        {
+            foreach (var window in openWindows)
+                window.gameObject.SetActive(false);
+
+            openWindows.Clear();
+        }
+        else
+        {
+            windowToClose.gameObject.SetActive(false);
+
+            if (openWindows.Contains(windowToClose))
+                openWindows.Remove(windowToClose);
+        }
+
+        if (openWindows.Count == 0)
+            OnWindowClose();
+    }
     public void OpenShopWindow()
     {
         shopWindow.gameObject.SetActive(true);
@@ -212,16 +256,21 @@ public class UIController : MonoBehaviour
         }
     }
 
-    void OnObjectInteract(string objectInteractedWith)
+    void OnObjectInteract(GameObject objectInteractedWith)
     {
-        Debug.Log("Interacted with " + objectInteractedWith);
+        Debug.Log("Interacted with " + objectInteractedWith.name);
 
-        if (objectInteractedWith.Contains("Mailbox"))
+        if (objectInteractedWith.name.Contains("Mailbox"))
         {
-            if (mailbox.ToggleMailBoxUI())
-                mouseLock.ReleaseCursor(false);
+            if (mailBoxManager.gameObject.activeSelf)
+                CloseUIWindw(mailBoxManager.gameObject, true);
             else
-                mouseLock.LockCursor();
+                OpenUIWindow(mailBoxManager.gameObject);
+
+            //if (mailbox.ToggleMailBoxUI())
+            //    mouseLock.ReleaseCursor(false);
+            //else
+            //    mouseLock.LockCursor();
         }
     }
 }

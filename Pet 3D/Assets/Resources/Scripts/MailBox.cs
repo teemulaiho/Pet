@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MailBox : MonoBehaviour
 {
+    UIController uiController;
+
     [SerializeField] Transform mailBoxUI;
     [SerializeField] Transform skillTreeUI;
     string newName;
@@ -16,6 +18,11 @@ public class MailBox : MonoBehaviour
 
     public delegate void OnWindowToggle(Transform toggledObject);
     public event OnWindowToggle onWindowToggle;
+
+    private void Awake()
+    {
+        uiController = FindObjectOfType<UIController>();
+    }
 
     private void Start()
     {
@@ -45,10 +52,10 @@ public class MailBox : MonoBehaviour
     
     public void ToggleSkillTreeUI()
     {
-        skillTreeUI.gameObject.SetActive(!skillTreeUI.gameObject.activeSelf);
+        uiController.OpenUIWindow(skillTreeUI.gameObject);
 
-        onWindowToggle(skillTreeUI);
-        //return skillTreeUI.gameObject.activeSelf;
+        //skillTreeUI.gameObject.SetActive(!skillTreeUI.gameObject.activeSelf);
+        //onWindowToggle(skillTreeUI);
     }
 
     private void WindowOpenEvent(Transform openedObject)
