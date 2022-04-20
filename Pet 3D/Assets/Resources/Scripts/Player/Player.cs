@@ -308,15 +308,14 @@ public class Player : MonoBehaviour
                 }
                 else if (lookedAtObject.CompareTag("Shop"))
                 {
-                    lookedAtObject.GetComponent<ShopObject>().OpenShop();
+                    lookedAtObject.GetComponent<ShopObject>().Toggle();
                 }
                 else if (lookedAtObject.CompareTag("Event"))
                 {
-                    lookedAtObject.GetComponent<EventObject>().OpenEvents();
+                    lookedAtObject.GetComponent<EventObject>().Toggle();
                 }
                 else if (lookedAtObject.CompareTag("NPC"))
                 {
-                    //lookedAtObject.GetComponentInParent<NPC>().SetPlayer(this);
                     lookedAtObject.GetComponentInParent<NPC>().Interact();
                 }
                 else if (lookedAtObject.CompareTag("Ball"))

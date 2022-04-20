@@ -4,11 +4,35 @@ using UnityEngine;
 
 public class EventObject : MonoBehaviour
 {
-    [SerializeField] UIController uIController;
+    UIController uiController;
+    EventWindow eventWindow;
+    bool _isOpen;
 
-    public void OpenEvents()
+    private void Awake()
     {
-        if (uIController != null)
-            uIController.OpenEventWindow();
+        uiController = FindObjectOfType<UIController>();
+        eventWindow = FindObjectOfType<EventWindow>();
+    }
+
+    private void Start()
+    {
+        if (eventWindow)
+            eventWindow.onWindowClose += OnWindowClose;
+    }
+
+    public void Toggle()
+    {
+        if (uiController)
+        {
+            if (!_isOpen)
+                _isOpen = uiController.OpenUIWindow(this.gameObject);
+            else
+                _isOpen = uiController.CloseUIWindw(this.gameObject);
+        }
+    }
+
+    void OnWindowClose(bool isOpen)
+    {
+        _isOpen = isOpen;
     }
 }

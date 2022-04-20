@@ -5,14 +5,33 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    UIController uiController;
     CanvasGroup canvasGroup;
     Button quitButton;
 
+    private void OnEnable()
+    {
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    private void OnDisable()
+    {
+        canvasGroup.alpha = 0f;
+        canvasGroup.blocksRaycasts = false;
+    }
+
     private void Awake()
     {
+        uiController = FindObjectOfType<UIController>();
         canvasGroup = GetComponent<CanvasGroup>();
         quitButton = GetComponentInChildren<Button>();
         quitButton.onClick.AddListener(QuitGame);
+    }
+
+    private void Start()
+    {
+        GetComponentInChildren<UIButton>().close += Close;
     }
 
     void QuitGame()
@@ -25,21 +44,8 @@ public class PauseMenu : MonoBehaviour
         return canvasGroup.alpha == 1f;
     }
 
-    public void ToggleSettingsUI()
+    void Close()
     {
-        if (canvasGroup.alpha == 0f)
-        {
-            canvasGroup.alpha = 1f;
-            canvasGroup.blocksRaycasts = true;
-        }
-        else
-        {
-            canvasGroup.alpha = 0f;
-            canvasGroup.blocksRaycasts = false;
-        }
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    transform.GetChild(i).gameObject.SetActive(!transform.GetChild(i).gameObject.activeSelf);
-        //}
+        uiController.CloseUIWindw(this.gameObject, true);
     }
 }

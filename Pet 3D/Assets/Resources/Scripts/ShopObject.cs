@@ -4,11 +4,35 @@ using UnityEngine;
 
 public class ShopObject : MonoBehaviour
 {
-    [SerializeField] UIController uIController;
+    UIController uiController;
+    ShopWindow shopWindow;
+    bool _isOpen;
 
-    public void OpenShop()
+    private void Awake()
     {
-        if (uIController != null)
-            uIController.OpenShopWindow();
+        uiController = FindObjectOfType<UIController>();
+        shopWindow = FindObjectOfType<ShopWindow>();
+    }
+
+    private void Start()
+    {
+        if (shopWindow)
+            shopWindow.onWindowClose += OnWindowClose;
+    }
+
+    public void Toggle()
+    {
+        if (uiController)
+        {
+            if (!_isOpen)
+                _isOpen = uiController.OpenUIWindow(this.gameObject);
+            else
+                _isOpen = uiController.CloseUIWindw(this.gameObject);
+        }
+    }
+
+    void OnWindowClose(bool isOpen)
+    {
+        _isOpen = isOpen;
     }
 }

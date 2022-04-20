@@ -6,6 +6,8 @@ using TMPro;
 
 public class ShopWindow : MonoBehaviour
 {
+    UIController uiController;
+
     public ShopItemSlot[] itemSlots;
     private List<Item> shopItems;
 
@@ -18,8 +20,13 @@ public class ShopWindow : MonoBehaviour
 
     private Item selectedItem;
 
+    public delegate void OnWindowClose(bool isOpen);
+    public event OnWindowClose onWindowClose;
+
     private void Awake()
     {
+        uiController = FindObjectOfType<UIController>();
+
         shopItems = new List<Item>();
         quantityParent.SetActive(false);
         quantitySlider.value = quantitySlider.minValue;
@@ -35,6 +42,8 @@ public class ShopWindow : MonoBehaviour
             shopItems.Add(item);
 
         UpdateSlots();
+
+        GetComponentInChildren<UIButton>().close += Close;
     }
 
     private void Update()
@@ -97,5 +106,11 @@ public class ShopWindow : MonoBehaviour
 
         Persistent.playerInventory.AddItem(selectedItem, (int)quantitySlider.value);
         Persistent.playerInventory.DecreaseMoney(selectedItem.cost);
+    }
+
+    void Close()
+    {
+        onWindowClose(false);
+        uiController.CloseUIWindw(this.gameObject, false);
     }
 }

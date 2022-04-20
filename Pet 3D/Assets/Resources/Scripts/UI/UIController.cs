@@ -46,7 +46,7 @@ public class UIController : MonoBehaviour
     [Space]
     [Header("Other")]
     [SerializeField] MailBox mailbox; // the gameobject, not the UI object
-    
+
     MailBoxManager mailBoxManager;
     SkillTreeManager skillTreeManager;
 
@@ -74,6 +74,7 @@ public class UIController : MonoBehaviour
     {
         mailBoxManager.gameObject.SetActive(false);
         skillTreeManager.gameObject.SetActive(false);
+        pauseMenu.gameObject.SetActive(false);
 
         if (player)
             player.onGameObjectInteraction += OnObjectInteract;
@@ -86,26 +87,10 @@ public class UIController : MonoBehaviour
         UpdatePlayerAction();
 
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (shopWindow.gameObject.activeSelf)
-                CloseShopWindow();
-            else if (eventWindow.activeSelf)
-                CloseEventWindow();
-        }
+            CloseUIWindw(null, true);
 
         if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (!pauseMenu.SettingsWindowOpen())
-            {
-                OnWindowOpen();
-                pauseMenu.ToggleSettingsUI();
-            }
-            else if (pauseMenu.SettingsWindowOpen())
-            {
-                OnWindowClose();
-                pauseMenu.ToggleSettingsUI();
-            }
-        }
+            Toggle(pauseMenu.gameObject, true);
     }
 
     private void UpdatePetInfo()
@@ -141,18 +126,35 @@ public class UIController : MonoBehaviour
             fillImage.color = Color.Lerp(Color.red, Color.yellow, slider.value * 2.0f);
     }
 
-    public void OpenUIWindow(GameObject windowToOpen)
+    public bool OpenUIWindow(GameObject windowToOpen)
     {
+        if (windowToOpen.name.Contains("Shop") || windowToOpen.CompareTag("Shop"))
+            windowToOpen = shopWindow.gameObject;
+        else if (windowToOpen.name.Contains("Event") || windowToOpen.CompareTag("Event"))
+            windowToOpen = eventWindow.gameObject;
+
         windowToOpen.gameObject.SetActive(true);
 
         if (!openWindows.Contains(windowToOpen))
             openWindows.Add(windowToOpen);
 
         OnWindowOpen();
+
+        return windowToOpen.activeSelf;
     }
 
-    public void CloseUIWindw(GameObject windowToClose, bool closeAllOpenWindows)
+    public bool CloseUIWindw(GameObject windowToClose, bool closeAllOpenWindows = false)
     {
+        if (windowToClose != null)
+        {
+            if (windowToClose.name.Contains("Shop") || windowToClose.CompareTag("Shop"))
+                windowToClose = shopWindow.gameObject;
+            else if (windowToClose.name.Contains("Event") || windowToClose.CompareTag("Event"))
+                windowToClose = eventWindow.gameObject;
+
+            windowToClose.gameObject.SetActive(false);
+        }
+
         if (closeAllOpenWindows)
         {
             foreach (var window in openWindows)
@@ -162,34 +164,17 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            windowToClose.gameObject.SetActive(false);
-
             if (openWindows.Contains(windowToClose))
                 openWindows.Remove(windowToClose);
         }
 
         if (openWindows.Count == 0)
             OnWindowClose();
-    }
-    public void OpenShopWindow()
-    {
-        shopWindow.gameObject.SetActive(true);
-        OnWindowOpen();
-    }
-    public void CloseShopWindow()
-    {
-        shopWindow.gameObject.SetActive(false);
-        OnWindowClose();
-    }
-    public void OpenEventWindow()
-    {
-        eventWindow.SetActive(true);
-        OnWindowOpen();
-    }
-    public void CloseEventWindow()
-    {
-        eventWindow.SetActive(false);
-        OnWindowClose();
+
+        if (windowToClose)
+            return windowToClose.activeSelf;
+        else
+            return false;
     }
 
     private void OnWindowOpen()
@@ -266,11 +251,14 @@ public class UIController : MonoBehaviour
                 CloseUIWindw(mailBoxManager.gameObject, true);
             else
                 OpenUIWindow(mailBoxManager.gameObject);
-
-            //if (mailbox.ToggleMailBoxUI())
-            //    mouseLock.ReleaseCursor(false);
-            //else
-            //    mouseLock.LockCursor();
         }
+    }
+
+    void Toggle(GameObject objectToToggle, bool closeAllOpenWindows)
+    {
+        if (objectToToggle.activeSelf)
+            CloseUIWindw(objectToToggle, closeAllOpenWindows);
+        else
+            OpenUIWindow(objectToToggle);
     }
 }

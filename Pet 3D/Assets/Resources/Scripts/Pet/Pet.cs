@@ -337,6 +337,7 @@ public class Pet : MonoBehaviour
             else if (ball)
             {
                 state = PetState.ChaseBall;
+                SpawnSpeedCloud();
             }
             else if (Player && Vector3.Distance(transform.position, Player.transform.position) < detectionRange)
             {
