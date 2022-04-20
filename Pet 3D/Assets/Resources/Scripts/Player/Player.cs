@@ -159,7 +159,10 @@ public class Player : MonoBehaviour
                             itemSpawner.ThrowItem(selectedItem.item, this, debugPointer.transform.forward);
                             MouseLeftButtonHoldTime = 0;
                             onMouseLeftButtonHold(MouseLeftButtonHoldTime);
-                            onAim(Vector3.zero);
+
+                            if (onAim != null)
+                                onAim(Vector3.zero);
+
                             leftMouseDown = false;
                         }
                     }
@@ -209,7 +212,10 @@ public class Player : MonoBehaviour
             {
                 CanAim = false;
                 debugPointer.transform.rotation = transform.rotation;
-                onAim(Vector3.zero);
+
+                if (onAim != null)
+                    onAim(Vector3.zero);
+                
                 mouseLock.LockCursor();
                 _trajectory.RemoveTrajectory();
             }
@@ -283,7 +289,8 @@ public class Player : MonoBehaviour
         debugPointer.transform.Rotate(Vector3.left * mouseY);
         debugPointer.transform.Rotate(Vector3.up * mouseX);
 
-        onAim(Input.mousePosition);
+        if (onAim != null)
+            onAim(Input.mousePosition);
     }
 
     private void LookCast()

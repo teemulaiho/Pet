@@ -12,7 +12,8 @@ public enum PetState
     Eating,
     ChaseBall,
     ReturnBall,
-    Fainted
+    Fainted,
+    Dazed
 }
 
 public class Pet : MonoBehaviour
@@ -695,26 +696,6 @@ public class Pet : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Food"))
-        {
-
-        }
-        else if (other.CompareTag("Ball"))
-        {
-
-        }
-        else if (other.CompareTag("Goal"))
-        {
-
-        }
-        else if (other.CompareTag("DropCatcher"))
-        {
-            Debug.Log("Pet OnTriggerEnter With DropCatcher.");
-            Respawn();
-        }
-    }
 
     public void PetPet()
     {
@@ -758,4 +739,36 @@ public class Pet : MonoBehaviour
         if (dist < callRange)
             calledByPlayer = true;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            Ball ball = collision.gameObject.GetComponent<Ball>();
+            if (ball._isThrown)
+                energy -= 10f;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Food"))
+        {
+
+        }
+        else if (other.CompareTag("Ball"))
+        {
+
+        }
+        else if (other.CompareTag("Goal"))
+        {
+
+        }
+        else if (other.CompareTag("DropCatcher"))
+        {
+            Debug.Log("Pet OnTriggerEnter With DropCatcher.");
+            Respawn();
+        }
+    }
+
 }

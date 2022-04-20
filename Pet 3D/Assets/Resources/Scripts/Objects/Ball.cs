@@ -9,12 +9,14 @@ public class Ball : Entity
     public delegate void OnKickEvent(Transform kicker);
     public event OnKickEvent onKick;
 
+    public bool _isThrown;
     public bool hasBounced = true;
     public bool _isGhost;
 
     public void Throw(Vector3 startPos, Vector3 direction, float force, bool isGhost)
     {
         _isGhost = isGhost;
+        _isThrown = true;
         GetComponent<Rigidbody>().AddForce(direction * force);
     }
 
@@ -55,6 +57,7 @@ public class Ball : Entity
             //rb.velocity = Vector3.zero;
             //rb.angularVelocity = Vector3.zero;
             hasBounced = true;
+            _isThrown = false;
         }
     }
     private void OnTriggerEnter(Collider other)
