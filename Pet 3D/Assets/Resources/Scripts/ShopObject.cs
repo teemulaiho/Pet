@@ -16,6 +16,9 @@ public class ShopObject : MonoBehaviour
 
     private void Start()
     {
+        if (!shopWindow && uiController)
+            shopWindow = uiController.GetShopWindow();
+
         if (shopWindow)
             shopWindow.onWindowClose += OnWindowClose;
     }

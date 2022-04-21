@@ -3359,7 +3359,7 @@ MonoBehaviour:
   healthBar: {fileID: 2537714986479642818}
   energyBar: {fileID: 6695152566795224750}
   petStateText: {fileID: 5274445482344327517}
-  eventWindow: {fileID: 598361226}
+  eventWindow: {fileID: 918437851}
   shopWindow: {fileID: 5068982105216377827}
   petIntelligence: {fileID: 3581834091988402302}
   petStrength: {fileID: 8224504363530607108}
@@ -4622,16 +4622,22 @@ PrefabInstance:
       objectReference: {fileID: 7092971841162990398}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89544e53cb5a59c4281b8401b8d1440f, type: 3}
---- !u!1 &598361226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1869485619225830048, guid: 89544e53cb5a59c4281b8401b8d1440f, type: 3}
-  m_PrefabInstance: {fileID: 1869485619735062058}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &598361227 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1869485619225830049, guid: 89544e53cb5a59c4281b8401b8d1440f, type: 3}
   m_PrefabInstance: {fileID: 1869485619735062058}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &918437851 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1869485619445258737, guid: 89544e53cb5a59c4281b8401b8d1440f, type: 3}
+  m_PrefabInstance: {fileID: 1869485619735062058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445ffda4dabe3ff4c93174d950f4ac64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3691157255188775403
 PrefabInstance:
   m_ObjectHideFlags: 0

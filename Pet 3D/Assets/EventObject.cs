@@ -16,7 +16,10 @@ public class EventObject : MonoBehaviour
 
     private void Start()
     {
-        if (eventWindow)
+        if (!eventWindow && uiController)
+            eventWindow = uiController.GetEventWindow();
+
+            if (eventWindow)
             eventWindow.onWindowClose += OnWindowClose;
     }
 

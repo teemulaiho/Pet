@@ -20,7 +20,7 @@ public class UIController : MonoBehaviour
     [SerializeField] Slider healthBar;
     [SerializeField] Slider energyBar;
     [SerializeField] TMP_Text petStateText;
-    [SerializeField] GameObject eventWindow;
+    [SerializeField] EventWindow eventWindow;
     [SerializeField] ShopWindow shopWindow;
 
     [Space]
@@ -54,6 +54,9 @@ public class UIController : MonoBehaviour
 
     List<GameObject> openWindows;
 
+    public EventWindow GetEventWindow() { return eventWindow; }
+    public ShopWindow GetShopWindow() { return shopWindow; }
+
     private void Awake()
     {
         mouseLock = FindObjectOfType<MouseLock>();
@@ -64,7 +67,7 @@ public class UIController : MonoBehaviour
         mailBoxManager = FindObjectOfType<MailBoxManager>();
         skillTreeManager = FindObjectOfType<SkillTreeManager>();
 
-        eventWindow.SetActive(false);
+        eventWindow.gameObject.SetActive(false);
         shopWindow.gameObject.SetActive(false);
 
         openWindows = new List<GameObject>();
