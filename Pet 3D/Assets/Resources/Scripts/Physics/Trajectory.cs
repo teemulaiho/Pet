@@ -30,6 +30,7 @@ public class Trajectory : MonoBehaviour
         {
             var ghostObj = Instantiate(obj.gameObject,obj.position, obj.rotation);
             if(ghostObj.TryGetComponent(out Renderer rend)) rend.enabled = false;
+            if(ghostObj.TryGetComponent(out Terrain terrain)) terrain.enabled = false;
             SceneManager.MoveGameObjectToScene(ghostObj, _simulationScene);
             if (!ghostObj.isStatic) _spawnedObjects.Add(obj, ghostObj.transform);
         }
