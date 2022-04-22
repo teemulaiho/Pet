@@ -39,6 +39,8 @@ public class TitleSceneManager : MonoBehaviour
         {
             animEvent.onAnimationEnd += OnAnimationEnd;
         }
+
+        StartAnimationWithDelay("PlayIntro", 0f);
     }
 
     void OnAnimationEnd(string animationName)
@@ -47,7 +49,7 @@ public class TitleSceneManager : MonoBehaviour
 
         if (animationName.Contains("Crossfade End"))
         {
-            StartAnimationWithDelay("PlayIntro", 1f);
+            //StartAnimationWithDelay("PlayIntro", 0f);
         }
         else if (animationName.Contains("Intro End"))
         {
