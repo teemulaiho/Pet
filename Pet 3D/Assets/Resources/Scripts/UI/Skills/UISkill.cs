@@ -10,7 +10,7 @@ public class UISkill : MonoBehaviour
     [SerializeField] TMP_Text skillName;
     [SerializeField] Button skillButton;
 
-    public void Initialize(string name, bool unlocked)
+    public void Initialize(string name, bool unlocked, int levelRequired = 0)
     {
         skillButton = GetComponentInChildren<Button>();
         isUnlocked = unlocked;
@@ -19,6 +19,9 @@ public class UISkill : MonoBehaviour
         if (isUnlocked)
             skillName.text = name;
         else
-            skillName.text = "Locked";
+        {
+            skillName.text = "Locked \n";
+            skillName.text += "Level Required: " + levelRequired.ToString();
+        }
     }
 }

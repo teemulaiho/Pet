@@ -179,7 +179,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (leftMouseDown && CanAim)
+        if (leftMouseDown && CanAim && Persistent.CheckIfSkillUnlocked("Throw"))
         {
             CanLook = !CanAim;
 

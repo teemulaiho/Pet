@@ -48,9 +48,9 @@ public static class Persistent
 
         petSkills = new PetSkills
         {
-            throwSkill = false,
-            catchSkill = false,
-            whistleSkill = false
+            //throwSkill = false,
+            //catchSkill = false,
+            //whistleSkill = false
         };
 
         petSkills.Init();
@@ -65,11 +65,13 @@ public static class Persistent
     {
         petStats.intellect += intellectToAdd;
 
-        if ((int)petStats.intellect == 2)
-        {
-            petSkills.UnlockSkill("Catch");
+        if (petSkills.CheckForSkillUnlock(SkillRequirement.Intellect, (int)petStats.intellect))
             NotificationManager.ReceiveNotification(NotificationType.LevelUp, petStats.intellect);
-        }
+    }
+
+    public static bool CheckIfSkillUnlocked(string skillToCheck)
+    {
+        return (petSkills._skillDictionary[skillToCheck]._unlocked);
     }
 
     public static void AddEvent(int id, EventType type, DateTime eventStartTime)

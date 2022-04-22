@@ -242,7 +242,7 @@ public class Pet : MonoBehaviour
                 {
                     if (goal) // if there is a goal in the vicinity
                     {
-                        if (Persistent.petSkills.skillDictionary["Catch"])
+                        if (Persistent.petSkills._skillDictionary["Catch"]._unlocked)
                             Pickup(ball);
 
                         if (!ball.hasBounced)
@@ -277,6 +277,7 @@ public class Pet : MonoBehaviour
                 }
                 else if (Vector3.Distance(transform.position, goal.transform.position) <= interactRange) // if you're within range of the goal
                 {
+                    Persistent.AddIntellect(0.5f);
                     Destroy(grabbedObject.gameObject);
                     grabbedObject = null;
                     state = PetState.Idle;
@@ -733,6 +734,9 @@ public class Pet : MonoBehaviour
 
     void PlayerCallPet()
     {
+        if (!Persistent.CheckIfSkillUnlocked("Whistle"))
+            return;
+
         Player = FindObjectOfType<Player>();
 
         float dist = Vector3.Distance(transform.position, Player.transform.position);

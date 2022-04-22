@@ -5,15 +5,26 @@ using UnityEngine;
 public class NotificationManager : MonoBehaviour
 {
     static Notification notificationPrefab;
+    static Transform longNotificationParent;
     static Transform notificationParent;
+    static Animator longNotificationAnimator;
     static Animator notificationAnimator;
+    static List<Notification> longNotificationList;
     static List<Notification> notificationList;
 
     private void Awake()
     {
         notificationPrefab = Resources.Load<Notification>("Prefabs/UI/Notification");
+
         notificationParent = transform.GetChild(0);
+        longNotificationParent = transform.GetChild(1);
+
+        longNotificationAnimator = longNotificationParent.GetComponent<Animator>();
         notificationAnimator = notificationParent.GetComponent<Animator>();
+
+        longNotificationParent.GetComponent<CanvasGroup>().alpha = 1f;
+
+        longNotificationList = new List<Notification>();
         notificationList = new List<Notification>();
     }
 
@@ -39,8 +50,35 @@ public class NotificationManager : MonoBehaviour
             {
                 notification.AddText("\n New Skill: Pet can now catch the ball!");
             }
+            else if ((int)value == 4)
+            {
+                notification.AddText("\n New Skill: Pet can now be called with a Whistle!");
+            }
+            else if ((int)value == 6)
+            {
+                notification.AddText("\n New Skill: You can now charge up throwing speed!");
+            }
         }
 
         notificationAnimator.SetTrigger("Show");
+        AddNotificationToLongNotificationList(notification);
+    }
+
+    static void AddNotificationToLongNotificationList(Notification notificationToAdd)
+    {
+        Notification longNotification = Instantiate(notificationPrefab, longNotificationParent);
+        longNotification.SetText(notificationToAdd.GetText());
+        longNotification.transform.SetParent(longNotificationParent);
+
+        if (longNotificationList.Count >= 1)
+        {
+            foreach (var not in longNotificationList)
+                Destroy(not.gameObject);
+
+            longNotificationList.Clear();
+        }
+
+        longNotificationList.Add(longNotification);
+        longNotificationAnimator.SetTrigger("Drop");
     }
 }

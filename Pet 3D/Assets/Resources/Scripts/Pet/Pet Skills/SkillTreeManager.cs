@@ -20,10 +20,10 @@ public class SkillTreeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var pair in Persistent.petSkills.skillDictionary)
+        foreach (var pair in Persistent.petSkills._skillDictionary)
         {
             UISkill skill = Instantiate(uiSkillPrefab, uiSkillListParent);
-            skill.Initialize(pair.Key, pair.Value);
+            skill.Initialize(pair.Key, pair.Value._unlocked, pair.Value._skillUnlockRequirement);
 
             uiSkillDictionary.Add(pair.Key, skill);
         }

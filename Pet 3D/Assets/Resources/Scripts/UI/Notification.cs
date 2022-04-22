@@ -34,4 +34,9 @@ public class Notification : MonoBehaviour
     {
         notificationText.text += textToAdd;
     }
+
+    public string GetText()
+    {
+        return notificationText.text;
+    }
 }
