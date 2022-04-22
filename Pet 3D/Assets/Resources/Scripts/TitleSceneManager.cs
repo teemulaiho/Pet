@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class TitleSceneManager : MonoBehaviour
 {
+    AudioManager _audioManager;
+
     List<Animator> animators;
     List<AnimationEvent> animationEvents;
 
@@ -13,6 +15,8 @@ public class TitleSceneManager : MonoBehaviour
 
     private void Awake()
     {
+        _audioManager = FindObjectOfType<AudioManager>();
+
         animators = new List<Animator>();
         animators.AddRange(FindObjectsOfType<Animator>());
 
@@ -39,6 +43,9 @@ public class TitleSceneManager : MonoBehaviour
         {
             animEvent.onAnimationEnd += OnAnimationEnd;
         }
+
+        if (_audioManager)
+            _audioManager.hasBackgroundMusic += HasBackgroundMusic;
 
         StartAnimationWithDelay("PlayIntro", 0f);
     }
@@ -87,5 +94,13 @@ public class TitleSceneManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(secondsToWait);
         SceneManager.LoadScene(sceneToLoad);
         yield return null;
+    }
+
+    void HasBackgroundMusic(bool hasBackgroundMusic)
+    {
+        if (!hasBackgroundMusic)
+            intro.speed = 1.5f;
+        else
+            intro.speed = 1f;
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 405451591}
   - component: {fileID: 405451593}
   - component: {fileID: 405451592}
+  - component: {fileID: 6368866978105693901}
   m_Layer: 5
   m_Name: PetInfo
   m_TagString: Untagged
@@ -41,7 +42,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -360, y: 0}
   m_SizeDelta: {x: 120, y: 200}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &405451593
@@ -82,6 +83,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &6368866978105693901
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405451590}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a3cd99db97a953b4fa8620d09d942afe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &830461241
 GameObject:
   m_ObjectHideFlags: 0
@@ -3361,6 +3381,7 @@ MonoBehaviour:
   petStateText: {fileID: 5274445482344327517}
   eventWindow: {fileID: 918437851}
   shopWindow: {fileID: 5068982105216377827}
+  petInfoUIParent: {fileID: 405451591}
   petIntelligence: {fileID: 3581834091988402302}
   petStrength: {fileID: 8224504363530607108}
   petStamina: {fileID: 8469189983820281590}

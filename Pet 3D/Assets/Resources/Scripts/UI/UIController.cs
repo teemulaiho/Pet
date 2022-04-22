@@ -25,6 +25,7 @@ public class UIController : MonoBehaviour
 
     [Space]
     [Header("Pet Stats")]
+    [SerializeField] Transform petInfoUIParent;
     [SerializeField] TMP_Text petIntelligence;
     [SerializeField] TMP_Text petStrength;
     [SerializeField] TMP_Text petStamina;
@@ -94,6 +95,10 @@ public class UIController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
             Toggle(pauseMenu.gameObject, true);
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            ToggleAnimation(petInfoUIParent.gameObject);
+
     }
 
     private void UpdatePetInfo()
@@ -263,5 +268,13 @@ public class UIController : MonoBehaviour
             CloseUIWindw(objectToToggle, closeAllOpenWindows);
         else
             OpenUIWindow(objectToToggle);
+    }
+
+    void ToggleAnimation(GameObject objectToAnimate)
+    {
+        if (objectToAnimate.name.Contains("PetInfo"))
+        {
+            objectToAnimate.GetComponent<Animator>().SetTrigger("Show");
+        }
     }
 }

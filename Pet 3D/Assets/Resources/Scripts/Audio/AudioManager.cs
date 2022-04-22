@@ -8,6 +8,9 @@ public class AudioManager : MonoBehaviour
 
     AudioSource _source;
 
+    public delegate void HasBackgroundMusic(bool hasBackgroundMusic);
+    public event HasBackgroundMusic hasBackgroundMusic;
+
     private void Awake()
     {
         if (_instance == null)
@@ -23,13 +26,15 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _source.Play();
-        _source.volume = 0.5f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (_source.clip != null)
+        {
+            _source.Play();
+            _source.volume = 0.5f;
+        }
+        else
+        {
+            if (hasBackgroundMusic != null)
+                hasBackgroundMusic(false);
+        }
     }
 }
