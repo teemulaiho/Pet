@@ -13,7 +13,8 @@ public enum PetState
     ChaseBall,
     ReturnBall,
     Fainted,
-    Dazed
+    Dazed,
+    Bored
 }
 
 public class Pet : MonoBehaviour
@@ -41,6 +42,9 @@ public class Pet : MonoBehaviour
 
     private float maxEnergy = 100f;
     [SerializeField] private float energy = 100f;
+
+    private float stayInStateDT = 0f;
+    private float stayInIdleStateCounter = 20f;
 
     private float healthdt = 0f;
     private float healthdtCounter = 20f;
@@ -152,6 +156,9 @@ public class Pet : MonoBehaviour
                     break;
             }
         }
+
+        if (petAnimator)
+            petAnimator.gameObject.GetComponent<AnimationEvent>().onAnimationEnd += OnAnimationEnd;
     }
 
     // Update is called once per frame
@@ -381,6 +388,13 @@ public class Pet : MonoBehaviour
             case PetState.Idle:
                 {
                     Wander();
+                    if (!isMoving && stayInStateDT < stayInIdleStateCounter)
+                    {
+                        stayInStateDT += Time.deltaTime;
+                        if (stayInStateDT >= stayInIdleStateCounter)
+                            petAnimator.SetTrigger("Stretch");
+                    }  
+
                     break;
                 }
             case PetState.Sleeping:
@@ -391,6 +405,14 @@ public class Pet : MonoBehaviour
             case PetState.FollowPlayer:
                 {
                     FollowPlayer();
+
+                    if (!isMoving && stayInStateDT < stayInIdleStateCounter)
+                    {
+                        stayInStateDT += Time.deltaTime;
+                        if (stayInStateDT >= stayInIdleStateCounter)
+                            petAnimator.SetTrigger("Stretch");
+                    }
+
                     break;
                 }
             case PetState.ChaseBall:
@@ -775,4 +797,9 @@ public class Pet : MonoBehaviour
         }
     }
 
+    void OnAnimationEnd(string animationThatEnded)
+    {
+        if (animationThatEnded.Contains("Stretch"))
+            stayInStateDT = 0f;
+    }
 }

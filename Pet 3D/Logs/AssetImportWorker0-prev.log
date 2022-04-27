@@ -15,11 +15,11 @@ C:/Users/teemu/Documents/Unity/Uppsala University/BSc/Pet 3D
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-61037
+64633
 Successfully changed project path to: C:/Users/teemu/Documents/Unity/Uppsala University/BSc/Pet 3D
 C:/Users/teemu/Documents/Unity/Uppsala University/BSc/Pet 3D
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 55.84 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 185.04 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.2f1 (8fd9074bf66c)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Resources/UnitySubsystems
@@ -35,180 +35,52 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56368
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56888
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.003166 seconds.
+Registered in 0.004917 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 54.45 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 193.40 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.898 seconds
+- Completed reload, in  4.904 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005269 seconds.
+Registered in 0.011343 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 56.90 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 120.31 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.324 seconds
+- Completed reload, in  3.213 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 0.68 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
+Refreshing native plugins compatible for Editor in 0.89 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2519 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 134.4 MB.
-System memory in use after: 134.6 MB.
+System memory in use after: 134.5 MB.
 
 Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2977.
-Total: 2.519800 ms (FindLiveObjects: 0.243800 ms CreateObjectMapping: 0.128100 ms MarkObjects: 2.029700 ms  DeleteObjects: 0.117000 ms)
+Total: 6.733900 ms (FindLiveObjects: 0.685100 ms CreateObjectMapping: 0.368000 ms MarkObjects: 5.336800 ms  DeleteObjects: 0.340400 ms)
 
 ========================================================================
 Received Import Request.
   path: Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy Variant.prefab
   artifactKey: Guid(dac6eb9e239aeb2478164ecb310fd15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy Variant.prefab using Guid(dac6eb9e239aeb2478164ecb310fd15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b2601086278867d78dcd78271266634') in 0.126481 seconds
-  Import took 0.133246 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 268.968809 seconds.
-  path: Assets/Resources/Sprites/Pet/Petrea_BunnyGoat.psb
-  artifactKey: Guid(79d2386f56cb33644a25d2e01d970870) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat.psb using Guid(79d2386f56cb33644a25d2e01d970870) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1771ee4c3b375a83c9a7f9787a86b6a') in 0.282905 seconds
-  Import took 0.287724 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.346573 seconds.
-  path: Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy.psb
-  artifactKey: Guid(800e01165c9cb9348b8d0fed9655ad97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy.psb using Guid(800e01165c9cb9348b8d0fed9655ad97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f72f63cd5ca977fd3a1cfbb53dfc9ae') in 0.118477 seconds
-  Import took 0.122909 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 71.405074 seconds.
-  path: Assets/Resources/Sprites/Pet/Petrea_BunnyGoat Eyes.png
-  artifactKey: Guid(c28ca13da5fc46d4bbf24cad13d54d8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat Eyes.png using Guid(c28ca13da5fc46d4bbf24cad13d54d8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '76dccecec378bd9b9847e28e0a5f7f7c') in 0.022420 seconds
-  Import took 0.026095 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.521809 seconds.
-  path: Assets/Resources/Sprites/Pet/Petrea_BunnyGoat Eyes.png
-  artifactKey: Guid(c28ca13da5fc46d4bbf24cad13d54d8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat Eyes.png using Guid(c28ca13da5fc46d4bbf24cad13d54d8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8557956f6720793e3c02069d1aeb6ff') in 0.039249 seconds
-  Import took 0.044067 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 699.967355 seconds.
-  path: Assets/Resources/Sprites/Pet/Petrea_BunnyGoat Eyes.png
-  artifactKey: Guid(c28ca13da5fc46d4bbf24cad13d54d8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat Eyes.png using Guid(c28ca13da5fc46d4bbf24cad13d54d8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70c81c7bc57f24efb09402c98535047a') in 0.038961 seconds
-  Import took 0.044899 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2327.371034 seconds.
-  path: Assets/Resources/Sprites/Pet/Teemu_BunnyGoatEyes.png
-  artifactKey: Guid(b5bc438095469a444a95027685223762) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Teemu_BunnyGoatEyes.png using Guid(b5bc438095469a444a95027685223762) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6edb81eed42dec87492500c3bc3a6e78') in 0.047672 seconds
-  Import took 0.052281 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.758320 seconds.
-  path: Assets/Resources/Sprites/Pet/Teemu_BunnyGoatEyes.png
-  artifactKey: Guid(b5bc438095469a444a95027685223762) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Teemu_BunnyGoatEyes.png using Guid(b5bc438095469a444a95027685223762) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c09db9b0352c02b7525453087ece2f68') in 0.062716 seconds
-  Import took 0.067525 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 16.964795 seconds.
-  path: Assets/Resources/Sprites/Pet/Teemu_BunnyGoatEyes.png
-  artifactKey: Guid(b5bc438095469a444a95027685223762) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Teemu_BunnyGoatEyes.png using Guid(b5bc438095469a444a95027685223762) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8d11f550eeb9c4ddcaa0be02ed30f85') in 0.028896 seconds
-  Import took 0.033823 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 614.032997 seconds.
-  path: Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy Variant.prefab
-  artifactKey: Guid(dac6eb9e239aeb2478164ecb310fd15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy Variant.prefab using Guid(dac6eb9e239aeb2478164ecb310fd15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8620dbed13fd5c862566cb08c3bfc4cf') in 0.036780 seconds
-  Import took 0.042738 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.024501 seconds.
-  path: Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy Variant.prefab
-  artifactKey: Guid(dac6eb9e239aeb2478164ecb310fd15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy Variant.prefab using Guid(dac6eb9e239aeb2478164ecb310fd15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8620dbed13fd5c862566cb08c3bfc4cf') in 0.023815 seconds
-  Import took 0.028680 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005178 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.76 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.383 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.70 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2472 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 133.5 MB.
-System memory in use after: 133.7 MB.
-
-Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3047.
-Total: 2.368100 ms (FindLiveObjects: 0.237400 ms CreateObjectMapping: 0.112400 ms MarkObjects: 1.925200 ms  DeleteObjects: 0.092400 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.007413 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.65 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.243 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.63 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2472 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 133.5 MB.
-System memory in use after: 133.7 MB.
-
-Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3051.
-Total: 3.651400 ms (FindLiveObjects: 0.345400 ms CreateObjectMapping: 0.209600 ms MarkObjects: 2.947900 ms  DeleteObjects: 0.146900 ms)
+Start importing Assets/Resources/Sprites/Pet/Petrea_BunnyGoat - Copy Variant.prefab using Guid(dac6eb9e239aeb2478164ecb310fd15c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdb931e7847910ae85bff255650cc121') in 0.394010 seconds
+  Import took 0.408814 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
