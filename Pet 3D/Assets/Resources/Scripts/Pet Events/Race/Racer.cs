@@ -30,8 +30,8 @@ public class Racer : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        rend = GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        rend = GetComponentInChildren<SpriteRenderer>();
         resting = false;
         Finished = false;
     }

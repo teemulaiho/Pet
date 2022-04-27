@@ -54,9 +54,9 @@ public class SkillContestant : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         instruction = GameObject.FindGameObjectWithTag("BeautyInstruction").GetComponent<TMP_Text>();
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody>();
 
         decideTimer = Random.Range(1f, 6f);

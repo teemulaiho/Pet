@@ -5,7 +5,6 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager _instance;
-
     AudioSource _source;
 
     public delegate void HasBackgroundMusic(bool hasBackgroundMusic);
@@ -28,8 +27,8 @@ public class AudioManager : MonoBehaviour
     {
         if (_source.clip != null)
         {
+            _source.volume = 0.1f;
             _source.Play();
-            _source.volume = 0.5f;
         }
         else
         {

@@ -42,8 +42,8 @@ public class Battler : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        sr = GetComponentInChildren<SpriteRenderer>();
 
         maxHealth = 25f;
         currentHealth = maxHealth;

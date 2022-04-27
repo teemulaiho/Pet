@@ -99,8 +99,8 @@ public class TitleSceneManager : MonoBehaviour
     void HasBackgroundMusic(bool hasBackgroundMusic)
     {
         if (!hasBackgroundMusic)
-            intro.speed = 1.5f;
+            intro.speed = 4f;
         else
-            intro.speed = 1f;
+            intro.speed = 3f;
     }
 }
