@@ -78,7 +78,8 @@ public class UIController : MonoBehaviour
     {
         mailBoxManager.gameObject.SetActive(false);
         skillTreeManager.gameObject.SetActive(false);
-        pauseMenu.gameObject.SetActive(false);
+
+        pauseMenu?.gameObject.SetActive(false);
 
         if (player)
             player.onGameObjectInteraction += OnObjectInteract;
