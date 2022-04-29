@@ -59,6 +59,10 @@ public class NotificationManager : MonoBehaviour
                 notification.AddText("\n New Skill: You can now charge up throwing speed!");
             }
         }
+        else if (notificationType == NotificationType.NPCSpawn)
+        {
+            notification.Initialize("Mole has arrived! Maybe check out what he has to say?");
+        }
 
         notificationAnimator.SetTrigger("Show");
         AddNotificationToLongNotificationList(notification);

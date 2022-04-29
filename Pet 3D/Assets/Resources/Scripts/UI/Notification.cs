@@ -7,7 +7,8 @@ public enum NotificationType
 {
     Experience,
     LevelUp,
-    Count
+    Count,
+    NPCSpawn
 }
 
 public class Notification : MonoBehaviour

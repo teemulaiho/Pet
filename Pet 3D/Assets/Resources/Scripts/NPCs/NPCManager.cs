@@ -37,6 +37,9 @@ public class NPCManager : MonoBehaviour
     void EventAvailable()
     {
         if (instantiatedNPCList.Count == 0)
+        { 
             instantiatedNPCList.Add(Instantiate(molePrefab, npcParent));
+            NotificationManager.ReceiveNotification(NotificationType.NPCSpawn, 1);
+        }
     }
 }
