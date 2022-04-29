@@ -67,6 +67,7 @@ public class Pet : MonoBehaviour
     private Vector3 previousPos = Vector3.zero;
     private float movementDirection = 0f;
     private float movementDirectionPreviousFrame = 0f;
+    private Vector3 directionScale;
 
     private bool isMoving;
 
@@ -159,6 +160,8 @@ public class Pet : MonoBehaviour
 
         if (petAnimator)
             petAnimator.gameObject.GetComponent<AnimationEvent>().onAnimationEnd += OnAnimationEnd;
+
+        directionScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -393,7 +396,7 @@ public class Pet : MonoBehaviour
                         stayInStateDT += Time.deltaTime;
                         if (stayInStateDT >= stayInIdleStateCounter)
                             petAnimator.SetTrigger("Stretch");
-                    }  
+                    }
 
                     break;
                 }
@@ -621,9 +624,24 @@ public class Pet : MonoBehaviour
             if (totalFlipSpriteCount > 10f)
             {
                 if (flipSpriteTrueCount / totalFlipSpriteCount > 0.5f)
+                {
                     spriteRenderer.flipX = true;
+                    if (directionScale.x > 0)
+                    {
+                        directionScale.x *= -1f;
+                        transform.localScale = directionScale;
+                    }
+                }
                 else
+                {
                     spriteRenderer.flipX = false;
+
+                    if (directionScale.x < 0)
+                    {
+                        directionScale.x *= -1f;
+                        transform.localScale = directionScale;
+                    }
+                }
 
                 totalFlipSpriteCount = 0f;
                 flipSpriteFalseCount = 0f;
