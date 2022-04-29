@@ -382,6 +382,11 @@ public class Pet : MonoBehaviour
                 }
             }
         }
+        else if (state == PetState.Dazed)
+        {
+            //if (!petAnimator.GetBool("isDazed"))
+            //    petAnimator.SetBool("isDazed", true);
+        }
     }
 
     void Act()
@@ -790,7 +795,13 @@ public class Pet : MonoBehaviour
         {
             Ball ball = collision.gameObject.GetComponent<Ball>();
             if (ball._isThrown)
+            {
+                state = PetState.Dazed;
+                //petAnimator.SetBool("isDazed", true);
+                petAnimator.SetTrigger("Dazed");
+                reactionAnimator.SetTrigger("Dazed");
                 energy -= 10f;
+            }
         }
     }
 
@@ -819,5 +830,10 @@ public class Pet : MonoBehaviour
     {
         if (animationThatEnded.Contains("Stretch"))
             stayInStateDT = 0f;
+        else if (animationThatEnded.Contains("Dazed"))
+        {
+            reactionAnimator.SetTrigger("Dazed");
+            state = PetState.Idle;
+        }
     }
 }
