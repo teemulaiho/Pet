@@ -15,11 +15,11 @@ D:/Unity Projects/Game Design/Pet/Pet 3D
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-52065
+58455
 Successfully changed project path to: D:/Unity Projects/Game Design/Pet/Pet 3D
 D:/Unity Projects/Game Design/Pet/Pet 3D
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 103.91 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 174.91 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.2f1 (8fd9074bf66c)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Resources/UnitySubsystems
@@ -36,427 +36,716 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56596
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56732
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002989 seconds.
+Registered in 0.003235 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 112.11 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 109.34 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.883 seconds
+- Completed reload, in  2.741 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.004776 seconds.
+Registered in 0.006227 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 107.24 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 115.15 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.791 seconds
+- Completed reload, in  1.955 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 0.93 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 0.87 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3677 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 184.3 MB.
-System memory in use after: 184.5 MB.
+System memory in use before: 174.7 MB.
+System memory in use after: 174.8 MB.
 
 Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 4133.
-Total: 3.800700 ms (FindLiveObjects: 0.356500 ms CreateObjectMapping: 0.225600 ms MarkObjects: 3.032900 ms  DeleteObjects: 0.184300 ms)
+Total: 3.673000 ms (FindLiveObjects: 0.429000 ms CreateObjectMapping: 0.361900 ms MarkObjects: 2.698800 ms  DeleteObjects: 0.181700 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Imported Assets/AZURE Nature
-  artifactKey: Guid(483aceadaeec6a445aad3db7d93c63d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature using Guid(483aceadaeec6a445aad3db7d93c63d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1825b4dc714daeae73a8d827538cc63') in 0.012113 seconds
-  Import took 0.019200 seconds .
+  path: Assets/Imported Assets/AZURE Nature/Prefabs
+  artifactKey: Guid(15a16b14983052c4681fc358a7bf9498) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Prefabs using Guid(15a16b14983052c4681fc358a7bf9498) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4275e39a417e386fbf96988f22632931') in 0.010994 seconds
+  Import took 0.018662 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 7.128035 seconds.
+  Time since last request: 7.007152 seconds.
   path: Assets/Imported Assets/AZURE Nature/Prefabs/Controller.prefab
-  artifactKey: Guid(627c671e2209bb9409b78b3ca8b4026a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Prefabs/Controller.prefab using Guid(627c671e2209bb9409b78b3ca8b4026a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '471e9a4e8b8d402bba9cce5dcd70e1fb') in 0.069311 seconds
-  Import took 0.079444 seconds .
+  artifactKey: Guid(187726ed8a125ca438024e4b153e09b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Prefabs/Controller.prefab using Guid(187726ed8a125ca438024e4b153e09b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ef9320a85c40f3ddf4efd749c37313f') in 0.072999 seconds
+  Import took 0.080681 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 153.183366 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Demo
-  artifactKey: Guid(b7bb7449a6a228a4e9f02d1e20e0f691) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Demo using Guid(b7bb7449a6a228a4e9f02d1e20e0f691) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '707a89c7632a5f2c6b603447da13bcb1') in 0.014367 seconds
-  Import took 0.025062 seconds .
+  Time since last request: 42.188027 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_1.terrainlayer
+  artifactKey: Guid(70d20ef6decc3954cb561d3c1f39f93b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_1.terrainlayer using Guid(70d20ef6decc3954cb561d3c1f39f93b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9ce1dd0acb1411e227e0d94f109fd50') in 0.148923 seconds
+  Import took 0.156893 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1.155663 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Demo/README.txt
-  artifactKey: Guid(e73b05f7bdedcac4a95f5fefe6229e55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Demo/README.txt using Guid(e73b05f7bdedcac4a95f5fefe6229e55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ed031cfd87b44eb10776d7c09ec40b0') in 0.020259 seconds
-  Import took 0.027965 seconds .
-
-========================================================================
-Received Prepare
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 3.97 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 18 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 103.7 MB.
-System memory in use after: 103.9 MB.
-
-Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 4133.
-Total: 7.523200 ms (FindLiveObjects: 0.410900 ms CreateObjectMapping: 0.582100 ms MarkObjects: 6.171400 ms  DeleteObjects: 0.355100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  colorSpace: 1 -> 0
-========================================================================
-Received Import Request.
-  Time since last request: 660.341999 seconds.
-  path: Assets/Imported Assets/AZURE Nature/SRP Packages
-  artifactKey: Guid(ca3361da4226a1e4b832ff07d4e251f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/SRP Packages using Guid(ca3361da4226a1e4b832ff07d4e251f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a7e9f915a829d32d4f3a9aef3e6cbb9') in 0.028714 seconds
-  Import took 0.037548 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 93.745773 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models
-  artifactKey: Guid(6885ba64d43874e48b75751f3c3222ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models using Guid(6885ba64d43874e48b75751f3c3222ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91f2491abda6af6e349c7a0eb0fa5fbb') in 0.021236 seconds
-  Import took 0.029726 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.054305 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Birch_1.fbx
-  artifactKey: Guid(04850cc949957204c86d17b629b89288) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Birch_1.fbx using Guid(04850cc949957204c86d17b629b89288) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f89f311c2924372945f203d448218d28') in 0.424485 seconds
-  Import took 0.432811 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000260 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_WaterLily.fbx
-  artifactKey: Guid(3dc2f76129736dc4182269a3dfbca1ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_WaterLily.fbx using Guid(3dc2f76129736dc4182269a3dfbca1ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5eaf751ca72aecc95c12f56423c8f8f') in 0.040437 seconds
-  Import took 0.048129 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000282 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Fir_2.fbx
-  artifactKey: Guid(3b562ee18256cd2499950163eeaa3a94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Fir_2.fbx using Guid(3b562ee18256cd2499950163eeaa3a94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2fe200115549506f023ce6dfffd122ab') in 0.077636 seconds
-  Import took 0.085751 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000211 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Branch_2.fbx
-  artifactKey: Guid(8f74c33089ff2474c987938281180dd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Branch_2.fbx using Guid(8f74c33089ff2474c987938281180dd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92136fca0183eddb78dddd6b7ef519d2') in 0.029890 seconds
-  Import took 0.037519 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000227 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Mushroom.fbx
-  artifactKey: Guid(13279295548cca343a0c122fd31bbec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Mushroom.fbx using Guid(13279295548cca343a0c122fd31bbec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07392f8dd4c2f687ed4c71a9b8bee540') in 0.044070 seconds
-  Import took 0.051695 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000221 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Branch_1.fbx
-  artifactKey: Guid(96401eb1bce7fa847a2fffe957615589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Branch_1.fbx using Guid(96401eb1bce7fa847a2fffe957615589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eef456b2295a1a015fee252016be6553') in 0.024548 seconds
-  Import took 0.034938 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000232 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_2.fbx
-  artifactKey: Guid(09b26fdf7507c9c4faa166d3d1e3905b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_2.fbx using Guid(09b26fdf7507c9c4faa166d3d1e3905b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03c70e76fadf84e519ffbf916c686b94') in 0.071882 seconds
-  Import took 0.079284 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000188 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Bush_1.fbx
-  artifactKey: Guid(5021102b3d28f2b4aac90303547043e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Bush_1.fbx using Guid(5021102b3d28f2b4aac90303547043e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b5055fd07b92949987e760ab39d16abf') in 0.052214 seconds
-  Import took 0.059316 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000301 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Fir_4.fbx
-  artifactKey: Guid(521039af8397c3546bb9a7669c3e48fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Fir_4.fbx using Guid(521039af8397c3546bb9a7669c3e48fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6885996d9e082c2646f62aa87b900d6') in 0.053588 seconds
-  Import took 0.061270 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000200 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Rock_2.fbx
-  artifactKey: Guid(a8c958098a58d374b9b263fce7e5c7e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Rock_2.fbx using Guid(a8c958098a58d374b9b263fce7e5c7e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26d9f3a03d1d7342efbf84632376b41c') in 0.054833 seconds
-  Import took 0.062489 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000255 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Flowers.fbx
-  artifactKey: Guid(24e3225aa2dd47143b76a6564d8802af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Flowers.fbx using Guid(24e3225aa2dd47143b76a6564d8802af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd74931b38896656b6c0a9bc813ce535f') in 0.046271 seconds
-  Import took 0.053600 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000210 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_3.fbx
-  artifactKey: Guid(d6cc4631e7e9e3a4ba81973ac665dfd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_3.fbx using Guid(d6cc4631e7e9e3a4ba81973ac665dfd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1567b1e486dbb2c42c444cbaa804b5f5') in 0.052193 seconds
-  Import took 0.059077 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000189 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Bush_2.fbx
-  artifactKey: Guid(ce7b767b547a31c458a05f5e9048d0d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Bush_2.fbx using Guid(ce7b767b547a31c458a05f5e9048d0d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3dd80a771fc97782a20a16502301e860') in 0.052389 seconds
-  Import took 0.058780 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000201 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_1.fbx
-  artifactKey: Guid(02e7e5eae8a6c0d4892c77ea86e5f67a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_1.fbx using Guid(02e7e5eae8a6c0d4892c77ea86e5f67a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93f83f267d6082c43966a3b7a1d2d669') in 0.051121 seconds
-  Import took 0.058204 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000164 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_5.fbx
-  artifactKey: Guid(fc2f6f49250ea374dbd1bd798ffedde8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_5.fbx using Guid(fc2f6f49250ea374dbd1bd798ffedde8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f05b380e6591b52f42a6dea826310934') in 0.047006 seconds
-  Import took 0.054341 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000184 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Rock_3.fbx
-  artifactKey: Guid(4f9d77f232c7ddf4395f6d992df0cd3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Rock_3.fbx using Guid(4f9d77f232c7ddf4395f6d992df0cd3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8079d3bfcbfb96677062f1449f5dea8c') in 0.066411 seconds
-  Import took 0.073871 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000197 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Birch_4.fbx
-  artifactKey: Guid(258fb5420c0d03b439e76f0d00100920) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Birch_4.fbx using Guid(258fb5420c0d03b439e76f0d00100920) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd1df625e72135faaf62f0e8162e70f06') in 0.056798 seconds
-  Import took 0.064314 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000110 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Fir_1.fbx
-  artifactKey: Guid(3880973bd8cdc7543b0877351dfda381) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Fir_1.fbx using Guid(3880973bd8cdc7543b0877351dfda381) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5563acd1e6924116d658de13de8c2801') in 0.053172 seconds
-  Import took 0.060338 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000195 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Reedmace.fbx
-  artifactKey: Guid(0c6e1bdbf87c06a47930ba6b45a06ff5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Reedmace.fbx using Guid(0c6e1bdbf87c06a47930ba6b45a06ff5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3452855d6692ce9a0476971193f3419') in 0.039818 seconds
-  Import took 0.046883 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000306 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Bush_3.fbx
-  artifactKey: Guid(b6fa030efa3d53e498483e6f8d1d7220) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Bush_3.fbx using Guid(b6fa030efa3d53e498483e6f8d1d7220) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d9346746c333aa7af5ff5efa976003b') in 0.045203 seconds
-  Import took 0.052378 seconds .
+  Time since last request: 0.000354 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Path.terrainlayer
+  artifactKey: Guid(0350d45054b1d4943bd19c653ac0f416) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Path.terrainlayer using Guid(0350d45054b1d4943bd19c653ac0f416) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f916dfb6d3186bf63b74ba858787f81') in 0.043745 seconds
+  Import took 0.052054 seconds .
 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000187 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Fir_5.fbx
-  artifactKey: Guid(2dfc0d026d3240e4a803fed6ca01d323) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Fir_5.fbx using Guid(2dfc0d026d3240e4a803fed6ca01d323) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b41fea306c3e60466f9d98b4497cdea') in 0.053248 seconds
-  Import took 0.060229 seconds .
+  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Rock.terrainlayer
+  artifactKey: Guid(22bd516efa069a045a3a2ea76962a5ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Rock.terrainlayer using Guid(22bd516efa069a045a3a2ea76962a5ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23e62d72e3cb293c0719aa3875665d3d') in 0.046532 seconds
+  Import took 0.053241 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000192 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_4.fbx
-  artifactKey: Guid(ce74f9d9ca628dc44a8be6a57f8be4a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_4.fbx using Guid(ce74f9d9ca628dc44a8be6a57f8be4a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3dc8fd12d4facec3f0d9a35dd83deb5f') in 0.051945 seconds
-  Import took 0.058775 seconds .
+  Time since last request: 0.000189 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_2.terrainlayer
+  artifactKey: Guid(18857b064544b3b43950f849c90e8c00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_2.terrainlayer using Guid(18857b064544b3b43950f849c90e8c00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e06be68c7087700663ba31ca34ecbda1') in 0.035188 seconds
+  Import took 0.042921 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000207 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Mushrooms.fbx
-  artifactKey: Guid(6cc9a7760f8da80489679ff491258552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Mushrooms.fbx using Guid(6cc9a7760f8da80489679ff491258552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd1b23870d58f615d9bc586098a01a41f') in 0.038517 seconds
-  Import took 0.045469 seconds .
+  Time since last request: 0.000234 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_4.terrainlayer
+  artifactKey: Guid(21d97758953e08346a15174ddc380c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_4.terrainlayer using Guid(21d97758953e08346a15174ddc380c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3acf23c4a5f187ee2c79952ef27ed6f3') in 0.045006 seconds
+  Import took 0.052595 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000174 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Cliff_2.fbx
-  artifactKey: Guid(b69ed24a53a747f408064bb6c6f9c264) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Cliff_2.fbx using Guid(b69ed24a53a747f408064bb6c6f9c264) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24ecc3becc42fd5921542188adddc2aa') in 0.088451 seconds
-  Import took 0.095078 seconds .
+  Time since last request: 0.000184 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_2.terrainlayer
+  artifactKey: Guid(18857b064544b3b43950f849c90e8c00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_2.terrainlayer using Guid(18857b064544b3b43950f849c90e8c00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e06be68c7087700663ba31ca34ecbda1') in 0.015951 seconds
+  Import took 0.027823 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000280 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_1.fbx
-  artifactKey: Guid(62d564cf0a903514a87acfd1d2944405) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_1.fbx using Guid(62d564cf0a903514a87acfd1d2944405) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b837971e793f0ac988e375fe26c8640') in 0.056369 seconds
-  Import took 0.064729 seconds .
+  Time since last request: 0.000394 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_3.terrainlayer
+  artifactKey: Guid(f716f456807e6d3459bff747adc3961b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Summer/AN_Sum_Ground_3.terrainlayer using Guid(f716f456807e6d3459bff747adc3961b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13897721ca03396ca0b3c0605dbf1a64') in 0.046759 seconds
+  Import took 0.054053 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000198 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Reeds.fbx
-  artifactKey: Guid(a2859b85daa7a1540a01dd5b9c483f66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Reeds.fbx using Guid(a2859b85daa7a1540a01dd5b9c483f66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a52b5fdad12aeedc33aa86465f18b98') in 0.057982 seconds
-  Import took 0.066707 seconds .
+  Time since last request: 7.812955 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Demo
+  artifactKey: Guid(b7bb7449a6a228a4e9f02d1e20e0f691) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Demo using Guid(b7bb7449a6a228a4e9f02d1e20e0f691) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3d6e060572d8a078d3aa7d10c658e80') in 0.009716 seconds
+  Import took 0.020723 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000229 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_4.fbx
-  artifactKey: Guid(ce4ae9169ab473045b81558d2947e643) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_4.fbx using Guid(ce4ae9169ab473045b81558d2947e643) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'afe6c7ca9fb3f2f07ecd1b0946052bb8') in 0.057597 seconds
-  Import took 0.065691 seconds .
+  Time since last request: 1.635639 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Demo/AN_Demo.unity
+  artifactKey: Guid(383aeff0143f15b48a904c9837dacc3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Demo/AN_Demo.unity using Guid(383aeff0143f15b48a904c9837dacc3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69f13281c7b83d8a0cdfd94b8ba4f022') in 0.008841 seconds
+  Import took 0.027948 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000188 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Fir_3.fbx
-  artifactKey: Guid(39f936a85008e764c80e0d2814554fb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Fir_3.fbx using Guid(39f936a85008e764c80e0d2814554fb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae1d849ac24a57cfeab4a13e4f73ecff') in 0.055565 seconds
-  Import took 0.062608 seconds .
+  Time since last request: 71.137208 seconds.
+  path: Assets/Resources/Post Processing Profile.asset
+  artifactKey: Guid(7fc40585c611126429f75d1c1ff1bcab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Post Processing Profile.asset using Guid(7fc40585c611126429f75d1c1ff1bcab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf1c1a640f192923dec1b8111674ce67') in 0.032307 seconds
+  Import took 0.043808 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000205 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Stones_1.fbx
-  artifactKey: Guid(50a94adb47f8904418912f9f539b2e55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Stones_1.fbx using Guid(50a94adb47f8904418912f9f539b2e55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6de0f9900ea3e1f5675d7d035b2cbb2a') in 0.047315 seconds
-  Import took 0.055034 seconds .
+  Time since last request: 2.630504 seconds.
+  path: Assets/Resources/Scenes/HomeScene.unity
+  artifactKey: Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Scenes/HomeScene.unity using Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd595c448c640f721090b7cc4ec7053f') in 0.013150 seconds
+  Import took 0.038881 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000201 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Birch_3.fbx
-  artifactKey: Guid(149cf3c7e16b08e4abba10c1bf7be9f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Birch_3.fbx using Guid(149cf3c7e16b08e4abba10c1bf7be9f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4c8c033cc9a2aad00a19d43f96e868a') in 0.052527 seconds
-  Import took 0.061103 seconds .
+  Time since last request: 52.740180 seconds.
+  path: Assets/Imported Assets/Stylized Water For URP/Materials/Windwaker.mat
+  artifactKey: Guid(ea66d3ba3c5ac7d498707e8c9e54524f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Stylized Water For URP/Materials/Windwaker.mat using Guid(ea66d3ba3c5ac7d498707e8c9e54524f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) Shader error in 'Stylized Water Mobile': Couldn't open include file 'Assets/Stylized Water For URP/Shaders/Libraries/StylizedWaterForURP.hlsl'. at line 2000
+
+Compiling Vertex program with SURFACE_FOAM_ON INTERSECTION_EFFECTS_ON WORLD_SPACE_UV_ON
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR UNITY_PASS_SHADOWCASTER
+Disabled keywords: INSTANCING_ON REFRACTION_ON UNITY_NO_DXT5nm UNITY_ENABLE_NATIVE_SHADOW_LOOKUPS UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_NO_FULL_STANDARD_SHADER UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_COLORSPACE_GAMMA UNITY_HALF_PRECISION_FRAGMENT_SHADER_REGISTERS UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_VIRTUAL_TEXTURING UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_ASTC_NORMALMAP_ENCODING SHADER_API_GLES30
+
+Shader error in 'Stylized Water Mobile': Couldn't open include file 'Assets/Stylized Water For URP/Shaders/Libraries/StylizedWaterForURP.hlsl'. at line 2000
+
+Compiling Vertex program with SURFACE_FOAM_ON INTERSECTION_EFFECTS_ON WORLD_SPACE_UV_ON
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR UNITY_PASS_SHADOWCASTER
+Disabled keywords: INSTANCING_ON REFRACTION_ON UNITY_NO_DXT5nm UNITY_ENABLE_NATIVE_SHADOW_LOOKUPS UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_NO_FULL_STANDARD_SHADER UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_COLORSPACE_GAMMA UNITY_HALF_PRECISION_FRAGMENT_SHADER_REGISTERS UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_VIRTUAL_TEXTURING UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_ASTC_NORMALMAP_ENCODING SHADER_API_GLES30
+
+Shader error in 'Stylized Water Mobile': Couldn't open include file 'Assets/Stylized Water For URP/Shaders/Libraries/StylizedWaterForURP.hlsl'. at line 504
+
+Compiling Vertex program with SURFACE_FOAM_ON INTERSECTION_EFFECTS_ON WORLD_SPACE_UV_ON
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR
+Disabled keywords: LIGHTMAP_ON DIRLIGHTMAP_COMBINED _SAMPLE_GI INSTANCING_ON FOG_LINEAR FOG_EXP FOG_EXP2 REFRACTION_ON UNITY_NO_DXT5nm UNITY_ENABLE_NATIVE_SHADOW_LOOKUPS UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_NO_FULL_STANDARD_SHADER UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_COLORSPACE_GAMMA UNITY_HALF_PRECISION_FRAGMENT_SHADER_REGISTERS UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_VIRTUAL_TEXTURING UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_ASTC_NORMALMAP_ENCODING SHADER_API_GLES30
+
+Shader error in 'Stylized Water Mobile': Couldn't open include file 'Assets/Stylized Water For URP/Shaders/Libraries/StylizedWaterForURP.hlsl'. at line 2000
+
+Compiling Vertex program with SURFACE_FOAM_ON INTERSECTION_EFFECTS_ON WORLD_SPACE_UV_ON
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR UNITY_PASS_SHADOWCASTER
+Disabled keywords: INSTANCING_ON REFRACTION_ON UNITY_NO_DXT5nm UNITY_ENABLE_NATIVE_SHADOW_LOOKUPS UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_NO_FULL_STANDARD_SHADER UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_COLORSPACE_GAMMA UNITY_HALF_PRECISION_FRAGMENT_SHADER_REGISTERS UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_VIRTUAL_TEXTURING UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_ASTC_NORMALMAP_ENCODING SHADER_API_GLES30
+
+Shader error in 'Stylized Water Mobile': Couldn't open include file 'Assets/Stylized Water For URP/Shaders/Libraries/StylizedWaterForURP.hlsl'. at line 504
+
+Compiling Vertex program with SURFACE_FOAM_ON INTERSECTION_EFFECTS_ON WORLD_SPACE_UV_ON
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR
+Disabled keywords: LIGHTMAP_ON DIRLIGHTMAP_COMBINED _SAMPLE_GI INSTANCING_ON FOG_LINEAR FOG_EXP FOG_EXP2 REFRACTION_ON UNITY_NO_DXT5nm UNITY_ENABLE_NATIVE_SHADOW_LOOKUPS UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_NO_FULL_STANDARD_SHADER UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_COLORSPACE_GAMMA UNITY_HALF_PRECISION_FRAGMENT_SHADER_REGISTERS UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_VIRTUAL_TEXTURING UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_ASTC_NORMALMAP_ENCODING SHADER_API_GLES30
+
+Shader error in 'Stylized Water Mobile': Couldn't open include file 'Assets/Stylized Water For URP/Shaders/Libraries/StylizedWaterForURP.hlsl'. at line 2000
+
+Compiling Vertex program with SURFACE_FOAM_ON INTERSECTION_EFFECTS_ON WORLD_SPACE_UV_ON
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR UNITY_PASS_SHADOWCASTER
+Disabled keywords: INSTANCING_ON REFRACTION_ON UNITY_NO_DXT5nm UNITY_ENABLE_NATIVE_SHADOW_LOOKUPS UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_NO_FULL_STANDARD_SHADER UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_COLORSPACE_GAMMA UNITY_HALF_PRECISION_FRAGMENT_SHADER_REGISTERS UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_VIRTUAL_TEXTURING UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_ASTC_NORMALMAP_ENCODING SHADER_API_GLES30
+
+ -> (artifact id: '18f8cb3686f3debde5977d1ff3c65224') in 0.317034 seconds
+  Import took 0.326192 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000185 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Birch_5.fbx
-  artifactKey: Guid(3cd0315809607204795a427a688f78ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Birch_5.fbx using Guid(3cd0315809607204795a427a688f78ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bde292bd0c012e9fc41f2e52dcc6c77d') in 0.051977 seconds
-  Import took 0.058862 seconds .
+  Time since last request: 54.985691 seconds.
+  path: Assets/Credits
+  artifactKey: Guid(5207f965e80ee1d409fcfd910dd35ef9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Credits using Guid(5207f965e80ee1d409fcfd910dd35ef9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7265cb74ab8d2ccc7dbe23d625f9aa9a') in 0.010881 seconds
+  Import took 0.029271 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000199 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Cliff_1.fbx
-  artifactKey: Guid(d704486f3f8bb4c429338dc583c804ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Cliff_1.fbx using Guid(d704486f3f8bb4c429338dc583c804ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2256124489aa517b547fee46661a321d') in 0.065993 seconds
-  Import took 0.073629 seconds .
+  Time since last request: 0.001587 seconds.
+  path: Assets/Credits
+  artifactKey: Guid(5207f965e80ee1d409fcfd910dd35ef9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Credits using Guid(5207f965e80ee1d409fcfd910dd35ef9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7265cb74ab8d2ccc7dbe23d625f9aa9a') in 0.005373 seconds
+  Import took 0.018395 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000227 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_3.fbx
-  artifactKey: Guid(25c2b3a27a570634e8cb520e7766a631) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_3.fbx using Guid(25c2b3a27a570634e8cb520e7766a631) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8de21e5e153d359ee1cc2902d17f29cc') in 0.063053 seconds
-  Import took 0.070360 seconds .
+  Time since last request: 10.051130 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials
+  artifactKey: Guid(8b0158481a06fe74cb4303432c9f2e8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials using Guid(8b0158481a06fe74cb4303432c9f2e8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5361c15b9a2e123c1e3e54d78dc7a9f5') in 0.005257 seconds
+  Import took 0.015719 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000206 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_5.fbx
-  artifactKey: Guid(41752991b9375c24e8efc9e5ce15ac32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Broadleaf_5.fbx using Guid(41752991b9375c24e8efc9e5ce15ac32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '854b9ce1a34b6af39e8b0d360bc9644c') in 0.052174 seconds
-  Import took 0.059811 seconds .
+  Time since last request: 2.179919 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature
+  artifactKey: Guid(64810fbfd800ea74882c0d3d997b5abf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature using Guid(64810fbfd800ea74882c0d3d997b5abf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1c7a3e44d666fbb4ff5c9c35768c0bb') in 0.012399 seconds
+  Import took 0.025925 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000202 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_2.fbx
-  artifactKey: Guid(565916a7de5c8b04c8bf82346d9455c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_DeadTree_2.fbx using Guid(565916a7de5c8b04c8bf82346d9455c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd53fd435370376bdfe9f85e3f03786a5') in 0.051235 seconds
-  Import took 0.057932 seconds .
+  Time since last request: 0.000529 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature
+  artifactKey: Guid(64810fbfd800ea74882c0d3d997b5abf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature using Guid(64810fbfd800ea74882c0d3d997b5abf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1c7a3e44d666fbb4ff5c9c35768c0bb') in 0.004259 seconds
+  Import took 0.017798 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000242 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Dead_Bush.fbx
-  artifactKey: Guid(90d3e95805795e54c9b0a24e7a950055) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Dead_Bush.fbx using Guid(90d3e95805795e54c9b0a24e7a950055) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a14bda11e508b894cd71260b76d4ee4') in 0.051609 seconds
-  Import took 0.058336 seconds .
+  Time since last request: 0.076576 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Birch_Bark.mat
+  artifactKey: Guid(9ba67f4f3efcb2f4ba5fedb55102299f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Birch_Bark.mat using Guid(9ba67f4f3efcb2f4ba5fedb55102299f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ecad57a3703a76289c469462359aecac') in 0.045073 seconds
+  Import took 0.053801 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000343 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Flowers.mat
+  artifactKey: Guid(75c8c152672dcb84fb37e70c16c34021) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Flowers.mat using Guid(75c8c152672dcb84fb37e70c16c34021) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92ccae125bf51de591a6b6664c09e620') in 0.790323 seconds
+  Import took 0.799659 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000325 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Reeds.mat
+  artifactKey: Guid(aa46c49577171964d87f679e5426d03f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Reeds.mat using Guid(aa46c49577171964d87f679e5426d03f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab5d5858bf4b8e78f61ddaf97a1fda8a') in 0.599179 seconds
+  Import took 0.607244 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000197 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Fir_Branch.mat
+  artifactKey: Guid(edc84dc1728b0fc458b4a8ef97842c2e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Fir_Branch.mat using Guid(edc84dc1728b0fc458b4a8ef97842c2e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8cf533f0f45b48f1691df6a94c927f2') in 0.546218 seconds
+  Import took 0.552981 seconds .
 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000271 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Rock_1.fbx
-  artifactKey: Guid(91b49f1984ef8eb49b2e4c1910cfb2b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Rock_1.fbx using Guid(91b49f1984ef8eb49b2e4c1910cfb2b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0301794377a3395a9b7337e2a2071c31') in 0.047887 seconds
-  Import took 0.055722 seconds .
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Grass_1.mat
+  artifactKey: Guid(6eaf6b958c00dd2458d54d6b64bc31ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Grass_1.mat using Guid(6eaf6b958c00dd2458d54d6b64bc31ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fcfcbe2390ec0c480364e72cf9a7c9e') in 0.016492 seconds
+  Import took 0.023871 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000212 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Models/AN_Birch_2.fbx
-  artifactKey: Guid(b1ee14d9a2e4a2341b4d5950485ca3f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Models/AN_Birch_2.fbx using Guid(b1ee14d9a2e4a2341b4d5950485ca3f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c503816167bca123d41ed7a306ff7476') in 0.052231 seconds
-  Import took 0.058867 seconds .
+  Time since last request: 0.000460 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Bush_Branches.mat
+  artifactKey: Guid(35ce917939531c349a9925449009cffc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Bush_Branches.mat using Guid(35ce917939531c349a9925449009cffc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7537ba1e7112fadd38e18d4585058f1d') in 0.026417 seconds
+  Import took 0.033596 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 42.584472 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Materials
-  artifactKey: Guid(8b0158481a06fe74cb4303432c9f2e8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Materials using Guid(8b0158481a06fe74cb4303432c9f2e8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6a099cf447f51e18ec4b21b353cb78f') in 0.011019 seconds
-  Import took 0.032494 seconds .
+  Time since last request: 0.000442 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Flowers_Purple.mat
+  artifactKey: Guid(c2d7be60ab79a734f877f71ef44f232d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Flowers_Purple.mat using Guid(c2d7be60ab79a734f877f71ef44f232d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2596ba560edf8efd84327b218896bea') in 0.618002 seconds
+  Import took 0.625251 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 2.110678 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Materials/Rocks
-  artifactKey: Guid(2f6255c809dc76245aab82d069d8a280) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Materials/Rocks using Guid(2f6255c809dc76245aab82d069d8a280) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b5a9da27b6e3b33cc33978ad7a113ca') in 0.011598 seconds
-  Import took 0.024246 seconds .
+  Time since last request: 0.000210 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Bush_Flowers.mat
+  artifactKey: Guid(a3826727875ebd4499cb5fb333467b6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Bush_Flowers.mat using Guid(a3826727875ebd4499cb5fb333467b6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '977d95e2e1961759aad6cbebe5d2c73b') in 0.539395 seconds
+  Import took 0.546878 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000259 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Mushrooms.mat
+  artifactKey: Guid(3a4fa83fd3986ea4d99f91acc2dd558c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Mushrooms.mat using Guid(3a4fa83fd3986ea4d99f91acc2dd558c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1dcad2bb7d029db0d1a304cae828e94d') in 0.016721 seconds
+  Import took 0.025975 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000355 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Bush_Leaves_2.mat
+  artifactKey: Guid(3ddaf7ac0d1c10e43832f58ff5ab876b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Bush_Leaves_2.mat using Guid(3ddaf7ac0d1c10e43832f58ff5ab876b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d91cc1b7940135db3a600e01e79361e') in 0.025312 seconds
+  Import took 0.033686 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000058 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Bush_Leaves.mat
+  artifactKey: Guid(dd386f1025075e24ba268b511beb6575) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Bush_Leaves.mat using Guid(dd386f1025075e24ba268b511beb6575) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '636c3fc58bd6b28510ce4623b4368717') in 0.036228 seconds
+  Import took 0.046274 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000229 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Reedmace.mat
+  artifactKey: Guid(145a274756fa29145a59a0dea7b822a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Reedmace.mat using Guid(145a274756fa29145a59a0dea7b822a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37230a8f269cc8e1407013e6ab9c9e2e') in 0.476975 seconds
+  Import took 0.487300 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000320 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Broadleaf_Leaves_1.mat
+  artifactKey: Guid(938d2f0d65494a643b06866694269262) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Broadleaf_Leaves_1.mat using Guid(938d2f0d65494a643b06866694269262) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '347f4764d11dffe46525c84016db208c') in 0.021344 seconds
+  Import took 0.031784 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000304 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Broadleaf_Leaves_2.mat
+  artifactKey: Guid(d5b0e091beb557d4eacd100d9751e1cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Broadleaf_Leaves_2.mat using Guid(d5b0e091beb557d4eacd100d9751e1cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0719105f9f41394297a1cd74e9da0585') in 0.020923 seconds
+  Import took 0.031971 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000292 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Birch_Leaves.mat
+  artifactKey: Guid(21ebd6624603c6245b74c69d227aa896) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Birch_Leaves.mat using Guid(21ebd6624603c6245b74c69d227aa896) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa718be97d48f76f66af9ebcd1c89774') in 0.028779 seconds
+  Import took 0.037253 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000296 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_DeadTree_Bark.mat
+  artifactKey: Guid(fbe76b8cb064688438d22fdbbc5071ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_DeadTree_Bark.mat using Guid(fbe76b8cb064688438d22fdbbc5071ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78a6b676cd066f2625737bf7dd770234') in 0.044735 seconds
+  Import took 0.055689 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Fir_Bark.mat
+  artifactKey: Guid(232663b7e003870478ab27e8a630519e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Fir_Bark.mat using Guid(232663b7e003870478ab27e8a630519e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c7841a752a574332aca49d4905da5c3') in 0.595097 seconds
+  Import took 0.605120 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000335 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Broadleaf_Bark.mat
+  artifactKey: Guid(11b386df1c4173a479719155b1160910) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Broadleaf_Bark.mat using Guid(11b386df1c4173a479719155b1160910) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd800f05a3a876620d6d67876ece7201f') in 0.021535 seconds
+  Import took 0.029670 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000315 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Grass_2.mat
+  artifactKey: Guid(d862d52e14d58534a98fa6b0bae2e9a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Grass_2.mat using Guid(d862d52e14d58534a98fa6b0bae2e9a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c8a4a806db236513abb88b1d7d1b94a') in 0.020939 seconds
+  Import took 0.033437 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000455 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Water.mat
+  artifactKey: Guid(407ff4437c5abc044ace6a0f89594b63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_Water.mat using Guid(407ff4437c5abc044ace6a0f89594b63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17d2ad33bea4c2ab01446ac3932ab572') in 0.062509 seconds
+  Import took 0.072133 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000204 seconds.
+  path: Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_WaterLily.mat
+  artifactKey: Guid(03a0be52cfca2414b99eea2afc1655ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature/AN_WaterLily.mat using Guid(03a0be52cfca2414b99eea2afc1655ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ef2bb8929083189daccff0a94ec18df') in 0.017945 seconds
+  Import took 0.027908 seconds .
+
+========================================================================
+Received Prepare
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 5.87 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 18 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 99.5 MB.
+System memory in use after: 99.7 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 4243.
+Total: 4.732500 ms (FindLiveObjects: 0.377400 ms CreateObjectMapping: 0.228100 ms MarkObjects: 3.983800 ms  DeleteObjects: 0.141300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  colorSpace: 0 -> 1
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004847 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.28 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.665 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.93 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3524 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 169.2 MB.
+System memory in use after: 169.4 MB.
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 4220.
+Total: 5.014600 ms (FindLiveObjects: 0.632300 ms CreateObjectMapping: 0.521500 ms MarkObjects: 3.705300 ms  DeleteObjects: 0.154100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  colorSpace: 0 -> 1
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007851 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.93 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.595 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.92 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3524 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 169.3 MB.
+System memory in use after: 169.5 MB.
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 4224.
+Total: 5.315800 ms (FindLiveObjects: 0.418600 ms CreateObjectMapping: 0.242000 ms MarkObjects: 4.455400 ms  DeleteObjects: 0.198400 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  colorSpace: 0 -> 1
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007007 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.33 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.835 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.92 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3524 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 169.3 MB.
+System memory in use after: 169.5 MB.
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 4228.
+Total: 26.141800 ms (FindLiveObjects: 8.997900 ms CreateObjectMapping: 0.891400 ms MarkObjects: 16.094600 ms  DeleteObjects: 0.156200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  colorSpace: 0 -> 1
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005873 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.05 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.977 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 9.45 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3524 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 169.4 MB.
+System memory in use after: 169.5 MB.
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 4232.
+Total: 8.841700 ms (FindLiveObjects: 3.080800 ms CreateObjectMapping: 1.134600 ms MarkObjects: 4.448200 ms  DeleteObjects: 0.176100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  colorSpace: 0 -> 1
+========================================================================
+Received Import Request.
+  Time since last request: 4079.332003 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Bush.prefab
+  artifactKey: Guid(41113eaa73613bf46b4a11e8f0f7986e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Bush.prefab using Guid(41113eaa73613bf46b4a11e8f0f7986e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f81f3c89d923ffbdcc6829321e86bd6') in 0.273538 seconds
+  Import took 0.283558 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000342 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/HangingBridge.prefab
+  artifactKey: Guid(b3359a8d43e26ad4cb5971dea869bbe4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/HangingBridge.prefab using Guid(b3359a8d43e26ad4cb5971dea869bbe4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14b1850ea5f973d996a5148061fd96e4') in 0.036954 seconds
+  Import took 0.044210 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000317 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Conifer_Proxy.prefab
+  artifactKey: Guid(d75f32ad1b2a5904b933319a60c94cf9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Conifer_Proxy.prefab using Guid(d75f32ad1b2a5904b933319a60c94cf9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '76d54129b8d72fa002a58dfa2168ea66') in 0.139575 seconds
+  Import took 0.146612 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000395 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TorchBig_Burning.prefab
+  artifactKey: Guid(1372699b5540c7a4ebb2474edecfeada) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TorchBig_Burning.prefab using Guid(1372699b5540c7a4ebb2474edecfeada) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91c5f4e1232cd4af7086fbaaef814edb') in 0.060205 seconds
+  Import took 0.069817 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000355 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TreeTrunk2.prefab
+  artifactKey: Guid(50f6ba5036713d84d89dfb29bf27a4ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TreeTrunk2.prefab using Guid(50f6ba5036713d84d89dfb29bf27a4ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'da9a7d1574b7e842f25186cf101a52ba') in 0.042888 seconds
+  Import took 0.049662 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000319 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TreeTrunk1.prefab
+  artifactKey: Guid(a1653dca631714641aa1bb00d0f9a774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TreeTrunk1.prefab using Guid(a1653dca631714641aa1bb00d0f9a774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b35d03cfcaaa9135226c44881a1c1a2c') in 0.019845 seconds
+  Import took 0.026703 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000309 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/WoodenPole1.prefab
+  artifactKey: Guid(e63b5589d71179740828a694c8cb8b3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/WoodenPole1.prefab using Guid(e63b5589d71179740828a694c8cb8b3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce3588aefa7a314ad6f858b3558a9b74') in 0.034183 seconds
+  Import took 0.042996 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000316 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Conifer1_Distant.prefab
+  artifactKey: Guid(e77994032267b81458f4b4db8df70f79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Conifer1_Distant.prefab using Guid(e77994032267b81458f4b4db8df70f79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c95f643cdad0ae21af222a25cd957cac') in 0.027582 seconds
+  Import took 0.037065 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Conifer2_Low.prefab
+  artifactKey: Guid(566a3d4ae392f68468089d7a53e1f985) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Conifer2_Low.prefab using Guid(566a3d4ae392f68468089d7a53e1f985) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c843a3fd70e9e05f3bd3588008b72d2') in 0.028163 seconds
+  Import took 0.043436 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000110 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Mushrooms.prefab
+  artifactKey: Guid(80a058a220ca402439f4cb98c421847b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Mushrooms.prefab using Guid(80a058a220ca402439f4cb98c421847b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1941f6d5e9696c2753f5079a51574400') in 0.029121 seconds
+  Import took 0.041179 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000288 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Tree3_BirchYoung.prefab
+  artifactKey: Guid(4548fc8fae4e019418f9e5473fcce8e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Tree3_BirchYoung.prefab using Guid(4548fc8fae4e019418f9e5473fcce8e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0aaa32ce237d601656bd889faf38d178') in 0.028152 seconds
+  Import took 0.035817 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000207 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TreeDead2.prefab
+  artifactKey: Guid(7409cb2d34ac40f4380be257c958fe5e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TreeDead2.prefab using Guid(7409cb2d34ac40f4380be257c958fe5e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e67bc07d5def5e2290f64bd263172c10') in 0.025400 seconds
+  Import took 0.033240 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000177 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TreeDead1.prefab
+  artifactKey: Guid(63f03ab865b4a4f41918da8dc3287175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/TreeDead1.prefab using Guid(63f03ab865b4a4f41918da8dc3287175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '009ebc5f26ddd2c5201f2d23f7c8f3e2') in 0.031422 seconds
+  Import took 0.038733 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000318 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/WaterLilies.prefab
+  artifactKey: Guid(4c94ce1d5c332ef4d8209647bc2dab08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/WaterLilies.prefab using Guid(4c94ce1d5c332ef4d8209647bc2dab08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3031003cf3b39d504cf0b52ac7e32960') in 0.024115 seconds
+  Import took 0.032542 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000201 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Conifer2_Distant.prefab
+  artifactKey: Guid(a63c539d4a2a1824fbc5018158426484) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Conifer2_Distant.prefab using Guid(a63c539d4a2a1824fbc5018158426484) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac8493e7d50dd670410eab38475a6946') in 0.024912 seconds
+  Import took 0.035037 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Tree1.prefab
+  artifactKey: Guid(e035975c34c2a834681e407ca0605802) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Tree1.prefab using Guid(e035975c34c2a834681e407ca0605802) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6fa8929f3795cb311b97ba1cd85b3eb') in 0.026322 seconds
+  Import took 0.037230 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000172 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Ladder.prefab
+  artifactKey: Guid(af037777d89b8c040b5f6c3c04568c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Ladder.prefab using Guid(af037777d89b8c040b5f6c3c04568c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e9362c1df9f9aeec69a6728901a75a3') in 0.023261 seconds
+  Import took 0.033966 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000241 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/WoodenWalkway.prefab
+  artifactKey: Guid(37959fcc174a554468158ae1d71189b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/WoodenWalkway.prefab using Guid(37959fcc174a554468158ae1d71189b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4fc434fad71ea2a7b8000ead551981c') in 0.144570 seconds
+  Import took 0.154748 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000343 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Bush2.prefab
+  artifactKey: Guid(578b79da386ab7d4fa2a018ea2019638) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/Bush2.prefab using Guid(578b79da386ab7d4fa2a018ea2019638) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78e2b4279fc202fc25d6847f4f1d7bbe') in 0.027048 seconds
+  Import took 0.036256 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000324 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/DistantBackgroundMountains.prefab
+  artifactKey: Guid(b2bb711bfd6ace548b67c0a89694d295) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/DistantBackgroundMountains.prefab using Guid(b2bb711bfd6ace548b67c0a89694d295) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc763df9392db747e96c51d607afeac2') in 0.024864 seconds
+  Import took 0.035687 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000240 seconds.
+  path: Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/MushroomsYellow.prefab
+  artifactKey: Guid(fb06958f2215c4f43964cc3b9d383d15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Lowpoly Style/ForestPack/Prefabs/MushroomsYellow.prefab using Guid(fb06958f2215c4f43964cc3b9d383d15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e613db63dba64a1576c57afbaa46117') in 0.023672 seconds
+  Import took 0.034869 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007270 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.98 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.655 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.54 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3524 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 173.2 MB.
+System memory in use after: 173.4 MB.
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 4272.
+Total: 3.790000 ms (FindLiveObjects: 0.527300 ms CreateObjectMapping: 0.329400 ms MarkObjects: 2.763300 ms  DeleteObjects: 0.168700 ms)
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

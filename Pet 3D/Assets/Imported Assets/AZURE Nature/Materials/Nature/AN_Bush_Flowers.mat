@@ -59,6 +59,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SmoothnessTexture1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SmoothnessTexture3:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -99,7 +103,9 @@ Material:
     - _Cutoff: 0.25
     - _DetailNormalMapScale: 1
     - _DirectLightInt: 1
+    - _DirectLightInt1: 1
     - _DirectLightOffset: 0
+    - _DirectLightOffset1: 0
     - _DstBlend: 0
     - _Fixthebaseoffoliage: 0
     - _Float2: 0
@@ -107,6 +113,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 0
     - _IndirectLightInt: 1
+    - _IndirectLightInt1: 1
     - _InvertColor2: 0
     - _Keyword0: 0
     - _Metallic: 0
@@ -115,6 +122,7 @@ Material:
     - _Parallax: 0.02
     - _SNOW: 0
     - _Smoothness: 0.15
+    - _Smoothness1: 0.15
     - _SmoothnessTextureChannel: 0
     - _Snow: 0
     - _SnowAmount: 1
@@ -132,6 +140,7 @@ Material:
     - _TransShadow: 1
     - _Translucency: 2
     - _TranslucencyInt: 5
+    - _TranslucencyInt1: 1
     - _TreeType: 2
     - _UVSec: 0
     - _WIND: 1
