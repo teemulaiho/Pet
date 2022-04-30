@@ -6,6 +6,7 @@ public class ShopObject : MonoBehaviour
 {
     UIController uiController;
     ShopWindow shopWindow;
+    [SerializeField] GameObject icon;
     bool _isOpen;
 
     private void Awake()
@@ -21,6 +22,11 @@ public class ShopObject : MonoBehaviour
 
         if (shopWindow)
             shopWindow.onWindowClose += OnWindowClose;
+    }
+
+    private void Update()
+    {
+        icon.transform.Rotate(Vector3.right, 45.0f * Time.deltaTime);
     }
 
     public void Toggle()
