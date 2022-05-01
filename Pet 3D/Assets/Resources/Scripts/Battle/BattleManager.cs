@@ -112,7 +112,18 @@ public class BattleManager : MonoBehaviour
         if (battleOver)
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                SceneManager.LoadScene("HomeScene");
+                ReturnHome();
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                ReturnHome();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!running)
+                StartBattle();
         }
     }
 

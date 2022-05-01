@@ -138,6 +138,11 @@ public class RaceManager : MonoBehaviour
 
             UpdateCamera();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("HomeScene");
+        }
     }
 
     private void StartRace()

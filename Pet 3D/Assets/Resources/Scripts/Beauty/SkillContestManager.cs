@@ -118,7 +118,18 @@ public class SkillContestManager : MonoBehaviour
         if (contestOver)
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                SceneManager.LoadScene("HomeScene");
+                ReturnHome();
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                ReturnHome();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!running)
+                StartRound();
         }
     }
 
