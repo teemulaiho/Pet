@@ -55,6 +55,9 @@ public class UIController : MonoBehaviour
 
     List<GameObject> openWindows;
 
+    [SerializeField] bool quantitySliderActive;
+    [SerializeField] Slider quantitySlider;
+    [SerializeField] Button purchaseButton;
     [SerializeField] RectTransform selectedUIButton;
     [SerializeField] List<Button> uiButtons;
 
@@ -106,7 +109,7 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
             ToggleAnimation(petInfoUIParent.gameObject);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Return))
             Select();
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -114,12 +117,29 @@ public class UIController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
             ChangeSelectedObject(1);
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            ChangeSelectedObject(5);
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            ChangeSelectedObject(-5);
     }
 
     private void ChangeSelectedObject(int v)
     {
         if (uiButtons.Count == 0)
             return;
+
+
+        if (quantitySliderActive)
+        {
+            quantitySlider.value += v;
+
+            return;
+        }
+
+
+
 
         if (!selectedUIButton)
             selectedUIButton = uiButtons[0].GetComponent<RectTransform>();
@@ -128,21 +148,53 @@ public class UIController : MonoBehaviour
         if (selectedUIButton.TryGetComponent<Button>(out Button b))
             currentIndex = uiButtons.IndexOf(b);
 
-        currentIndex -= v;
+        if (Mathf.Abs(v) < 2)
+            currentIndex -= v;
+        else
+            currentIndex += v;
 
         if (currentIndex >= uiButtons.Count)
             currentIndex = 0;
         else if (currentIndex < 0)
             currentIndex = uiButtons.Count - 1;
 
-        selectedUIButton.transform.GetChild(0).gameObject.SetActive(false);
+
+        if (selectedUIButton.transform.Find("Border"))
+            selectedUIButton.transform.Find("Border").gameObject.SetActive(false);
+        else
+            selectedUIButton.transform.GetChild(0).gameObject.SetActive(false);
+
         selectedUIButton = uiButtons[currentIndex].GetComponent<RectTransform>();
-        selectedUIButton.transform.GetChild(0).gameObject.SetActive(true);
+
+        if (selectedUIButton.transform.Find("Border"))
+            selectedUIButton.transform.Find("Border").gameObject.SetActive(true);
+        else
+            selectedUIButton.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     private void Select()
     {
-        //selectedUIButton.GetComponent<Button>().onClick;
+        if (!selectedUIButton)
+            return;
+
+        if (selectedUIButton.TryGetComponent(out Button b))
+        {
+            if (quantitySliderActive)
+            {
+                purchaseButton.onClick.Invoke();
+                quantitySlider.value = quantitySlider.minValue;
+            }
+            else
+                b.onClick.Invoke();
+
+            if (b.onClick.GetPersistentEventCount() > 0)
+            {
+                if (b.onClick.GetPersistentMethodName(0).Contains("Select"))
+                {
+                    quantitySliderActive = !quantitySliderActive;
+                }
+            }
+        }
     }
 
     private void UpdatePetInfo()

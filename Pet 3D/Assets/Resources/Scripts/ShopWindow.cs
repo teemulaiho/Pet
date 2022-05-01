@@ -101,6 +101,9 @@ public class ShopWindow : MonoBehaviour
 
     public void PurchaseItem()
     {
+        if (!selectedItem)
+            return;
+
         if (Persistent.playerInventory.money < selectedItem.cost)
             return;
 

@@ -571,6 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventName: Race
   timeLeft: 0
+  hoursLeft: 0
   minutesLeft: 0
   secondsLeft: 0
   startHour: 19
@@ -806,7 +807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7152853032297174118
 RectTransform:
   m_ObjectHideFlags: 0
