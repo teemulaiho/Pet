@@ -55,6 +55,9 @@ public class UIController : MonoBehaviour
 
     List<GameObject> openWindows;
 
+    [SerializeField] RectTransform selectedUIButton;
+    [SerializeField] List<Button> uiButtons;
+
     public EventWindow GetEventWindow() { return eventWindow; }
     public ShopWindow GetShopWindow() { return shopWindow; }
 
@@ -72,6 +75,9 @@ public class UIController : MonoBehaviour
         shopWindow.gameObject.SetActive(false);
 
         openWindows = new List<GameObject>();
+
+        uiButtons = new List<Button>();
+        uiButtons.AddRange(FindObjectsOfType<Button>());
     }
 
     private void Start()
@@ -100,6 +106,43 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
             ToggleAnimation(petInfoUIParent.gameObject);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+            Select();
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+            ChangeSelectedObject(-1);
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            ChangeSelectedObject(1);
+    }
+
+    private void ChangeSelectedObject(int v)
+    {
+        if (uiButtons.Count == 0)
+            return;
+
+        if (!selectedUIButton)
+            selectedUIButton = uiButtons[0].GetComponent<RectTransform>();
+
+        int currentIndex = -1;
+        if (selectedUIButton.TryGetComponent<Button>(out Button b))
+            currentIndex = uiButtons.IndexOf(b);
+
+        currentIndex -= v;
+
+        if (currentIndex >= uiButtons.Count)
+            currentIndex = 0;
+        else if (currentIndex < 0)
+            currentIndex = uiButtons.Count - 1;
+
+        selectedUIButton.transform.GetChild(0).gameObject.SetActive(false);
+        selectedUIButton = uiButtons[currentIndex].GetComponent<RectTransform>();
+        selectedUIButton.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    private void Select()
+    {
+        //selectedUIButton.GetComponent<Button>().onClick;
     }
 
     private void UpdatePetInfo()
@@ -190,6 +233,9 @@ public class UIController : MonoBehaviour
     {
         player.ReleaseCursor();
         player.CanMove = false;
+
+        uiButtons.Clear();
+        uiButtons.AddRange(FindObjectsOfType<Button>());
     }
     private void OnWindowClose()
     {
