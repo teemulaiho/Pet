@@ -425,7 +425,7 @@ public class Pet : MonoBehaviour
                 State = PetState.ChaseBall;
                 SpawnSpeedCloud();
             }
-            else if (Player && Vector3.Distance(transform.position, Player.transform.position) < detectionRange)
+            else if (Player && isPlayerMoving && Vector3.Distance(transform.position, Player.transform.position) < detectionRange)
             {
                 State = PetState.FollowPlayer;
 
@@ -467,9 +467,18 @@ public class Pet : MonoBehaviour
                 State = PetState.ChaseBall;
                 SpawnSpeedCloud();
             }
-
-            if (isPlayerMoving)
+            else if (isPlayerMoving)
+            {
                 State = PetState.FollowPlayer;
+            }
+            else if (stayInStateDT >= stateCounterDictionary[State] &&
+                (int)stayInStateDT % (int)stateCounterDictionary[State] == 0)
+            {
+                int val = Random.Range(0, 2);
+
+                if (val == 0)
+                    State = PetState.Idle;
+            }
         }
     }
 
@@ -516,26 +525,6 @@ public class Pet : MonoBehaviour
                 {
                     break;
                 }
-        }
-    }
-
-    private void CheckStateStay()
-    {
-        if (stayInStateDT >= stateCounterDictionary[State] &&
-            (int)stayInStateDT % (int)stateCounterDictionary[State] == 0)
-        {
-            if (State == PetState.Bored)
-            {
-                if (!isDoingBoredAction)
-                {
-                    petAnimator.SetTrigger("Stretch");
-                    if (petAnimator.GetBool("Break")) // If Break -trigger is still active from previous actions (ie. moving)
-                        petAnimator.SetBool("Break", false);
-
-                    Debug.Log("Set Trigger: Stretch");
-                    isDoingBoredAction = true;
-                }
-            }
         }
     }
 
@@ -690,6 +679,25 @@ public class Pet : MonoBehaviour
                 energy += 0.5f;
 
                 energydt = 0f;
+            }
+        }
+    }
+
+    private void CheckStateStay()
+    {
+        if (stayInStateDT >= stateCounterDictionary[State] &&
+            (int)stayInStateDT % (int)stateCounterDictionary[State] == 0)
+        {
+            if (State == PetState.Bored)
+            {
+                if (!isDoingBoredAction)
+                {
+                    if (petAnimator.GetBool("Break")) // If Break -trigger is still active from previous actions (ie. moving)
+                        petAnimator.SetBool("Break", false);
+
+                    petAnimator.SetTrigger("Stretch");
+                    isDoingBoredAction = true;
+                }
             }
         }
     }
@@ -946,6 +954,11 @@ public class Pet : MonoBehaviour
 
     void OnStateChange(PetState from, PetState to)
     {
+        if (from == PetState.Bored)
+        {
+            isDoingBoredAction = false;
+        }
+
         Debug.Log("Pet State Change from: " + from + " to: " + to);
         stayInStateDT = 0f;
     }
