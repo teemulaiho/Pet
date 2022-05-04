@@ -88,7 +88,7 @@ public class Pet : MonoBehaviour
     private float energydtCounter = 2f;
 
     private float actionDt = 0f;
-    private float speed = 1f;
+    private float speed = 1.2f;
 
     private float senseUpdateTimer = 0f;
     private float senseUpdateInterval = 1f;
@@ -106,7 +106,8 @@ public class Pet : MonoBehaviour
 
     private Vector3 previousPlayerPos = Vector3.zero;
 
-
+    private bool grounded = false;
+    private RaycastHit groundInfo;
 
 
 
@@ -146,8 +147,8 @@ public class Pet : MonoBehaviour
     public float hoverPos = 0.3f;
 
 
-    [SerializeField] Rigidbody rigidbody;
-    [SerializeField] SphereCollider collider;
+    [SerializeField] Rigidbody body;
+    [SerializeField] SphereCollider coll;
 
     [SerializeField] Transform feetPos;
 
@@ -171,12 +172,12 @@ public class Pet : MonoBehaviour
     {
         Player = FindObjectOfType<Player>();
         spawnPosition = GameObject.FindGameObjectWithTag("SpawnPosition");
-        rigidbody = GetComponent<Rigidbody>();
+        body = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
-        collider.radius = interactRange - 0.05f;
+        coll.radius = interactRange - 0.05f;
 
         State = PetState.Idle;
         health = Persistent.petStats.health;
@@ -251,6 +252,11 @@ public class Pet : MonoBehaviour
         UpdateAnimator();
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     void Sense()
     {
         if (!calledByPlayer)
@@ -266,15 +272,13 @@ public class Pet : MonoBehaviour
         food = FindNearest<Food>();
         goal = GameObject.FindGameObjectWithTag("Goal");
 
-        if (rigidbody.velocity != Vector3.zero)
-            rigidbody.velocity = Vector3.zero;
-
         if (player)
         {
             isPlayerMoving = previousPlayerPos != player.transform.position;
             previousPlayerPos = player.transform.position;
         }
 
+        GroundCheck();
     }
     void Decide()
     {
@@ -562,32 +566,37 @@ public class Pet : MonoBehaviour
         if (food)
             MoveTowards(food.transform.position, interactRange);
     }
+
     void MoveTowards(Vector3 targetPosition, float range = 0f)
     {
-        if (Vector3.Distance(transform.position, targetPosition) > range)
+        if (grounded)
         {
-            Vector3 newPos = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-            newPos.y = hoverPos;
-            transform.position = newPos;
+            if (Vector3.Distance(transform.position, targetPosition) > range)
+            {
+                Vector3 direction = targetPosition - transform.position;
+                direction.y = 0;
+                if (direction.magnitude > 1.0f)
+                    direction.Normalize();
+
+                direction = Vector3.Cross(Vector3.Cross(-direction, Vector3.up), groundInfo.normal);
+
+                Vector3 targetVelocity = direction * speed;
+                Vector3 velocityChange = targetVelocity - body.velocity;
+                body.AddForce(velocityChange, ForceMode.VelocityChange);
+            }
         }
 
-
-        //Vector3 direction = (targetPosition - transform.position).normalized;
-        //float distance = Vector3.Distance(transform.position, targetPosition);
-
-        //Vector3 step = direction * Time.deltaTime * speed;
-
-        //if (distance > range)
+        //if (Vector3.Distance(transform.position, targetPosition) > range)
         //{
-        //    if (step.magnitude > distance)
-        //    {
-        //        transform.position = targetPosition;
-        //    }
-        //    else
-        //    {
-        //        transform.position += step;
-        //    }
+        //    Vector3 newPos = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        //    newPos.y = hoverPos;
+        //    transform.position = newPos;
         //}
+    }
+
+    private void GroundCheck()
+    {
+        grounded = Physics.SphereCast(coll.bounds.center, 0.15f, -transform.up, out groundInfo, 0.1f);
     }
 
     void Eat()
@@ -633,7 +642,7 @@ public class Pet : MonoBehaviour
         directionVariance.z = Random.Range(-2f, 2f);
 
         entity.rb.AddForce((transform.forward + directionVariance).normalized * Persistent.petStats.strength * 200f);
-        rigidbody.velocity = Vector3.zero; // reset pet velocity if it collided with ball. This fixes pet wobbly movement. -Teemu
+        body.velocity = Vector3.zero; // reset pet velocity if it collided with ball. This fixes pet wobbly movement. -Teemu
     }
 
     void UpdateHealth()
@@ -901,7 +910,7 @@ public class Pet : MonoBehaviour
             calledByPlayer = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
