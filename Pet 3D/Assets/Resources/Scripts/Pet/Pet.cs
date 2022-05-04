@@ -14,7 +14,8 @@ public enum PetState
     ReturnBall,
     Fainted,
     Dazed,
-    Bored
+    Bored,
+    ReturnToNest
 }
 
 public class Pet : MonoBehaviour
@@ -67,6 +68,7 @@ public class Pet : MonoBehaviour
     [SerializeField] private Food food;
     [SerializeField] private Ball ball;
     [SerializeField] private GameObject goal;
+    [SerializeField] private Nest nest;
 
     [SerializeField] private Entity grabbedObject;
 
@@ -173,6 +175,7 @@ public class Pet : MonoBehaviour
         Player = FindObjectOfType<Player>();
         spawnPosition = GameObject.FindGameObjectWithTag("SpawnPosition");
         body = GetComponent<Rigidbody>();
+        nest = FindObjectOfType<Nest>();
     }
 
     private void Start()
@@ -282,6 +285,12 @@ public class Pet : MonoBehaviour
     }
     void Decide()
     {
+        if (energy / maxEnergy <= 0.2f)
+        {
+            State = PetState.ReturnToNest;
+        }
+
+
         if (State == PetState.GoToFood)
         {
             if (!food) // if the food magically disappeared
@@ -484,6 +493,11 @@ public class Pet : MonoBehaviour
                     State = PetState.Idle;
             }
         }
+        else if (State == PetState.ReturnToNest)
+        {
+            if (WithinLimits(transform.position, nest.transform.position, interactRange))
+                State = PetState.Sleeping;
+        }
     }
 
     void Act()
@@ -529,6 +543,11 @@ public class Pet : MonoBehaviour
                 {
                     break;
                 }
+            case PetState.ReturnToNest:
+                {
+                    GoToNest();
+                    break;
+                }
         }
     }
 
@@ -542,6 +561,13 @@ public class Pet : MonoBehaviour
             energydt = 0f;
         }
     }
+
+    bool GoToNest()
+    {
+        MoveTowards(nest.transform.position, interactRange);
+        return Vector3.Distance(transform.position, nest.transform.position) <= interactRange;
+    }
+
     void Wander()
     {
         MoveTowards(waypoint);
@@ -583,6 +609,10 @@ public class Pet : MonoBehaviour
                 Vector3 targetVelocity = direction * speed;
                 Vector3 velocityChange = targetVelocity - body.velocity;
                 body.AddForce(velocityChange, ForceMode.VelocityChange);
+            }
+            else
+            {
+                body.velocity = Vector3.zero;
             }
         }
 
@@ -715,6 +745,15 @@ public class Pet : MonoBehaviour
     {
         CheckStateStay();
 
+        if (State == PetState.Sleeping)
+        {
+            if (WithinLimits(transform.position, nest.transform.position, interactRange))
+            {
+                petAnimator.SetBool("isSleeping", true);
+                reactionAnimator.SetBool("isSleeping", true);
+            }
+        }
+
         if (health != healthPreviousFrame)
             healthAnimator.SetFloat("Health", health);
 
@@ -816,6 +855,11 @@ public class Pet : MonoBehaviour
             return false;
     }
 
+    bool WithinLimits(Vector3 pos, Vector3 comparison, float range)
+    {
+        return Vector3.Distance(pos, comparison) <= range;
+    }
+
     T FindNearest<T>(float range = 0f) where T : Component
     {
         T nearest = null;
@@ -910,7 +954,7 @@ public class Pet : MonoBehaviour
             calledByPlayer = true;
     }
 
-        private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
