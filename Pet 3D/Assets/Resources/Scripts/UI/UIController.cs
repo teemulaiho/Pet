@@ -210,7 +210,7 @@ public class UIController : MonoBehaviour
         {
             petName.text = Persistent.petStats.name;
             petLevel.text = Persistent.petStats.level.ToString();
-            petStateText.text = pet.GetState().ToString();
+            petStateText.text = pet.State.ToString();
             petIntelligence.text = Persistent.petStats.intellect.ToString();
             petStrength.text = Persistent.petStats.strength.ToString();
             petStamina.text = Persistent.petStats.stamina.ToString();

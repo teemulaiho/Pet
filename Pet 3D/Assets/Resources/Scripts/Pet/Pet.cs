@@ -20,10 +20,48 @@ public enum PetState
 public class Pet : MonoBehaviour
 {
     private BehaviorTree behavior; // to do
-    private PetState state;
 
+    [Header("State")]
+
+    public PetState state;
+    public PetState State
+    {
+        get { return state; }
+        set
+        {
+            if (State != value)
+            {
+                if (onStateChange != null)
+                    onStateChange(state, value);
+                state = value;
+            }
+        }
+    }
+
+    private Dictionary<PetState, float> stateCounterDictionary = new Dictionary<PetState, float>();
+
+    public float stayInStateDT = 0f;
+
+    private float stayInIdleStateCounter = 20f;
+    private float stayInFollowStateCounter = 10;
+    private float stayInBoredStateCounter = 25f;
+
+    public delegate void StateChange(PetState from, PetState to);
+    public event StateChange onStateChange;
+
+    [Space]
+    [Header("Stats")]
     public bool canLoseHealth;
     public bool canLoseEnergy;
+
+    private float maxHealth = 100f;
+    [SerializeField] private float health = 100f;
+
+    private float maxEnergy = 100f;
+    [SerializeField] private float energy = 100f;
+
+    [Space]
+    [Header("Objects To Interact With")]
 
     [SerializeField] private Player player;
     [SerializeField] private Food food;
@@ -37,14 +75,11 @@ public class Pet : MonoBehaviour
 
     private float healthPreviousFrame = 0f;
 
-    private float maxHealth = 100f;
-    [SerializeField] private float health = 100f;
+    [Space]
+    [Header("Behaviour Values")]
 
-    private float maxEnergy = 100f;
-    [SerializeField] private float energy = 100f;
-
-    private float stayInStateDT = 0f;
-    private float stayInIdleStateCounter = 20f;
+    public bool isMoving;
+    public bool isPlayerMoving;
 
     private float healthdt = 0f;
     private float healthdtCounter = 20f;
@@ -69,7 +104,14 @@ public class Pet : MonoBehaviour
     private float movementDirectionPreviousFrame = 0f;
     private Vector3 directionScale;
 
-    private bool isMoving;
+    private Vector3 previousPlayerPos = Vector3.zero;
+
+
+
+
+
+    [Space]
+    [Header("Animations")]
 
     [SerializeField] Animator petAnimator;
     [SerializeField] Animator healthAnimator;
@@ -82,6 +124,8 @@ public class Pet : MonoBehaviour
     public float totalFlipSpriteCount;
     public float flipSpriteFalseCount;
     public float flipSpriteTrueCount;
+
+    public bool isDoingBoredAction;
 
 
     float eatingAnimationLength = 0f;
@@ -96,6 +140,9 @@ public class Pet : MonoBehaviour
     bool noticedPlayer;
     int noticedPlayerOnFrame;
 
+    [Space]
+    [Header("Other")]
+
     public float hoverPos = 0.3f;
 
 
@@ -104,7 +151,7 @@ public class Pet : MonoBehaviour
 
     [SerializeField] Transform feetPos;
 
-    public PetState GetState() { return state; }
+    //public PetState GetState() { return state; }
     public float HealthPercentage { get { return health / maxHealth; } }
     public float EnergyPercentage { get { return energy / maxEnergy; } }
 
@@ -131,12 +178,15 @@ public class Pet : MonoBehaviour
     {
         collider.radius = interactRange - 0.05f;
 
-        state = PetState.Idle;
+        State = PetState.Idle;
         health = Persistent.petStats.health;
         energy = Persistent.petStats.energy;
         healthAnimator.SetFloat("Health", health);
         petAnimator.SetFloat("Health", health);
         previousPos = transform.position;
+
+        if (player)
+            previousPlayerPos = player.transform.position;
 
         var clips = petAnimator.runtimeAnimatorController.animationClips;
         foreach (var clip in clips)
@@ -162,6 +212,20 @@ public class Pet : MonoBehaviour
             petAnimator.gameObject.GetComponent<AnimationEvent>().onAnimationEnd += OnAnimationEnd;
 
         directionScale = transform.localScale;
+
+        foreach (PetState state in System.Enum.GetValues(typeof(PetState)))
+        {
+            if (state == PetState.FollowPlayer)
+                stateCounterDictionary.Add(state, stayInFollowStateCounter);
+            else if (state == PetState.Idle)
+                stateCounterDictionary.Add(state, stayInIdleStateCounter);
+            else if (state == PetState.Bored)
+                stateCounterDictionary.Add(state, stayInBoredStateCounter);
+            else
+                stateCounterDictionary.Add(state, -1);
+        }
+
+        onStateChange += OnStateChange;
     }
 
     // Update is called once per frame
@@ -204,40 +268,47 @@ public class Pet : MonoBehaviour
 
         if (rigidbody.velocity != Vector3.zero)
             rigidbody.velocity = Vector3.zero;
+
+        if (player)
+        {
+            isPlayerMoving = previousPlayerPos != player.transform.position;
+            previousPlayerPos = player.transform.position;
+        }
+
     }
     void Decide()
     {
-        if (state == PetState.GoToFood)
+        if (State == PetState.GoToFood)
         {
             if (!food) // if the food magically disappeared
             {
-                state = PetState.Idle;
+                State = PetState.Idle;
             }
             else if (Vector3.Distance(transform.position, food.transform.position) <= interactRange) // if you're within range of the food
             {
                 actionDt = eatingAnimationLength;
                 petAnimator.SetTrigger("isEating");
-                state = PetState.Eating;
+                State = PetState.Eating;
             }
         }
-        else if (state == PetState.Eating)
+        else if (State == PetState.Eating)
         {
             if (food == null) // if you ate the food or it magically disappeared
             {
                 canLoseEnergy = true;
-                state = PetState.Idle;
+                State = PetState.Idle;
             }
             else if (Vector3.Distance(transform.position, food.transform.position) > interactRange) // if it somehow got out of range while eating
             {
                 canLoseEnergy = true;
-                state = PetState.GoToFood;
+                State = PetState.GoToFood;
             }
         }
-        else if (state == PetState.ChaseBall)
+        else if (State == PetState.ChaseBall)
         {
             if (!ball) // if the ball magically disappeared
             {
-                state = PetState.Idle;
+                State = PetState.Idle;
             }
             else if (Vector3.Distance(transform.position, ball.transform.position) <= interactRange) // if you're within range of the ball
             {
@@ -260,7 +331,7 @@ public class Pet : MonoBehaviour
                             Persistent.AddExperience(5f);
                             NotificationManager.ReceiveNotification(NotificationType.Experience, 5f);
                         }
-                        state = PetState.ReturnBall;
+                        State = PetState.ReturnBall;
                     }
                     else
                     {
@@ -272,40 +343,40 @@ public class Pet : MonoBehaviour
                 }
             }
         }
-        else if (state == PetState.ReturnBall)
+        else if (State == PetState.ReturnBall)
         {
             if (!grabbedObject) // if whatever you were carrying magically disappeared
             {
-                state = PetState.Idle;
+                State = PetState.Idle;
             }
             else
             {
                 if (!goal) // if the goal magically disappeared
                 {
                     Drop();
-                    state = PetState.Idle;
+                    State = PetState.Idle;
                 }
                 else if (Vector3.Distance(transform.position, goal.transform.position) <= interactRange) // if you're within range of the goal
                 {
                     Persistent.AddIntellect(0.5f);
                     Destroy(grabbedObject.gameObject);
                     grabbedObject = null;
-                    state = PetState.Idle;
+                    State = PetState.Idle;
                 }
             }
         }
-        else if (state == PetState.FollowPlayer)
+        else if (State == PetState.FollowPlayer)
         {
             //reasons to transfer to another state
             if (ball) // if player throws ball
             {
-                state = PetState.ChaseBall;
+                State = PetState.ChaseBall;
                 SpawnSpeedCloud();
             }
 
             if (!Player) // if the player disappeared
             {
-                state = PetState.Idle;
+                State = PetState.Idle;
                 noticedPlayer = false;
             }
             else if (calledByPlayer)
@@ -315,24 +386,27 @@ public class Pet : MonoBehaviour
             }
             else if (Vector3.Distance(transform.position, Player.transform.position) > detectionRange) // temporary reason to stop following
             {
-                state = PetState.Idle;
+                State = PetState.Idle;
                 noticedPlayer = false;
             }
+
+            if (stayInStateDT >= stayInFollowStateCounter) // If Player hasn't done an action for a while, get bored
+                State = PetState.Bored;
         }
-        else if (state == PetState.Sleeping)
+        else if (State == PetState.Sleeping)
         {
             if (EnergyPercentage > 0.9f)
             {
                 petAnimator.SetBool("isSleeping", false);
                 reactionAnimator.SetBool("isSleeping", false);
-                state = PetState.Idle;
+                State = PetState.Idle;
             }
         }
-        else if (state == PetState.Idle)
+        else if (State == PetState.Idle)
         {
             if (HealthPercentage < 0.5f && food) // if you're hungry and there is food around
             {
-                state = PetState.GoToFood;
+                State = PetState.GoToFood;
                 canLoseEnergy = false;
             }
             else if (EnergyPercentage < 0.1f)
@@ -340,20 +414,20 @@ public class Pet : MonoBehaviour
                 petAnimator.SetBool("isSleeping", true);
                 reactionAnimator.SetBool("isSleeping", true);
                 reactionAnimator.SetTrigger("Sleep");
-                state = PetState.Sleeping;
+                State = PetState.Sleeping;
             }
             else if (calledByPlayer)
             {
-                state = PetState.FollowPlayer;
+                State = PetState.FollowPlayer;
             }
             else if (ball)
             {
-                state = PetState.ChaseBall;
+                State = PetState.ChaseBall;
                 SpawnSpeedCloud();
             }
             else if (Player && Vector3.Distance(transform.position, Player.transform.position) < detectionRange)
             {
-                state = PetState.FollowPlayer;
+                State = PetState.FollowPlayer;
 
                 noticedPlayer = true;
                 noticedPlayerOnFrame = Time.frameCount;
@@ -382,27 +456,30 @@ public class Pet : MonoBehaviour
                 }
             }
         }
-        else if (state == PetState.Dazed)
+        else if (State == PetState.Dazed)
         {
-            //if (!petAnimator.GetBool("isDazed"))
-            //    petAnimator.SetBool("isDazed", true);
+        }
+        else if (State == PetState.Bored)
+        {
+            //reasons to transfer to another state
+            if (ball) // if player throws ball
+            {
+                State = PetState.ChaseBall;
+                SpawnSpeedCloud();
+            }
+
+            if (isPlayerMoving)
+                State = PetState.FollowPlayer;
         }
     }
 
     void Act()
     {
-        switch (state)
+        switch (State)
         {
             case PetState.Idle:
                 {
                     Wander();
-                    if (!isMoving && stayInStateDT < stayInIdleStateCounter)
-                    {
-                        stayInStateDT += Time.deltaTime;
-                        if (stayInStateDT >= stayInIdleStateCounter)
-                            petAnimator.SetTrigger("Stretch");
-                    }
-
                     break;
                 }
             case PetState.Sleeping:
@@ -413,14 +490,6 @@ public class Pet : MonoBehaviour
             case PetState.FollowPlayer:
                 {
                     FollowPlayer();
-
-                    if (!isMoving && stayInStateDT < stayInIdleStateCounter)
-                    {
-                        stayInStateDT += Time.deltaTime;
-                        if (stayInStateDT >= stayInIdleStateCounter)
-                            petAnimator.SetTrigger("Stretch");
-                    }
-
                     break;
                 }
             case PetState.ChaseBall:
@@ -443,8 +512,33 @@ public class Pet : MonoBehaviour
                     Eat();
                     break;
                 }
+            case PetState.Bored:
+                {
+                    break;
+                }
         }
     }
+
+    private void CheckStateStay()
+    {
+        if (stayInStateDT >= stateCounterDictionary[State] &&
+            (int)stayInStateDT % (int)stateCounterDictionary[State] == 0)
+        {
+            if (State == PetState.Bored)
+            {
+                if (!isDoingBoredAction)
+                {
+                    petAnimator.SetTrigger("Stretch");
+                    if (petAnimator.GetBool("Break")) // If Break -trigger is still active from previous actions (ie. moving)
+                        petAnimator.SetBool("Break", false);
+
+                    Debug.Log("Set Trigger: Stretch");
+                    isDoingBoredAction = true;
+                }
+            }
+        }
+    }
+
     void Sleep()
     {
         energydt += Time.deltaTime;
@@ -580,7 +674,7 @@ public class Pet : MonoBehaviour
 
         energydt += Time.deltaTime;
 
-        if (state != PetState.Sleeping)
+        if (State != PetState.Sleeping)
         {
             if (energydt > energydtCounter)
             {
@@ -602,11 +696,16 @@ public class Pet : MonoBehaviour
 
     void UpdateAnimator()
     {
+        CheckStateStay();
+
         if (health != healthPreviousFrame)
             healthAnimator.SetFloat("Health", health);
 
-        if (state != PetState.Sleeping)
+        if (State != PetState.Sleeping)
             petAnimator.SetFloat("Health", health);
+
+        if (isMoving)
+            petAnimator.SetTrigger("Break");
 
         petAnimator.SetBool("isMoving", isMoving);
 
@@ -663,7 +762,12 @@ public class Pet : MonoBehaviour
 
     void UpdateMovement()
     {
-        if (state != PetState.Eating)
+        if (isMoving)
+            stayInStateDT = 0f;
+        else
+            stayInStateDT += Time.deltaTime;
+
+        if (State != PetState.Eating)
         {
             float distance = Vector3.Distance(transform.position, previousPos);
             isMoving = distance > 0f;
@@ -796,7 +900,7 @@ public class Pet : MonoBehaviour
             Ball ball = collision.gameObject.GetComponent<Ball>();
             if (ball._isThrown)
             {
-                state = PetState.Dazed;
+                State = PetState.Dazed;
                 //petAnimator.SetBool("isDazed", true);
                 petAnimator.SetTrigger("Dazed");
                 reactionAnimator.SetTrigger("Dazed");
@@ -829,11 +933,20 @@ public class Pet : MonoBehaviour
     void OnAnimationEnd(string animationThatEnded)
     {
         if (animationThatEnded.Contains("Stretch"))
-            stayInStateDT = 0f;
+        {
+            petAnimator.SetTrigger("Break");
+            isDoingBoredAction = false;
+        }
         else if (animationThatEnded.Contains("Dazed"))
         {
             reactionAnimator.SetTrigger("Dazed");
-            state = PetState.Idle;
+            State = PetState.Idle;
         }
+    }
+
+    void OnStateChange(PetState from, PetState to)
+    {
+        Debug.Log("Pet State Change from: " + from + " to: " + to);
+        stayInStateDT = 0f;
     }
 }
