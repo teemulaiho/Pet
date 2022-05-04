@@ -244,7 +244,7 @@ public class Pet : MonoBehaviour
             senseUpdateTimer = 0f;
         }
 
-        Act();
+        //Act();
 
         UpdateMovement();
         UpdateHealth();
@@ -254,7 +254,7 @@ public class Pet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        Act();
     }
 
     void Sense()
