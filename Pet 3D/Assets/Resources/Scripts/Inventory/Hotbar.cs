@@ -36,37 +36,50 @@ public class Hotbar : MonoBehaviour
     {
         Persistent.playerInventory.onMoneyChange += UpdatePlayerInfo;
         UpdatePlayerInfo();
+
+        Persistent.playerInventory.onHotbarChange += OnHotBarChange;
     }
 
     private void Update()
     {
-        for (int i = 0; i < keyCodes.Length; i++)
+        if (keyCodes != null)
         {
-            if (Input.GetKeyDown(keyCodes[i]))
+            for (int i = 0; i < keyCodes.Length; i++)
             {
-                if (i == selectionIndex)
+                if (Input.GetKeyDown(keyCodes[i]))
                 {
-                    itemSlots[selectionIndex].Deselect();
-                    selectionIndex = -1;
-                }
-                else
-                {
-                    if (selectionIndex >= 0)
+                    if (i == selectionIndex)
                     {
                         itemSlots[selectionIndex].Deselect();
+                        selectionIndex = -1;
                     }
+                    else
+                    {
+                        if (selectionIndex >= 0)
+                        {
+                            itemSlots[selectionIndex].Deselect();
+                        }
 
-                    selectionIndex = i;
-
-                    itemSlots[selectionIndex].Select();
-
+                        selectionIndex = i;
+                        itemSlots[selectionIndex].Select();
+                    }
+                    break;
                 }
-                break;
             }
         }
 
-        for (int i = 0; i < itemSlots.Length; i++)
-            itemSlots[i].UpdateSlot();
+        if (itemSlots != null)
+        {
+            for (int i = 0; i < itemSlots.Length; i++)
+                itemSlots[i].UpdateSlot();
+        }
+    }
+
+    public void DeselectItem()
+    {
+        if (selectionIndex >= 0)
+            itemSlots[selectionIndex].Deselect();
+        selectionIndex = -1;
     }
 
     public InventoryItem GetSelectedItem()
@@ -84,12 +97,70 @@ public class Hotbar : MonoBehaviour
 
     public void UpdateSlots()
     {
+        if (Persistent.playerInventory.inventory.Count != 0)
+        {
+            foreach (var item in Persistent.playerInventory.inventory)
+            {
+                if (!HotbarContainsItem(item))
+                {
+                    int freeSlotIndex = GetFreeHotBarSlotIndex();
 
+                    if (freeSlotIndex >= 0)
+                        AssignItemToSlot(item, freeSlotIndex);
+                }
+            }
+        }
+        else
+        {
+            foreach (var item in Persistent.playerInventory.hotbar)
+            {
+                if (!HotbarContainsItem(item))
+                {
+                    int freeSlotIndex = GetFreeHotBarSlotIndex();
+
+                    if (freeSlotIndex >= 0)
+                        AssignItemToSlot(item, freeSlotIndex);
+                }
+            }
+        }
+    }
+
+    bool HotbarContainsItem(InventoryItem itemToCheck)
+    {
+        foreach (var slot in itemSlots)
+        {
+            if (slot.inventoryItem != null)
+            {
+                if (slot.inventoryItem.item.itemName.Contains(itemToCheck.item.itemName))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    int GetFreeHotBarSlotIndex()
+    {
+        int i = 0;
+
+        foreach (var slot in itemSlots)
+        {
+            if (slot.inventoryItem == null)
+                return i;
+            i++;
+        }
+
+        return -1;
     }
 
     public void UpdatePlayerInfo()
     {
         if (playerMoney)
             playerMoney.text = Persistent.playerInventory.money.ToString();
+    }
+
+    void OnHotBarChange()
+    {
+        UpdateSlots();
     }
 }

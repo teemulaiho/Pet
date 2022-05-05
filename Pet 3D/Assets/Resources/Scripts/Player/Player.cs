@@ -69,8 +69,8 @@ public class Player : MonoBehaviour
             Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/WhistleItem"));
         }
 
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 10);
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Ball"), 10);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 5);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Ball"), 2);
         Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Whistle"), 1);
 
         if (hotbar)
@@ -164,6 +164,8 @@ public class Player : MonoBehaviour
                                 onAim(Vector3.zero);
 
                             leftMouseDown = false;
+
+                            Persistent.playerInventory.RemoveItem(selectedItem.item);
                         }
                     }
                 }
@@ -305,6 +307,8 @@ public class Player : MonoBehaviour
 
     private void Interact(KeyCode keyPressed)
     {
+        bool isPickup = false;
+
         if (lookedAtObject)
         {
             if (keyPressed == KeyCode.F)
@@ -328,14 +332,41 @@ public class Player : MonoBehaviour
                 else if (lookedAtObject.CompareTag("Ball"))
                 {
                     if (lookedAtObject.GetComponent<Ball>())
+                    {
                         lookedAtObject.GetComponent<Ball>().Pickup();
+                        isPickup = true;
+                    }
                     else if (lookedAtObject.GetComponentInParent<Ball>())
+                    {
                         lookedAtObject.GetComponentInParent<Ball>().Pickup();
+                        isPickup = true;
+                    }
                 }
                 else if (lookedAtObject.CompareTag("Mailbox"))
                 {
                     if (lookedAtObject.transform.parent)
                         onGameObjectInteraction(lookedAtObject.transform.parent.gameObject);
+                }
+                else if (lookedAtObject.CompareTag("Food"))
+                {
+                    if (lookedAtObject.GetComponent<Food>())
+                    {
+                        lookedAtObject.GetComponent<Food>().Pickup();
+                        isPickup = true;
+                    }
+                    else if (lookedAtObject.GetComponentInParent<Food>())
+                    {
+                        lookedAtObject.GetComponentInParent<Food>().Pickup();
+                        isPickup = true;
+                    }
+                }
+
+                if (isPickup)
+                {
+                    if (lookedAtObject.TryGetComponent(out Apple apple))
+                        Persistent.playerInventory.AddItem(apple.itemData);
+                    else if (lookedAtObject.TryGetComponent(out Ball ball))
+                        Persistent.playerInventory.AddItem(ball.itemData);
                 }
             }
             else if (keyPressed == KeyCode.E)
@@ -385,5 +416,10 @@ public class Player : MonoBehaviour
     public float GetThrowForce()
     {
         return 500f * Mathf.Clamp(MouseLeftButtonHoldTime * 0.5f, 1f, MaxThrowPower);
+    }
+
+    public void DeselectItem()
+    {
+        hotbar.DeselectItem();
     }
 }

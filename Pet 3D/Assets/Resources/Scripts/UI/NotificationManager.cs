@@ -12,6 +12,9 @@ public class NotificationManager : MonoBehaviour
     static List<Notification> longNotificationList;
     static List<Notification> notificationList;
 
+    static int inventoryNotificationCount;
+    static int moneyNotificationCount;
+
     private void Awake()
     {
         notificationPrefab = Resources.Load<Notification>("Prefabs/UI/Notification");
@@ -62,6 +65,22 @@ public class NotificationManager : MonoBehaviour
         else if (notificationType == NotificationType.NPCSpawn)
         {
             notification.Initialize("Mole has arrived! Maybe check out what he has to say?");
+        }
+        else if (notificationType == NotificationType.Inventory)
+        {
+            if (value <= 0 && inventoryNotificationCount < 3)
+            {
+                notification.Initialize("Item ran out? Not to worry, you can buy more from the shop.");
+                inventoryNotificationCount++;
+            }
+        }
+        else if (notificationType == NotificationType.Money)
+        {
+            if (value <= 0 && moneyNotificationCount < 3)
+            {
+                notification.Initialize("Low on money? Try to win some money from the events.");
+                moneyNotificationCount++;
+            }
         }
 
         notificationAnimator.SetTrigger("Show");

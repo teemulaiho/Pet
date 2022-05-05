@@ -283,6 +283,7 @@ public class UIController : MonoBehaviour
 
     private void OnWindowOpen()
     {
+        player.DeselectItem();
         player.ReleaseCursor();
         player.CanMove = false;
 
@@ -332,6 +333,10 @@ public class UIController : MonoBehaviour
             else if (player.lookedAtObject.CompareTag("Mailbox"))
             {
                 playerActionText.text = "Open Mailbox";
+            }
+            else if (player.lookedAtObject.CompareTag("Food"))
+            {
+                playerActionText.text = "Pickup";
             }
 
             playerActionImage.sprite = actionSprite;

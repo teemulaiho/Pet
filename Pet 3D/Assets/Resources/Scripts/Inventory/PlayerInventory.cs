@@ -13,6 +13,9 @@ public class PlayerInventory
     public delegate void OnMoneyChange();
     public event OnMoneyChange onMoneyChange;
 
+    public delegate void OnHotbarChange();
+    public event OnHotbarChange onHotbarChange;
+
     private int Money
     {
         get { return money; }
@@ -22,6 +25,9 @@ public class PlayerInventory
 
             if (onMoneyChange != null)
                 onMoneyChange();
+
+            if (money <= 0)
+                NotificationManager.ReceiveNotification(NotificationType.Money, money);
         }
     }
 
@@ -58,7 +64,7 @@ public class PlayerInventory
         return false;
     }
 
-    public void AddItem(Item item, int amount)
+    public void AddItem(Item item, int amount = 1)
     {
         if (!AddToHotbar(item, amount))
             AddToInventory(item, amount);
@@ -66,18 +72,27 @@ public class PlayerInventory
 
     private bool AddToHotbar(Item item, int amount)
     {
+        bool hotbarChange = false;
+
         foreach (InventoryItem inventoryItem in hotbar)
             if (inventoryItem.item == item)
             {
                 inventoryItem.count += amount;
-                return true;
+                //return true;
+                hotbarChange = true;
             }
         if (hotbar.Count < hotbarSize)
         {
             hotbar.Add(new InventoryItem(item, amount));
-            return true;
+            //return true;
+            hotbarChange = true;
         }
-        return false;
+
+        if (hotbarChange && onHotbarChange != null)
+            onHotbarChange();
+
+        return hotbarChange;
+        //return false;
     }
 
     private bool AddToInventory(Item item, int amount)
@@ -117,6 +132,9 @@ public class PlayerInventory
                 }
                 break;
             }
+
+        if (GetItemCount(item) <= 0)
+            NotificationManager.ReceiveNotification(NotificationType.Inventory, 0);
     }
 
     public int GetItemCount(Item item)

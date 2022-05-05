@@ -108,7 +108,7 @@ public class ShopWindow : MonoBehaviour
             return;
 
         Persistent.playerInventory.AddItem(selectedItem, (int)quantitySlider.value);
-        Persistent.playerInventory.DecreaseMoney(selectedItem.cost);
+        Persistent.playerInventory.DecreaseMoney(selectedItem.cost * (int) quantitySlider.value);
     }
 
     void Close()

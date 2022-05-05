@@ -41,7 +41,7 @@ public class Ball : Entity
         //Debug.Log("Ball nudging itself.");
     }
 
-    public void Pickup()
+    public override void Pickup()
     {
         Destroy(this.gameObject);
     }
