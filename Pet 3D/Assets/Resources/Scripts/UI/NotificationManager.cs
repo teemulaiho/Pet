@@ -33,6 +33,7 @@ public class NotificationManager : MonoBehaviour
 
     public static void ReceiveNotification(NotificationType notificationType, float value)
     {
+        bool showNotification = true;
         Notification notification;
 
         if (notificationList.Count == 0)
@@ -68,23 +69,29 @@ public class NotificationManager : MonoBehaviour
         }
         else if (notificationType == NotificationType.Inventory)
         {
-            if (value <= 0 && inventoryNotificationCount < 3)
+            if (value <= 0 && inventoryNotificationCount < 2)
             {
                 notification.Initialize("Item ran out? Not to worry, you can buy more from the shop.");
                 inventoryNotificationCount++;
             }
+            else showNotification = false;
         }
         else if (notificationType == NotificationType.Money)
         {
-            if (value <= 0 && moneyNotificationCount < 3)
+            if (value <= 0 && moneyNotificationCount < 2)
             {
                 notification.Initialize("Low on money? Try to win some money from the events.");
                 moneyNotificationCount++;
             }
+            else
+                showNotification = false;
         }
 
-        notificationAnimator.SetTrigger("Show");
-        AddNotificationToLongNotificationList(notification);
+        if (showNotification)
+        {
+            notificationAnimator.SetTrigger("Show");
+            AddNotificationToLongNotificationList(notification);
+        }
     }
 
     static void AddNotificationToLongNotificationList(Notification notificationToAdd)
