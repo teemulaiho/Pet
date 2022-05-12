@@ -966,6 +966,8 @@ public class Pet : MonoBehaviour
                 petAnimator.SetTrigger("Dazed");
                 reactionAnimator.SetTrigger("Dazed");
                 energy -= 10f;
+
+                body.velocity = Vector3.zero;
             }
         }
     }

@@ -69,9 +69,9 @@ public class Player : MonoBehaviour
             Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/WhistleItem"));
         }
 
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 5);
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Ball"), 2);
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Whistle"), 1);
+        //Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 5);
+        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Ball"), 5);
+        //Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Whistle"), 1);
 
         if (hotbar)
             hotbar.Init();
@@ -365,7 +365,7 @@ public class Player : MonoBehaviour
                 {
                     if (lookedAtObject.TryGetComponent(out Apple apple))
                         Persistent.playerInventory.AddItem(apple.itemData);
-                    else if (lookedAtObject.TryGetComponent(out Ball ball))
+                    else if (lookedAtObject.transform.parent.TryGetComponent(out Ball ball))
                         Persistent.playerInventory.AddItem(ball.itemData);
                 }
             }

@@ -50,18 +50,10 @@ public class NotificationManager : MonoBehaviour
         {
             notification.Initialize("Intellect leveled up to " + value.ToString() + "!");
 
-            if ((int)value == 2)
-            {
-                notification.AddText("\n New Skill: Pet can now catch the ball!");
-            }
-            else if ((int)value == 4)
-            {
-                notification.AddText("\n New Skill: Pet can now be called with a Whistle!");
-            }
-            else if ((int)value == 6)
-            {
-                notification.AddText("\n New Skill: You can now charge up throwing speed!");
-            }
+            PetSkill skillUnlocked = Persistent.petSkills.GetLatestSkillUnlocked();
+
+            if (skillUnlocked != null)
+                notification.AddText($"\n New Skill: {skillUnlocked._description}");
         }
         else if (notificationType == NotificationType.NPCSpawn)
         {
