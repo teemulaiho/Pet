@@ -79,7 +79,6 @@ public class Pet : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Food food;
     [SerializeField] private Ball ball;
-    [SerializeField] private GameObject goal;
     [SerializeField] private Nest nest;
 
     [SerializeField] private Entity grabbedObject;
@@ -292,7 +291,6 @@ public class Pet : MonoBehaviour
             ball.onKick += OnBallKickEvent;
 
         food = FindNearest<Food>();
-        goal = GameObject.FindGameObjectWithTag("Goal");
 
         if (player)
         {
@@ -1023,10 +1021,6 @@ public class Pet : MonoBehaviour
 
         }
         else if (other.CompareTag("Ball"))
-        {
-
-        }
-        else if (other.CompareTag("Goal"))
         {
 
         }
