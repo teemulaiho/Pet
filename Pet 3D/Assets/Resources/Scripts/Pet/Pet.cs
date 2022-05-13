@@ -50,6 +50,15 @@ public class Pet : MonoBehaviour
     public delegate void StateChange(PetState from, PetState to);
     public event StateChange onStateChange;
 
+    enum BallAction { 
+        Kick,
+        Pickup
+    }
+    private int ballActionsMax = 6;
+    private int ballActionsCurrent = 6;
+    private float ballActionRechargeDuration = 30.0f;
+    private float ballActionRechargeTimer = 0f;
+
     [Space]
     [Header("Stats")]
     public bool canLoseHealth;
@@ -82,6 +91,8 @@ public class Pet : MonoBehaviour
 
     [Space]
     [Header("Behaviour Values")]
+
+    private bool isWaitingForPlayerAction;
 
     public bool isMoving;
     public bool isPlayerMoving;
@@ -259,6 +270,7 @@ public class Pet : MonoBehaviour
         UpdateMovement();
         UpdateHealth();
         UpdateEnergy();
+        UpdateCooldowns();
         UpdateAnimator();
     }
 
@@ -273,7 +285,7 @@ public class Pet : MonoBehaviour
             Player = FindNearest<Player>(detectionRange);
 
         var newBall = FindNearest<Ball>();
-        if (newBall && !newBall._isGhost)
+        if (!ball && newBall && !newBall._isGhost && !isWaitingForPlayerAction)
             ball = newBall;
 
         if (ball)
@@ -286,18 +298,15 @@ public class Pet : MonoBehaviour
         {
             isPlayerMoving = previousPlayerPos != player.transform.position;
             previousPlayerPos = player.transform.position;
+
+            if (isPlayerMoving)
+                isWaitingForPlayerAction = false;
         }
 
         GroundCheck();
     }
     void Decide()
     {
-        if (energy / maxEnergy <= 0.2f)
-        {
-            State = PetState.ReturnToNest;
-        }
-
-
         if (State == PetState.GoToFood)
         {
             if (!food) // if the food magically disappeared
@@ -332,34 +341,29 @@ public class Pet : MonoBehaviour
             }
             else if (Vector3.Distance(transform.position, ball.transform.position) <= interactRange) // if you're within range of the ball
             {
-                if (Persistent.petStats.intellect < 2f) // if you a dummy
+                int random = Random.Range(0, 50);
+                if (random < Persistent.petStats.intellect * 10)
+                {
+                    Pickup(ball);
+                    ballActionsCurrent -= 1;
+
+                    if (!ball.hasBounced)
+                    {
+                        Persistent.AddExperience(5f);
+                        NotificationManager.ReceiveNotification(NotificationType.Experience, 5f);
+                    }
+                    State = PetState.ReturnBall;
+                }
+                else
                 {
                     Kick(ball);
+                    ballActionsCurrent -= 1;
+
+                    if (ballActionsCurrent == 0)
+                        State = PetState.Idle;
 
                     Persistent.AddExperience(1f);
                     Persistent.AddIntellect(0.1f);
-                }
-                else if (Persistent.petStats.intellect >= 2f) // if you not so dummy
-                {
-                    if (goal) // if there is a goal in the vicinity
-                    {
-                        if (Persistent.petSkills._skillDictionary["Catch"]._unlocked)
-                            Pickup(ball);
-
-                        if (!ball.hasBounced)
-                        {
-                            Persistent.AddExperience(5f);
-                            NotificationManager.ReceiveNotification(NotificationType.Experience, 5f);
-                        }
-                        State = PetState.ReturnBall;
-                    }
-                    else
-                    {
-                        Kick(ball);
-
-                        Persistent.AddExperience(1f);
-                        Persistent.AddIntellect(0.1f);
-                    }
                 }
             }
         }
@@ -371,16 +375,14 @@ public class Pet : MonoBehaviour
             }
             else
             {
-                if (!goal) // if the goal magically disappeared
+                if (player &&
+                    Vector3.Distance(transform.position, player.transform.position) <= followRange) // if you're within range of the goal
                 {
                     Drop();
-                    State = PetState.Idle;
-                }
-                else if (Vector3.Distance(transform.position, goal.transform.position) <= interactRange) // if you're within range of the goal
-                {
+                    isWaitingForPlayerAction = true;
                     Persistent.AddIntellect(0.5f);
-                    Destroy(grabbedObject.gameObject);
-                    grabbedObject = null;
+                    //Destroy(grabbedObject.gameObject);
+                    //grabbedObject = null;
                     State = PetState.Idle;
                 }
             }
@@ -388,7 +390,7 @@ public class Pet : MonoBehaviour
         else if (State == PetState.FollowPlayer)
         {
             //reasons to transfer to another state
-            if (ball) // if player throws ball
+            if (ball && ballActionsCurrent > 0) // if player throws ball
             {
                 State = PetState.ChaseBall;
                 SpawnSpeedCloud();
@@ -429,18 +431,15 @@ public class Pet : MonoBehaviour
                 State = PetState.GoToFood;
                 canLoseEnergy = false;
             }
-            else if (EnergyPercentage < 0.1f)
+            else if (energy / maxEnergy <= 0.2f)
             {
-                petAnimator.SetBool("isSleeping", true);
-                reactionAnimator.SetBool("isSleeping", true);
-                reactionAnimator.SetTrigger("Sleep");
-                State = PetState.Sleeping;
+                State = PetState.ReturnToNest;
             }
             else if (calledByPlayer)
             {
                 State = PetState.FollowPlayer;
             }
-            else if (ball)
+            else if (ball && ballActionsCurrent > 0)
             {
                 State = PetState.ChaseBall;
                 SpawnSpeedCloud();
@@ -482,7 +481,11 @@ public class Pet : MonoBehaviour
         else if (State == PetState.Bored)
         {
             //reasons to transfer to another state
-            if (ball) // if player throws ball
+            if (energy / maxEnergy <= 0.2f)
+            {
+                State = PetState.ReturnToNest;
+            }
+            else if (ball && ballActionsCurrent > 0) // if player throws ball
             {
                 State = PetState.ChaseBall;
                 SpawnSpeedCloud();
@@ -503,7 +506,12 @@ public class Pet : MonoBehaviour
         else if (State == PetState.ReturnToNest)
         {
             if (WithinLimits(transform.position, nest.transform.position, interactRange))
+            {
+                petAnimator.SetBool("isSleeping", true);
+                reactionAnimator.SetBool("isSleeping", true);
+                reactionAnimator.SetTrigger("Sleep");
                 State = PetState.Sleeping;
+            }
         }
     }
 
@@ -601,8 +609,8 @@ public class Pet : MonoBehaviour
     }
     void ReturnBall()
     {
-        if (goal)
-            MoveTowards(goal.transform.position, interactRange);
+        if (player)
+            MoveTowards(player.transform.position, followRange);
     }
     void GoToFood()
     {
@@ -677,6 +685,9 @@ public class Pet : MonoBehaviour
             grabbedObject.rb.isKinematic = false;
             grabbedObject.rb.detectCollisions = true;
 
+            if (grabbedObject.gameObject == ball.gameObject)
+                ball = null;
+
             grabbedObject = null;
         }
     }
@@ -735,6 +746,22 @@ public class Pet : MonoBehaviour
                 energy += 0.5f;
 
                 energydt = 0f;
+            }
+        }
+    }
+
+    void UpdateCooldowns()
+    {
+        if (ballActionsCurrent < ballActionsMax)
+        {
+            if (ballActionRechargeTimer < ballActionRechargeDuration)
+            {
+                ballActionRechargeTimer += Time.deltaTime;
+            }
+            else
+            {
+                ballActionsCurrent += 1;
+                ballActionRechargeTimer = 0f;
             }
         }
     }
