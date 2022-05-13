@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
     [SerializeField] TMP_Text petLevel;
     [SerializeField] Slider healthBar;
     [SerializeField] Slider energyBar;
+    [SerializeField] Slider happinessBar;
     [SerializeField] TMP_Text petStateText;
     [SerializeField] EventWindow eventWindow;
     [SerializeField] ShopWindow shopWindow;
@@ -202,6 +203,7 @@ public class UIController : MonoBehaviour
         UpdatePetStateInfo();
         UpdateSlider(healthBar, pet.HealthPercentage);
         UpdateSlider(energyBar, pet.EnergyPercentage);
+        UpdateSlider(happinessBar, pet.HappinessPercentage);
     }
 
     private void UpdatePetStateInfo()

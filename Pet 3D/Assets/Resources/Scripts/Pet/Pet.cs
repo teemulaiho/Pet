@@ -61,6 +61,9 @@ public class Pet : MonoBehaviour
     private float maxEnergy = 100f;
     [SerializeField] private float energy = 100f;
 
+    private float maxHappiness = 100f;
+    [SerializeField] private float happiness = 100f;
+
     [Space]
     [Header("Objects To Interact With")]
 
@@ -82,6 +85,9 @@ public class Pet : MonoBehaviour
 
     public bool isMoving;
     public bool isPlayerMoving;
+
+    public float timeSinceLastEnjoyableAction = 0f;
+    private int happinessTimer = 15;
 
     private float healthdt = 0f;
     private float healthdtCounter = 20f;
@@ -157,6 +163,7 @@ public class Pet : MonoBehaviour
     //public PetState GetState() { return state; }
     public float HealthPercentage { get { return health / maxHealth; } }
     public float EnergyPercentage { get { return energy / maxEnergy; } }
+    public float HappinessPercentage { get { return happiness / maxHappiness; } }
 
     Player Player
     {
@@ -502,6 +509,16 @@ public class Pet : MonoBehaviour
 
     void Act()
     {
+        timeSinceLastEnjoyableAction += Time.deltaTime;
+        if (timeSinceLastEnjoyableAction >= happinessTimer &&
+            (int)timeSinceLastEnjoyableAction % happinessTimer == 0)
+        {
+            if (!IsEnjoyableState(state))
+                happiness -= 10f;
+            timeSinceLastEnjoyableAction = 0f;
+        }
+
+
         switch (State)
         {
             case PetState.Idle:
@@ -1009,6 +1026,9 @@ public class Pet : MonoBehaviour
 
     void OnStateChange(PetState from, PetState to)
     {
+        if (IsPlayerInteractionState(to))
+            timeSinceLastEnjoyableAction = 0f;
+
         if (from == PetState.Bored)
         {
             isDoingBoredAction = false;
@@ -1016,5 +1036,26 @@ public class Pet : MonoBehaviour
 
         Debug.Log("Pet State Change from: " + from + " to: " + to);
         stayInStateDT = 0f;
+    }
+
+    bool IsPlayerInteractionState(PetState stateToCheck)
+    {
+        if (stateToCheck == PetState.ChaseBall ||
+            stateToCheck == PetState.FollowPlayer ||
+            stateToCheck == PetState.ReturnBall)
+            return true;
+
+
+        return false;
+    }
+
+    bool IsEnjoyableState(PetState currentState)
+    {
+        if (currentState == PetState.ChaseBall ||
+            currentState == PetState.ReturnBall)
+            return true;
+
+        return false;
+
     }
 }

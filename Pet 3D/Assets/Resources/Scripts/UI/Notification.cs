@@ -22,7 +22,6 @@ public class Notification : MonoBehaviour
         notificationText = GetComponentInChildren<TMP_Text>();
     }
 
-
     public void Initialize(string text)
     {
         notificationText.text = text;

@@ -6,6 +6,7 @@ public class EventObject : MonoBehaviour
 {
     UIController uiController;
     EventWindow eventWindow;
+    [SerializeField] GameObject icon;
     bool _isOpen;
 
     private void Awake()
@@ -21,6 +22,12 @@ public class EventObject : MonoBehaviour
 
             if (eventWindow)
             eventWindow.onWindowClose += OnWindowClose;
+    }
+
+    private void Update()
+    {
+        if (icon)
+            icon.transform.Rotate(Vector3.right, 45.0f * Time.deltaTime);
     }
 
     public void Toggle()

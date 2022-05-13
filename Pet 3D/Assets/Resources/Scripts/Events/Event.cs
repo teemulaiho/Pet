@@ -159,7 +159,7 @@ public class Event : MonoBehaviour
 
         startHour = curHour + UnityEngine.Random.Range(0, 0);
         //startMinute = curMin + UnityEngine.Random.Range(0, 60 - curMin);
-        startMinute = curMin + UnityEngine.Random.Range(0, 5);
+        startMinute = curMin + UnityEngine.Random.Range(3, 5);
 
         int hoursToAdd = startHour - curHour;
         int minutesToAdd = startMinute - curMin;

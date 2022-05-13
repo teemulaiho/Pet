@@ -26,7 +26,8 @@ public class ShopObject : MonoBehaviour
 
     private void Update()
     {
-        icon.transform.Rotate(Vector3.right, 45.0f * Time.deltaTime);
+        if (icon)
+            icon.transform.Rotate(Vector3.right, 45.0f * Time.deltaTime);
     }
 
     public void Toggle()

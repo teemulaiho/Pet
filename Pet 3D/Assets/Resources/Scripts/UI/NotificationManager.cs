@@ -72,7 +72,7 @@ public class NotificationManager : MonoBehaviour
         {
             if (value <= 0 && moneyNotificationCount < 2)
             {
-                notification.Initialize("Low on money? Try to win some money from the events.");
+                notification.Initialize("No money? Participate in events to win more. Check out the Event Stand.");
                 moneyNotificationCount++;
             }
             else
