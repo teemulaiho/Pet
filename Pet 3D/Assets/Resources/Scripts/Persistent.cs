@@ -54,6 +54,9 @@ public static class Persistent
         };
 
         petSkills.Init();
+
+        Application.targetFrameRate = 70;
+        QualitySettings.vSyncCount = 0;
     }
 
     public static void AddExperience(float experienceToAdd)
