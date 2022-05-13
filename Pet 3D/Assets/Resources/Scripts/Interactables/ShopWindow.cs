@@ -122,6 +122,7 @@ public class ShopWindow : MonoBehaviour
             shopItems.Remove(selectedItem);
             UpdateSlots();
             NotificationManager.ReceiveNotification(NotificationType.Tetherball, 0);
+            NPCManager.InstantiateNPC(1);
         }
         else
             Persistent.playerInventory.AddItem(selectedItem, (int)quantitySlider.value);

@@ -13,6 +13,9 @@ public class Mole : NPC
 {
     [SerializeField] MoleState moleState;
 
+    public bool isDeliveringEvent;
+    public bool isDeliveringTetherball;
+
     Animator[] animators;
     Animator moleAnimator;
     Animator reactionAnimator;
@@ -45,6 +48,12 @@ public class Mole : NPC
     Event currentEvent;
 
     public Event GetCurrentEvent() { return currentEvent; }
+
+    public override void Initialize(bool p_isDeliveringTetherball, bool p_isDeliveringEvent)
+    {
+        isDeliveringTetherball = p_isDeliveringTetherball;
+        isDeliveringEvent = p_isDeliveringEvent;
+    }
 
     private void Start()
     {
@@ -240,12 +249,15 @@ public class Mole : NPC
     {
         if (!dialogueInitiated)
         {
-            dialogueTrigger.TriggerDialogue();
+            if (isDeliveringTetherball)
+                dialogueTrigger.TriggerDialogue(1);
+            else if (isDeliveringEvent)
+                dialogueTrigger.TriggerDialogue(0);
 
             if (eventManager)
             {
-                dialogueTrigger.TriggerDialogueChoice(eventManager.availableEvent.EventName);
-
+                if (eventManager.availableEvent)
+                    dialogueTrigger.TriggerDialogueChoice(eventManager.availableEvent.EventName);
             }
             else
             {

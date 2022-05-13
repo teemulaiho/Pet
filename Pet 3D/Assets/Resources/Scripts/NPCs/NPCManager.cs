@@ -5,18 +5,23 @@ using UnityEngine;
 public class NPCManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] EventManager eventManager;
+    [SerializeField] static EventManager eventManager;
 
     [Space]
     [Header("Prefab References")]
-    [SerializeField] Transform npcParent;
-    [SerializeField] Mole molePrefab;
+    [SerializeField] static Transform npcParent;
+    [SerializeField] static Mole molePrefab;
 
-    List<NPC> instantiatedNPCList;
+    static List<NPC> instantiatedNPCList;
 
     private void Awake()
     {
+        eventManager = FindObjectOfType<EventManager>();
+
+        npcParent = transform.GetChild(0);
+        molePrefab = Resources.Load<Mole>("Prefabs/NPCs/Mole/Mole");
         instantiatedNPCList = new List<NPC>();
+
     }
 
     // Start is called before the first frame update
@@ -36,9 +41,25 @@ public class NPCManager : MonoBehaviour
 
     void EventAvailable()
     {
+        InstantiateNPC();
+    }
+
+    public static void InstantiateNPC(int context = 0)
+    {
         if (instantiatedNPCList.Count == 0)
-        { 
-            instantiatedNPCList.Add(Instantiate(molePrefab, npcParent));
+        {
+            NPC npc = Instantiate(molePrefab, npcParent);
+            Mole mole = npc as Mole;
+
+            if (mole)
+            {
+                if (context == 0) // Delivering Event
+                    mole.Initialize(false, true);
+                else if (context == 1) // Delivering Tetherball
+                    mole.Initialize(true, false);
+            }
+
+            instantiatedNPCList.Add(npc);
             NotificationManager.ReceiveNotification(NotificationType.NPCSpawn, 1);
         }
     }
