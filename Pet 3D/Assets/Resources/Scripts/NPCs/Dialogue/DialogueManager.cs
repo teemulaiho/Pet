@@ -51,16 +51,26 @@ public class DialogueManager : MonoBehaviour
         mouseLock.LockCursor();
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue, int dialoguePath = 0)
     {
         OpenDialogueBox();
 
         nameText.text = dialogue.name;
         sentences.Clear();
 
-        foreach (string sentence in dialogue.sentences)
+        if (dialoguePath == 0)
         {
-            sentences.Enqueue(sentence);
+            foreach (string sentence in dialogue.sentences)
+            {
+                sentences.Enqueue(sentence);
+            }
+        }
+        else if (dialoguePath == 1)
+        {
+            foreach (string sentence in dialogue.sentences2)
+            {
+                sentences.Enqueue(sentence);
+            }
         }
 
         DisplayNextSentence();
