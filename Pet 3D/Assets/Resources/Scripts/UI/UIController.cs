@@ -75,9 +75,6 @@ public class UIController : MonoBehaviour
         mailBoxManager = FindObjectOfType<MailBoxManager>();
         skillTreeManager = FindObjectOfType<SkillTreeManager>();
 
-        eventWindow.gameObject.SetActive(false);
-        shopWindow.gameObject.SetActive(false);
-
         openWindows = new List<GameObject>();
 
         uiButtons = new List<Button>();
@@ -93,6 +90,9 @@ public class UIController : MonoBehaviour
 
         if (player)
             player.onGameObjectInteraction += OnObjectInteract;
+
+        eventWindow.gameObject.SetActive(false);
+        shopWindow.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -131,16 +131,12 @@ public class UIController : MonoBehaviour
         if (uiButtons.Count == 0)
             return;
 
-
         if (quantitySliderActive)
         {
             quantitySlider.value += v;
 
             return;
         }
-
-
-
 
         if (!selectedUIButton)
             selectedUIButton = uiButtons[0].GetComponent<RectTransform>();
