@@ -78,6 +78,10 @@ public class NotificationManager : MonoBehaviour
             else
                 showNotification = false;
         }
+        else if (notificationType == NotificationType.Tetherball)
+        {
+            notification.Initialize("Unlocked Tetherball! <color=green>Mr. Mole</color> has delivered it to the playground.");
+        }
 
         if (showNotification)
         {

@@ -10,7 +10,8 @@ public enum NotificationType
     Count,
     NPCSpawn,
     Inventory,
-    Money
+    Money,
+    Tetherball
 }
 
 public class Notification : MonoBehaviour

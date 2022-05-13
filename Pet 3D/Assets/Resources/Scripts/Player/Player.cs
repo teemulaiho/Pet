@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
             Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
             Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
             Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/WhistleItem"));
+            Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/TetherBallItem"));
         }
 
         //Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 5);
@@ -359,6 +360,10 @@ public class Player : MonoBehaviour
                         lookedAtObject.GetComponentInParent<Food>().Pickup();
                         isPickup = true;
                     }
+                }
+                else if (lookedAtObject.CompareTag("Tetherball"))
+                {
+                    lookedAtObject.transform.root.GetComponentInChildren<TetherBall>().Nudge(transform.forward, 20f);
                 }
 
                 if (isPickup)

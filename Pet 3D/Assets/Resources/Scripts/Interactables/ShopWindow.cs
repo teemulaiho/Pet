@@ -23,6 +23,8 @@ public class ShopWindow : MonoBehaviour
     public delegate void OnWindowClose(bool isOpen);
     public event OnWindowClose onWindowClose;
 
+    [SerializeField] GameObject tetherBall;
+
     private void Awake()
     {
         uiController = FindObjectOfType<UIController>();
@@ -85,8 +87,15 @@ public class ShopWindow : MonoBehaviour
         {
             selectedItem = shopItemSlot.item;
 
-            quantitySlider.value = quantitySlider.minValue;
-            quantityParent.SetActive(true);
+            if (selectedItem.itemName.Contains("Tetherball"))
+                quantitySlider.gameObject.SetActive(false);
+            else
+            {
+                quantitySlider.gameObject.SetActive(true);
+                quantitySlider.value = quantitySlider.minValue;
+                quantityParent.SetActive(true);
+            }
+
             foreach (ShopItemSlot slot in itemSlots)
             {
                 if (slot == shopItemSlot)
@@ -107,8 +116,17 @@ public class ShopWindow : MonoBehaviour
         if (Persistent.playerInventory.money < selectedItem.cost)
             return;
 
-        Persistent.playerInventory.AddItem(selectedItem, (int)quantitySlider.value);
-        Persistent.playerInventory.DecreaseMoney(selectedItem.cost * (int) quantitySlider.value);
+        if (selectedItem.itemName.Contains("Tether"))
+        {
+            tetherBall.SetActive(true);
+            shopItems.Remove(selectedItem);
+            UpdateSlots();
+            NotificationManager.ReceiveNotification(NotificationType.Tetherball, 0);
+        }
+        else
+            Persistent.playerInventory.AddItem(selectedItem, (int)quantitySlider.value);
+
+        Persistent.playerInventory.DecreaseMoney(selectedItem.cost * (int)quantitySlider.value);
     }
 
     void Close()

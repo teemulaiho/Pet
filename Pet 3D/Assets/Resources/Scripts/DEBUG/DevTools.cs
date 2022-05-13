@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DevTools : MonoBehaviour
 {
-
     private void Awake()
     {
         if (!Application.isEditor)
@@ -20,11 +19,19 @@ public class DevTools : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R))
-            AddPetIntelligence();
+            AddPetIntelligence();    
+        
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.T))
+            AddMoney();
     }
 
     void AddPetIntelligence()
     {
         Persistent.AddIntellect(1f);
+    }
+
+    void AddMoney()
+    {
+        Persistent.playerInventory.IncreaseMoney(1000);
     }
 }

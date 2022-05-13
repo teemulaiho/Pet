@@ -339,6 +339,10 @@ public class UIController : MonoBehaviour
             else if (player.lookedAtObject.CompareTag("Food"))
             {
                 playerActionText.text = "Pickup";
+            }  
+            else if (player.lookedAtObject.CompareTag("Tetherball"))
+            {
+                playerActionText.text = "Push";
             }
 
             playerActionImage.sprite = actionSprite;
