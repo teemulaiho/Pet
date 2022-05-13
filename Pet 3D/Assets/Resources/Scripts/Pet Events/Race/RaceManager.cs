@@ -7,7 +7,6 @@ using TMPro;
 public class RaceManager : MonoBehaviour
 {
     private Camera cam;
-    private CameraController camController;
     private Vector3 camStartPosition;
     private Vector3 camTargetPosition;
     public Transform finishLine;
@@ -34,7 +33,6 @@ public class RaceManager : MonoBehaviour
     private void Awake()
     {
         cam = Camera.main;
-        camController = cam.GetComponent<CameraController>();
         camStartPosition = cam.transform.position;
         camTargetPosition = cam.transform.position;
 
@@ -73,16 +71,6 @@ public class RaceManager : MonoBehaviour
 
         raceTimer = 0f;
         racersFinished = 0;
-
-        int racerCount = 0;
-        foreach(var racer in racers)
-        {
-            camController.AddFollowCollider(racer.GetComponent<Collider2D>());
-            racerCount++;
-
-            if (racerCount == racers.Length)
-                camController.cameraSetOrthographicSize = true;
-        }
     }
 
     private void Update()
@@ -135,9 +123,8 @@ public class RaceManager : MonoBehaviour
                 DistributeRacerRewards();
                 DistributePlayerPetExperience();
             }
-
-            UpdateCamera();
         }
+        UpdateCamera();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -156,11 +143,12 @@ public class RaceManager : MonoBehaviour
     private void UpdateCamera()
     {
         float xPosition = 0;
+        float xOffset = 3.0f;
         foreach (Racer racer in racers)
             xPosition += racer.transform.position.x;
 
         xPosition /= racers.Length;
-        xPosition += 2.0f;
+        xPosition += xOffset;
 
         xPosition = Mathf.Clamp(xPosition, camStartPosition.x, finishLine.transform.position.x);
         camTargetPosition.x = xPosition;
