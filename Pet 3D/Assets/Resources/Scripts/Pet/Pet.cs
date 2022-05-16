@@ -50,7 +50,8 @@ public class Pet : MonoBehaviour
     public delegate void StateChange(PetState from, PetState to);
     public event StateChange onStateChange;
 
-    enum BallAction { 
+    enum BallAction
+    {
         Kick,
         Pickup
     }
@@ -989,7 +990,8 @@ public class Pet : MonoBehaviour
         if (!Persistent.CheckIfSkillUnlocked("Whistle"))
             return;
 
-        Player = FindObjectOfType<Player>();
+        if (!Player)
+            Player = FindObjectOfType<Player>();
 
         float dist = Vector3.Distance(transform.position, Player.transform.position);
         if (dist < callRange)
