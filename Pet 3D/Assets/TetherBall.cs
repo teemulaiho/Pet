@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class TetherBall : MonoBehaviour
 {
-    [SerializeField] Rigidbody ballrb;
+    [SerializeField] public Rigidbody ballrb;
+
+    public Rigidbody GetBallRb()
+    {
+        return ballrb;
+    }
     
     // Start is called before the first frame update
     void Start()
