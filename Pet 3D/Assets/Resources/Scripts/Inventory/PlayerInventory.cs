@@ -73,18 +73,20 @@ public class PlayerInventory
     private bool AddToHotbar(Item item, int amount)
     {
         bool hotbarChange = false;
+        bool alreadyOnHotBar = false;
 
         foreach (InventoryItem inventoryItem in hotbar)
             if (inventoryItem.item == item)
             {
                 inventoryItem.count += amount;
-                //return true;
                 hotbarChange = true;
+                alreadyOnHotBar = true;
+                break;
             }
-        if (hotbar.Count < hotbarSize)
+
+        if (hotbar.Count < hotbarSize && !alreadyOnHotBar)
         {
             hotbar.Add(new InventoryItem(item, amount));
-            //return true;
             hotbarChange = true;
         }
 
@@ -92,7 +94,6 @@ public class PlayerInventory
             onHotbarChange();
 
         return hotbarChange;
-        //return false;
     }
 
     private bool AddToInventory(Item item, int amount)
@@ -104,7 +105,7 @@ public class PlayerInventory
                 return true;
             }
 
-        hotbar.Add(new InventoryItem(item, amount));
+        //hotbar.Add(new InventoryItem(item, amount));
         return true;
     }
 

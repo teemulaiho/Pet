@@ -61,18 +61,23 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        // initialize database on game launch
-        if (Persistent.itemDatabase.items.Count == 0)
+        if (Persistent.loadCount == 1)
         {
-            Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
-            Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
-            Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/WhistleItem"));
-            Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/TetherBallItem"));
-        }
+            // initialize database on game launch
+            if (Persistent.itemDatabase.items.Count == 0)
+            {
+                Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
+                Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
+                Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/WhistleItem"));
+                Persistent.itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/TetherBallItem"));
+            }
 
-        //Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 5);
-        Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Ball"), 5);
-        //Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Whistle"), 1);
+            //Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 5);
+            Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Ball"), 5);
+            //Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Whistle"), 1);
+
+            Persistent.loadCount++;
+        }
 
         if (hotbar)
             hotbar.Init();

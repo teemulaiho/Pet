@@ -7,6 +7,7 @@ public class Hotbar : MonoBehaviour
 {
     [SerializeField] TMP_Text playerMoney;
 
+    [SerializeField] Transform hotbarItemSlotParent;
     public HotbarItemSlot[] itemSlots;
 
     private int selectionIndex;
@@ -30,6 +31,12 @@ public class Hotbar : MonoBehaviour
         }
 
         selectionIndex = -1;
+    }
+
+    private void FindHotbarItemSlotsInHierarchy()
+    {
+        for (int i = 0; i < hotbarItemSlotParent.childCount; i++)
+            itemSlots[i] = hotbarItemSlotParent.GetChild(i).GetComponent<HotbarItemSlot>();
     }
 
     private void Start()
@@ -127,6 +134,17 @@ public class Hotbar : MonoBehaviour
 
     bool HotbarContainsItem(InventoryItem itemToCheck)
     {
+        bool isNull = false;
+        foreach (var slot in itemSlots)
+            if (!slot)
+                isNull = true;
+
+        if (isNull)
+        {
+            FindHotbarItemSlotsInHierarchy();
+            Init();
+        }
+
         foreach (var slot in itemSlots)
         {
             if (slot.inventoryItem != null)
