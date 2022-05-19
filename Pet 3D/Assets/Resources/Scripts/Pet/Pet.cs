@@ -316,8 +316,11 @@ public class Pet : MonoBehaviour
     }
     void Decide()
     {
-        if (tetherBall.gameObject.activeSelf)
-            State = PetState.TetherBall;
+        if (tetherBall)
+        {
+            if (tetherBall.gameObject.activeSelf)
+                State = PetState.TetherBall;
+        }
 
         if (State == PetState.GoToFood)
         {
@@ -517,12 +520,15 @@ public class Pet : MonoBehaviour
         }
         else if (State == PetState.ReturnToNest)
         {
-            if (WithinLimits(transform.position, nest.transform.position, interactRange))
+            if (nest)
             {
-                petAnimator.SetBool("isSleeping", true);
-                reactionAnimator.SetBool("isSleeping", true);
-                reactionAnimator.SetTrigger("Sleep");
-                State = PetState.Sleeping;
+                if (WithinLimits(transform.position, nest.transform.position, interactRange))
+                {
+                    petAnimator.SetBool("isSleeping", true);
+                    reactionAnimator.SetBool("isSleeping", true);
+                    reactionAnimator.SetTrigger("Sleep");
+                    State = PetState.Sleeping;
+                }
             }
         }
     }
@@ -623,6 +629,9 @@ public class Pet : MonoBehaviour
 
     bool GoToNest()
     {
+        if (!nest)
+            return false;
+
         MoveTowards(nest.transform.position, interactRange);
         return Vector3.Distance(transform.position, nest.transform.position) <= interactRange;
     }

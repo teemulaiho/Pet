@@ -72,7 +72,9 @@ public class Mole : NPC
         dialogueTrigger = GetComponent<DialogueTrigger>();
 
         eventManager = FindObjectOfType<EventManager>();
-        currentEvent = eventManager.GetAvailableEvent();
+
+        if (eventManager)
+            currentEvent = eventManager.GetAvailableEvent();
 
         SetAnimationTransitions();
     }
