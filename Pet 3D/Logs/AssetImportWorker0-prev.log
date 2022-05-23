@@ -15,11 +15,11 @@ C:/Users/teemu/Documents/Unity/Uppsala University/BSc/Pet 3D
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-58417
+54610
 Successfully changed project path to: C:/Users/teemu/Documents/Unity/Uppsala University/BSc/Pet 3D
 C:/Users/teemu/Documents/Unity/Uppsala University/BSc/Pet 3D
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 84.32 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 431.80 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.2f1 (8fd9074bf66c)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Resources/UnitySubsystems
@@ -36,941 +36,103 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56460
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56888
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002533 seconds.
+Registered in 0.011131 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 82.04 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 131.32 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.025 seconds
+- Completed reload, in  5.651 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.006673 seconds.
+Registered in 0.023655 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 81.51 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 260.00 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.262 seconds
+- Completed reload, in  3.535 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 0.88 ms, found 6 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
+Refreshing native plugins compatible for Editor in 1.48 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3821 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 190.1 MB.
-System memory in use after: 190.3 MB.
+System memory in use before: 190.5 MB.
+System memory in use after: 190.7 MB.
 
 Unloading 33 unused Assets to reduce memory usage. Loaded Objects now: 4281.
-Total: 3.459000 ms (FindLiveObjects: 0.412000 ms CreateObjectMapping: 0.251200 ms MarkObjects: 2.606600 ms  DeleteObjects: 0.188300 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Imported Assets/Stylized Water For URP/Textures
-  artifactKey: Guid(e4aca986328afab4e89c92a446cf3474) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Stylized Water For URP/Textures using Guid(e4aca986328afab4e89c92a446cf3474) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48105855edeae816891db7f367b84c44') in 0.010709 seconds
-  Import took 0.016986 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000387 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures
-  artifactKey: Guid(206366d6273130f4ea72491baa573c08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures using Guid(206366d6273130f4ea72491baa573c08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '724976104df10189ab1958bd4b2f610e') in 0.002117 seconds
-  Import took 0.007855 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000297 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass
-  artifactKey: Guid(81aa5b08aeb420f4ba9e6a77812b8384) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass using Guid(81aa5b08aeb420f4ba9e6a77812b8384) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e32676a2b5ea2a11a3ad81fb8b2547b3') in 0.006862 seconds
-  Import took 0.012991 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000298 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint
-  artifactKey: Guid(26958714fec28b64db5ebbaae1aee86e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint using Guid(26958714fec28b64db5ebbaae1aee86e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23cfbb349cbd798d8f997425ca694f1f') in 0.005943 seconds
-  Import took 0.012102 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000263 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures
-  artifactKey: Guid(547dc1e76fb957e40b1d76175f4d934c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures using Guid(547dc1e76fb957e40b1d76175f4d934c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96b7304025bdfe551f67b993de73f16e') in 0.002444 seconds
-  Import took 0.008879 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.011402 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint
-  artifactKey: Guid(26958714fec28b64db5ebbaae1aee86e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint using Guid(26958714fec28b64db5ebbaae1aee86e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23cfbb349cbd798d8f997425ca694f1f') in 0.002333 seconds
-  Import took 0.008304 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.422033 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_overcorrupted
-  artifactKey: Guid(34cb6fae8668a0d44a494267d88c792f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_overcorrupted using Guid(34cb6fae8668a0d44a494267d88c792f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '534c32b431d89085a9fb7799deab7c0e') in 0.006983 seconds
-  Import took 0.021645 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.841115 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal
-  artifactKey: Guid(14a0d092ce1760b448941f0fb356b1c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal using Guid(14a0d092ce1760b448941f0fb356b1c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc784593977319339111b5b6b0679cfb') in 0.008026 seconds
-  Import took 0.023081 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.608173 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_right.png
-  artifactKey: Guid(1d15832a1a6e52b48a0fae0275b130dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_right.png using Guid(1d15832a1a6e52b48a0fae0275b130dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf7978c5267594aa0edaeb8e88078ac3') in 0.068597 seconds
-  Import took 0.075392 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.699722 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_left.png
-  artifactKey: Guid(7bd486cf36b61954d9012c6704ab80a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_left.png using Guid(7bd486cf36b61954d9012c6704ab80a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c904b7334964ea6eaa63d14f6676e350') in 0.027860 seconds
-  Import took 0.040382 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001497 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_left.png
-  artifactKey: Guid(7bd486cf36b61954d9012c6704ab80a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_left.png using Guid(7bd486cf36b61954d9012c6704ab80a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c904b7334964ea6eaa63d14f6676e350') in 0.011600 seconds
-  Import took 0.020243 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.280908 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_down.png
-  artifactKey: Guid(3d7e23f397bd4e347bc2a33df00d0897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_down.png using Guid(3d7e23f397bd4e347bc2a33df00d0897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fdbaae62e50f112508e4bf2c3338e2c3') in 0.013059 seconds
-  Import took 0.021449 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001120 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_down.png
-  artifactKey: Guid(3d7e23f397bd4e347bc2a33df00d0897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_down.png using Guid(3d7e23f397bd4e347bc2a33df00d0897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fdbaae62e50f112508e4bf2c3338e2c3') in 0.012392 seconds
-  Import took 0.017882 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.622162 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_up.png
-  artifactKey: Guid(deb64ef6450ec574db0af67225551acf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_up.png using Guid(deb64ef6450ec574db0af67225551acf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'acec9d09a8bbf202982df229eb4d7a07') in 0.026769 seconds
-  Import took 0.038003 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002282 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_up.png
-  artifactKey: Guid(deb64ef6450ec574db0af67225551acf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_normal/Grass_normal_up.png using Guid(deb64ef6450ec574db0af67225551acf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'acec9d09a8bbf202982df229eb4d7a07') in 0.012695 seconds
-  Import took 0.018839 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 199.892152 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured
-  artifactKey: Guid(3876d909f1995044694d2bc72b024add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured using Guid(3876d909f1995044694d2bc72b024add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fab28c690b9b85b362d00de9ebb942f') in 0.010000 seconds
-  Import took 0.016953 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.619381 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_down.png
-  artifactKey: Guid(bf2b3b343fdc3044fa9aae22230ac40b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_down.png using Guid(bf2b3b343fdc3044fa9aae22230ac40b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e96ec9426febc015b5fe3aa418a2251f') in 0.015255 seconds
-  Import took 0.021954 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002796 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_down.png
-  artifactKey: Guid(bf2b3b343fdc3044fa9aae22230ac40b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_down.png using Guid(bf2b3b343fdc3044fa9aae22230ac40b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e96ec9426febc015b5fe3aa418a2251f') in 0.013077 seconds
-  Import took 0.020343 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.513979 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_left.png
-  artifactKey: Guid(d916e88f8aa1fa442944ce97554f6adf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_left.png using Guid(d916e88f8aa1fa442944ce97554f6adf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e5f63e8659cfd3dc3cbea35d0367545') in 0.013609 seconds
-  Import took 0.020505 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000763 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_left.png
-  artifactKey: Guid(d916e88f8aa1fa442944ce97554f6adf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_left.png using Guid(d916e88f8aa1fa442944ce97554f6adf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e5f63e8659cfd3dc3cbea35d0367545') in 0.011533 seconds
-  Import took 0.017288 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.116793 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_right.png
-  artifactKey: Guid(8cd3f7acfe19d4a4cb849c2b2ab2172a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_right.png using Guid(8cd3f7acfe19d4a4cb849c2b2ab2172a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a607e07f7a9ea98913bf75d6927dc9a') in 0.014694 seconds
-  Import took 0.021227 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001931 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_right.png
-  artifactKey: Guid(8cd3f7acfe19d4a4cb849c2b2ab2172a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_right.png using Guid(8cd3f7acfe19d4a4cb849c2b2ab2172a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a607e07f7a9ea98913bf75d6927dc9a') in 0.012150 seconds
-  Import took 0.018336 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.102681 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_up.png
-  artifactKey: Guid(08fd9bc0030381b4f832659a4622fcbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_up.png using Guid(08fd9bc0030381b4f832659a4622fcbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78a5c6e4f080c85a97906e83333c7822') in 0.015124 seconds
-  Import took 0.021624 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000971 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_up.png
-  artifactKey: Guid(08fd9bc0030381b4f832659a4622fcbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_desatured/Grass_desatured_up.png using Guid(08fd9bc0030381b4f832659a4622fcbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78a5c6e4f080c85a97906e83333c7822') in 0.010699 seconds
-  Import took 0.017980 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.953263 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted
-  artifactKey: Guid(7d71c3aa70a670e4b9f752dc6c058f56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted using Guid(7d71c3aa70a670e4b9f752dc6c058f56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b4f69cd14dcdbcdc9614d9250383f05') in 0.008111 seconds
-  Import took 0.015295 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000586 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted
-  artifactKey: Guid(7d71c3aa70a670e4b9f752dc6c058f56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted using Guid(7d71c3aa70a670e4b9f752dc6c058f56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b4f69cd14dcdbcdc9614d9250383f05') in 0.002207 seconds
-  Import took 0.008659 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.506420 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked
-  artifactKey: Guid(8b50b5524d6fd0244b1dc042957e48ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked using Guid(8b50b5524d6fd0244b1dc042957e48ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac6121000a996aed09ced7c70277ca77') in 0.007106 seconds
-  Import took 0.014664 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001335 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked
-  artifactKey: Guid(8b50b5524d6fd0244b1dc042957e48ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked using Guid(8b50b5524d6fd0244b1dc042957e48ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac6121000a996aed09ced7c70277ca77') in 0.002783 seconds
-  Import took 0.009616 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.578039 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_down.png
-  artifactKey: Guid(9234305f12ded3442b911c3ff978d340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_down.png using Guid(9234305f12ded3442b911c3ff978d340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6e55192da647274cc0ee0d57d308105') in 0.014147 seconds
-  Import took 0.021135 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001771 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_down.png
-  artifactKey: Guid(9234305f12ded3442b911c3ff978d340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_down.png using Guid(9234305f12ded3442b911c3ff978d340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6e55192da647274cc0ee0d57d308105') in 0.011784 seconds
-  Import took 0.017914 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.545135 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_left.png
-  artifactKey: Guid(2d46fcecf861db146a6a331115071f0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_left.png using Guid(2d46fcecf861db146a6a331115071f0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bcb8c21e96746380fed043755c9e7b1') in 0.014309 seconds
-  Import took 0.024378 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.004203 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_left.png
-  artifactKey: Guid(2d46fcecf861db146a6a331115071f0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_left.png using Guid(2d46fcecf861db146a6a331115071f0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bcb8c21e96746380fed043755c9e7b1') in 0.013007 seconds
-  Import took 0.019226 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.127738 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_right.png
-  artifactKey: Guid(ec7bab56bfdc3d147b9e1fda8c12082d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_right.png using Guid(ec7bab56bfdc3d147b9e1fda8c12082d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43b9db430e1cfc55b7766308195b26a7') in 0.014482 seconds
-  Import took 0.090909 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.154318 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_up.png
-  artifactKey: Guid(df73a5b6a8127ff40a8c6840516304de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_darked/Grass_darked_up.png using Guid(df73a5b6a8127ff40a8c6840516304de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4da3025162c8252a158c8de79169f86a') in 0.046151 seconds
-  Import took 0.083051 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.255574 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_down.png
-  artifactKey: Guid(5ec0f071b81b63241967c85ddfc73ff8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_down.png using Guid(5ec0f071b81b63241967c85ddfc73ff8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6af48dd89fa2845796a8c1b592967945') in 0.015335 seconds
-  Import took 0.021873 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001437 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_down.png
-  artifactKey: Guid(5ec0f071b81b63241967c85ddfc73ff8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_down.png using Guid(5ec0f071b81b63241967c85ddfc73ff8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6af48dd89fa2845796a8c1b592967945') in 0.012556 seconds
-  Import took 0.018447 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.365949 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_left.png
-  artifactKey: Guid(4b13c3aa7713124418fd1f17e83a5be7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_left.png using Guid(4b13c3aa7713124418fd1f17e83a5be7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bae99d813dc4999dde4efe039586f8fa') in 0.023745 seconds
-  Import took 0.035193 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.012476 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_left.png
-  artifactKey: Guid(4b13c3aa7713124418fd1f17e83a5be7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_left.png using Guid(4b13c3aa7713124418fd1f17e83a5be7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bae99d813dc4999dde4efe039586f8fa') in 0.013165 seconds
-  Import took 0.019037 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.092253 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_right.png
-  artifactKey: Guid(d211bc1342827ac44b6b1bd93cf8f969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_right.png using Guid(d211bc1342827ac44b6b1bd93cf8f969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3fbf21bb8c917cb2e38ff51f3ce5c71b') in 0.013324 seconds
-  Import took 0.019748 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.006736 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_right.png
-  artifactKey: Guid(d211bc1342827ac44b6b1bd93cf8f969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_right.png using Guid(d211bc1342827ac44b6b1bd93cf8f969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3fbf21bb8c917cb2e38ff51f3ce5c71b') in 0.010745 seconds
-  Import took 0.016814 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.083333 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_up.png
-  artifactKey: Guid(87faeff29765dd54d93f5ba0cdabfa58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_up.png using Guid(87faeff29765dd54d93f5ba0cdabfa58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a821f66faf18c2d87656e90c0a09161') in 0.015196 seconds
-  Import took 0.021560 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001125 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_up.png
-  artifactKey: Guid(87faeff29765dd54d93f5ba0cdabfa58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_bluetint/Grass_bluetint_up.png using Guid(87faeff29765dd54d93f5ba0cdabfa58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a821f66faf18c2d87656e90c0a09161') in 0.012231 seconds
-  Import took 0.018808 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.273807 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_down.png
-  artifactKey: Guid(3d2d1e0a5d613ec41bd2b90a7d0ecec6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_down.png using Guid(3d2d1e0a5d613ec41bd2b90a7d0ecec6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01214cedd922cb923243e93e41cdb125') in 0.014354 seconds
-  Import took 0.021205 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001069 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_down.png
-  artifactKey: Guid(3d2d1e0a5d613ec41bd2b90a7d0ecec6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_down.png using Guid(3d2d1e0a5d613ec41bd2b90a7d0ecec6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01214cedd922cb923243e93e41cdb125') in 0.015372 seconds
-  Import took 0.021042 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.491290 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_left.png
-  artifactKey: Guid(9f92a1df145a03f4e8cc6de30c1f413a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_left.png using Guid(9f92a1df145a03f4e8cc6de30c1f413a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '355a2881fa402fea5a1dbd78c98778a0') in 0.012631 seconds
-  Import took 0.020697 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.008988 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_left.png
-  artifactKey: Guid(9f92a1df145a03f4e8cc6de30c1f413a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_left.png using Guid(9f92a1df145a03f4e8cc6de30c1f413a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '355a2881fa402fea5a1dbd78c98778a0') in 0.013528 seconds
-  Import took 0.019498 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.078441 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_right.png
-  artifactKey: Guid(1751e30d5bcaf6e48853598b21d34826) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_right.png using Guid(1751e30d5bcaf6e48853598b21d34826) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a50d4a8369b374e3232c3660f12830a') in 0.019047 seconds
-  Import took 0.028845 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.039066 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_up.png
-  artifactKey: Guid(a6ee5260deb44d247ae90120ee36766b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Grass/Grass_corrupted/Grass_corrupted_up.png using Guid(a6ee5260deb44d247ae90120ee36766b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23bf04df42cf2324648c97751f644688') in 0.013052 seconds
-  Import took 0.019186 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 44.120226 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt
-  artifactKey: Guid(22083d95b4249964287aee78fd90c573) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt using Guid(22083d95b4249964287aee78fd90c573) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '473b9c8016b0020db0fc98f77acc9a59') in 0.006822 seconds
-  Import took 0.013556 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.510568 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_clay
-  artifactKey: Guid(9e6773a1ffed3674d89c63d078c1ea4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_clay using Guid(9e6773a1ffed3674d89c63d078c1ea4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07e5106e7ab9ba06885457718754beb2') in 0.009705 seconds
-  Import took 0.016178 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.856144 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_clay/dirt_clay_down.png
-  artifactKey: Guid(a7b05dec520c8cf4c8e08dfef1f84db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_clay/dirt_clay_down.png using Guid(a7b05dec520c8cf4c8e08dfef1f84db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08d53d42dbcd0b9ec421660ce3883833') in 0.011889 seconds
-  Import took 0.017841 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.007811 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_clay/dirt_clay_down.png
-  artifactKey: Guid(a7b05dec520c8cf4c8e08dfef1f84db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_clay/dirt_clay_down.png using Guid(a7b05dec520c8cf4c8e08dfef1f84db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08d53d42dbcd0b9ec421660ce3883833') in 0.008357 seconds
-  Import took 0.014566 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.355675 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks
-  artifactKey: Guid(cbdaf972a3ebc234981e661144678ffe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks using Guid(cbdaf972a3ebc234981e661144678ffe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e61e5c3896e19f20b15d849a725286f3') in 0.007868 seconds
-  Import took 0.015087 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.958609 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_down.png
-  artifactKey: Guid(85ed2b41abc7c82499e10ac4feaa0590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_down.png using Guid(85ed2b41abc7c82499e10ac4feaa0590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6aeeaa4fb0ead35af21e2840a3c8e428') in 0.013924 seconds
-  Import took 0.019924 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000896 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_down.png
-  artifactKey: Guid(85ed2b41abc7c82499e10ac4feaa0590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_down.png using Guid(85ed2b41abc7c82499e10ac4feaa0590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6aeeaa4fb0ead35af21e2840a3c8e428') in 0.012290 seconds
-  Import took 0.017584 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.438004 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_left.png
-  artifactKey: Guid(44539289dc168c7459c80fe1f9f061e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_left.png using Guid(44539289dc168c7459c80fe1f9f061e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f17985a9a84a90e7f22087e419be0b6f') in 0.013442 seconds
-  Import took 0.020373 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001309 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_left.png
-  artifactKey: Guid(44539289dc168c7459c80fe1f9f061e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_left.png using Guid(44539289dc168c7459c80fe1f9f061e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f17985a9a84a90e7f22087e419be0b6f') in 0.012897 seconds
-  Import took 0.018921 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.144842 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_up.png
-  artifactKey: Guid(23434846625707a47a591d9f045898fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_up.png using Guid(23434846625707a47a591d9f045898fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08a5109c98f269eb698230b987ca43e7') in 0.014217 seconds
-  Import took 0.021260 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001497 seconds.
-  path: Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_up.png
-  artifactKey: Guid(23434846625707a47a591d9f045898fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Handpainted_Grass_and_Ground_Textures/Textures/Dirt/dirt_lighted_rocks/dirt_lighted_rocks_up.png using Guid(23434846625707a47a591d9f045898fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08a5109c98f269eb698230b987ca43e7') in 0.013194 seconds
-  Import took 0.018730 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 75.946432 seconds.
-  path: Assets/Imported Assets/AZURE Nature
-  artifactKey: Guid(483aceadaeec6a445aad3db7d93c63d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature using Guid(483aceadaeec6a445aad3db7d93c63d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1825b4dc714daeae73a8d827538cc63') in 0.007978 seconds
-  Import took 0.015033 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.817281 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Materials
-  artifactKey: Guid(8b0158481a06fe74cb4303432c9f2e8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Materials using Guid(8b0158481a06fe74cb4303432c9f2e8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5361c15b9a2e123c1e3e54d78dc7a9f5') in 0.014712 seconds
-  Import took 0.021293 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.981870 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Materials/Nature
-  artifactKey: Guid(64810fbfd800ea74882c0d3d997b5abf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Materials/Nature using Guid(64810fbfd800ea74882c0d3d997b5abf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1c7a3e44d666fbb4ff5c9c35768c0bb') in 0.014124 seconds
-  Import took 0.020408 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 125.423186 seconds.
-  path: Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/PalmsFar.psd
-  artifactKey: Guid(ca9d72ad1a315a94194cd6afe9ebef36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/PalmsFar.psd using Guid(ca9d72ad1a315a94194cd6afe9ebef36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e0d6c9b018b8b9eebefb59a298af0c13') in 0.017889 seconds
-  Import took 0.024517 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000724 seconds.
-  path: Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/PalmsFar.psd
-  artifactKey: Guid(ca9d72ad1a315a94194cd6afe9ebef36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/PalmsFar.psd using Guid(ca9d72ad1a315a94194cd6afe9ebef36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e0d6c9b018b8b9eebefb59a298af0c13') in 0.009043 seconds
-  Import took 0.014836 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.532754 seconds.
-  path: Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/Water/Third-Party Notice.txt
-  artifactKey: Guid(d4dfdc731e0774e4e97fce947736d243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/Water/Third-Party Notice.txt using Guid(d4dfdc731e0774e4e97fce947736d243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2cf20f46b7e233f8c8e38b36f041316') in 0.015434 seconds
-  Import took 0.021597 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001391 seconds.
-  path: Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/Water/Third-Party Notice.txt
-  artifactKey: Guid(d4dfdc731e0774e4e97fce947736d243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/Water/Third-Party Notice.txt using Guid(d4dfdc731e0774e4e97fce947736d243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2cf20f46b7e233f8c8e38b36f041316') in 0.002658 seconds
-  Import took 0.008886 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.250687 seconds.
-  path: Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/Water/WaterNormal.png
-  artifactKey: Guid(a7d950ad657b9544aab7f27f62191d8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Lowpoly Style/Shared Materials and Textures/Water/WaterNormal.png using Guid(a7d950ad657b9544aab7f27f62191d8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f52cddd937544b7f83c5252af3db686') in 0.036874 seconds
-  Import took 0.042940 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 26.039409 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Nature
-  artifactKey: Guid(bbcbf4fd3ca5152408db33f6f0446def) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Nature using Guid(bbcbf4fd3ca5152408db33f6f0446def) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cad3b0d3833ad6ba998f46c1a6055ba6') in 0.011350 seconds
-  Import took 0.018541 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.070000 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain
-  artifactKey: Guid(94525de3c8f3ba640a455d4fea622a61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain using Guid(94525de3c8f3ba640a455d4fea622a61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fad57cbe339ebf2b2d0986dd4c42c369') in 0.014430 seconds
-  Import took 0.021198 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.477759 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Autumn
-  artifactKey: Guid(4071c49511054274c8eff5a273d16ec4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Autumn using Guid(4071c49511054274c8eff5a273d16ec4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0240c78707232a5daf5df2df0296c993') in 0.006806 seconds
-  Import took 0.021190 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.557009 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer
-  artifactKey: Guid(a9585239efe0c1b48a579a07d7d8031e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer using Guid(a9585239efe0c1b48a579a07d7d8031e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e80c99d3d4246ff1da5fbdffba3c9a0') in 0.013901 seconds
-  Import took 0.020570 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.656205 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_1_Albedo.png
-  artifactKey: Guid(a42cd62f3c2eebb47b0132c8c661b27e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_1_Albedo.png using Guid(a42cd62f3c2eebb47b0132c8c661b27e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08823d26831fb22714d08f94229b45a5') in 0.021410 seconds
-  Import took 0.027194 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.732253 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_1_Normal.png
-  artifactKey: Guid(57ef960ad9ca8b94bad434e31c0b2c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_1_Normal.png using Guid(57ef960ad9ca8b94bad434e31c0b2c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4734e736efcf9c9068efaf473b223c62') in 0.022218 seconds
-  Import took 0.028136 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.382376 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_2_Albedo.png
-  artifactKey: Guid(74fdbc03b45562c4999ac6dedb17bb5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_2_Albedo.png using Guid(74fdbc03b45562c4999ac6dedb17bb5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edc837fbbbac1eb3fbe11e6d3acf52f0') in 0.012235 seconds
-  Import took 0.018743 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.006251 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_2_Albedo.png
-  artifactKey: Guid(74fdbc03b45562c4999ac6dedb17bb5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_2_Albedo.png using Guid(74fdbc03b45562c4999ac6dedb17bb5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edc837fbbbac1eb3fbe11e6d3acf52f0') in 0.013339 seconds
-  Import took 0.018855 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.190574 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_2_Normal.png
-  artifactKey: Guid(a9e90e87f8f10c04cad14926f16f51e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_2_Normal.png using Guid(a9e90e87f8f10c04cad14926f16f51e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d735d6513ac2e8ff659bb224fa31d06') in 0.013835 seconds
-  Import took 0.021670 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000661 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_2_Normal.png
-  artifactKey: Guid(a9e90e87f8f10c04cad14926f16f51e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Grass_2_Normal.png using Guid(a9e90e87f8f10c04cad14926f16f51e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d735d6513ac2e8ff659bb224fa31d06') in 0.012572 seconds
-  Import took 0.018379 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.123890 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_1_Albedo.png
-  artifactKey: Guid(28bacb3edf01fc6418b08ca329112e31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_1_Albedo.png using Guid(28bacb3edf01fc6418b08ca329112e31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f193e58c3bfff13326222bdcc3d22f7') in 0.031135 seconds
-  Import took 0.045319 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.014656 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_1_Albedo.png
-  artifactKey: Guid(28bacb3edf01fc6418b08ca329112e31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_1_Albedo.png using Guid(28bacb3edf01fc6418b08ca329112e31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f193e58c3bfff13326222bdcc3d22f7') in 0.015635 seconds
-  Import took 0.022304 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.061124 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_1_Normal.png
-  artifactKey: Guid(4a5d15873ca92834db56947671b35c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_1_Normal.png using Guid(4a5d15873ca92834db56947671b35c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffe94712638d57415ecec3e99a9d2f89') in 0.013076 seconds
-  Import took 0.020129 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001324 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_1_Normal.png
-  artifactKey: Guid(4a5d15873ca92834db56947671b35c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_1_Normal.png using Guid(4a5d15873ca92834db56947671b35c6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffe94712638d57415ecec3e99a9d2f89') in 0.012395 seconds
-  Import took 0.019158 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.267430 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_2_Aldebo.png
-  artifactKey: Guid(265afc38761d4ba40a6a562b2af765a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_2_Aldebo.png using Guid(265afc38761d4ba40a6a562b2af765a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34fdfa54dd9fcfd0c0309465a6ee8157') in 0.015059 seconds
-  Import took 0.023151 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001244 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_2_Aldebo.png
-  artifactKey: Guid(265afc38761d4ba40a6a562b2af765a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_2_Aldebo.png using Guid(265afc38761d4ba40a6a562b2af765a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34fdfa54dd9fcfd0c0309465a6ee8157') in 0.011626 seconds
-  Import took 0.017251 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.670840 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_2_Normal.png
-  artifactKey: Guid(a2efe8e877351904380dcaf8e5c61980) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_2_Normal.png using Guid(a2efe8e877351904380dcaf8e5c61980) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b5afb88d471b3e2dc292db39d842477') in 0.019923 seconds
-  Import took 0.030505 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.010265 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_2_Normal.png
-  artifactKey: Guid(a2efe8e877351904380dcaf8e5c61980) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_2_Normal.png using Guid(a2efe8e877351904380dcaf8e5c61980) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b5afb88d471b3e2dc292db39d842477') in 0.012898 seconds
-  Import took 0.019142 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.242553 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_3_Albedo.png
-  artifactKey: Guid(d450c9ef1038c9b4c88a2ef084ef918f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_3_Albedo.png using Guid(d450c9ef1038c9b4c88a2ef084ef918f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e91e0a26b7957937309ec115217c449d') in 0.017077 seconds
-  Import took 0.028938 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.009548 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_3_Albedo.png
-  artifactKey: Guid(d450c9ef1038c9b4c88a2ef084ef918f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_3_Albedo.png using Guid(d450c9ef1038c9b4c88a2ef084ef918f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e91e0a26b7957937309ec115217c449d') in 0.012301 seconds
-  Import took 0.018057 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.267111 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_3_Normal.png
-  artifactKey: Guid(3db6ac2efa039b04aa0e3d0ed7e25c52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_3_Normal.png using Guid(3db6ac2efa039b04aa0e3d0ed7e25c52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a763732bfc64d355892f175e344311a9') in 0.014298 seconds
-  Import took 0.021662 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002129 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_3_Normal.png
-  artifactKey: Guid(3db6ac2efa039b04aa0e3d0ed7e25c52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_3_Normal.png using Guid(3db6ac2efa039b04aa0e3d0ed7e25c52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a763732bfc64d355892f175e344311a9') in 0.015285 seconds
-  Import took 0.022838 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.275730 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_4_Albedo.png
-  artifactKey: Guid(fe6f960d58bca3e45b43fc100cfa0efd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_4_Albedo.png using Guid(fe6f960d58bca3e45b43fc100cfa0efd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8009a00e0ab7ee41bb1503a3b9fbd1e') in 0.015442 seconds
-  Import took 0.023344 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001407 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_4_Albedo.png
-  artifactKey: Guid(fe6f960d58bca3e45b43fc100cfa0efd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_4_Albedo.png using Guid(fe6f960d58bca3e45b43fc100cfa0efd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8009a00e0ab7ee41bb1503a3b9fbd1e') in 0.011680 seconds
-  Import took 0.018897 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.235047 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_4_Normal.png
-  artifactKey: Guid(36a46f123e792f64580db6155b3f48f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_4_Normal.png using Guid(36a46f123e792f64580db6155b3f48f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ead01bb7494adc78c8ae57dd3fc1b5ce') in 0.013451 seconds
-  Import took 0.021135 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.008642 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_4_Normal.png
-  artifactKey: Guid(36a46f123e792f64580db6155b3f48f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Ground_4_Normal.png using Guid(36a46f123e792f64580db6155b3f48f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ead01bb7494adc78c8ae57dd3fc1b5ce') in 0.015374 seconds
-  Import took 0.021531 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.224333 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Path_Albedo.png
-  artifactKey: Guid(0db81dfa1dc2fff419cb9199c2663fc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Path_Albedo.png using Guid(0db81dfa1dc2fff419cb9199c2663fc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34913ed76010f803f0e946764fe246dd') in 0.014658 seconds
-  Import took 0.020919 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002283 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Path_Albedo.png
-  artifactKey: Guid(0db81dfa1dc2fff419cb9199c2663fc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Path_Albedo.png using Guid(0db81dfa1dc2fff419cb9199c2663fc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34913ed76010f803f0e946764fe246dd') in 0.014691 seconds
-  Import took 0.020521 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.332248 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Path_Normal.png
-  artifactKey: Guid(9b77d03291e2a22499333341afe531ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Path_Normal.png using Guid(9b77d03291e2a22499333341afe531ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8eaf2309921a3ce2d8830df3aabb558b') in 0.017588 seconds
-  Import took 0.026318 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.009615 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Path_Normal.png
-  artifactKey: Guid(9b77d03291e2a22499333341afe531ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Path_Normal.png using Guid(9b77d03291e2a22499333341afe531ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8eaf2309921a3ce2d8830df3aabb558b') in 0.011340 seconds
-  Import took 0.018087 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.331768 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Rock_Albedo.png
-  artifactKey: Guid(ab026765d8966dc469ebae80b7c168bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Rock_Albedo.png using Guid(ab026765d8966dc469ebae80b7c168bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b9f1f176a0304f3d172737085e99de7') in 0.018970 seconds
-  Import took 0.028145 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.727375 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Rock_Normal.png
-  artifactKey: Guid(5022d3a6d098d0c42a0ebeb9a1ba8cfc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Rock_Normal.png using Guid(5022d3a6d098d0c42a0ebeb9a1ba8cfc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be39fdd85e9b1a49d6a838adb14b2312') in 0.020514 seconds
-  Import took 0.030191 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.011051 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Rock_Normal.png
-  artifactKey: Guid(5022d3a6d098d0c42a0ebeb9a1ba8cfc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Textures/Terrain/Summer/AN_Sum_Rock_Normal.png using Guid(5022d3a6d098d0c42a0ebeb9a1ba8cfc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be39fdd85e9b1a49d6a838adb14b2312') in 0.012421 seconds
-  Import took 0.019084 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 64.748908 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers
-  artifactKey: Guid(df26764aca495ee4eaa42e228fbd326d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers using Guid(df26764aca495ee4eaa42e228fbd326d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c51ac66285d6ed2ba41e127767f7c97') in 0.015159 seconds
-  Import took 0.022397 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.947549 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn
-  artifactKey: Guid(f650c014c05318848a4b87fc84866d30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn using Guid(f650c014c05318848a4b87fc84866d30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4daff9754f5449a57403cd12e50dd31a') in 0.011038 seconds
-  Import took 0.016897 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.813137 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Grass_1.terrainlayer
-  artifactKey: Guid(97bf90360c36d46469984cc59f7c5344) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Grass_1.terrainlayer using Guid(97bf90360c36d46469984cc59f7c5344) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c24b65fa56e428af099e0237a107fe4f') in 0.024382 seconds
-  Import took 0.030503 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.578932 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Grass_3.terrainlayer
-  artifactKey: Guid(7ba7a9aa8917d4c439ab6ff79695f78c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Grass_3.terrainlayer using Guid(7ba7a9aa8917d4c439ab6ff79695f78c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '295daff2816d6392ca04e580a031fcb1') in 0.016704 seconds
-  Import took 0.022831 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.678450 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Grass_4.terrainlayer
-  artifactKey: Guid(b1afa7c9f9e154f42b91b28a300b3c17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Grass_4.terrainlayer using Guid(b1afa7c9f9e154f42b91b28a300b3c17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a3c10771b2468adddf0916bf1d97ee01') in 0.018420 seconds
-  Import took 0.024896 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.340694 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Ground_1.terrainlayer
-  artifactKey: Guid(1c18f67b16f3e4049803310f4efd39cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Ground_1.terrainlayer using Guid(1c18f67b16f3e4049803310f4efd39cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd348e529b8dbc67de10b55dbe0870791') in 0.032318 seconds
-  Import took 0.047872 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.003703 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Ground_1.terrainlayer
-  artifactKey: Guid(1c18f67b16f3e4049803310f4efd39cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Ground_1.terrainlayer using Guid(1c18f67b16f3e4049803310f4efd39cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd348e529b8dbc67de10b55dbe0870791') in 0.013991 seconds
-  Import took 0.021358 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.505426 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Ground_2.terrainlayer
-  artifactKey: Guid(47a059cf343d18a49af7b80b395451bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Ground_2.terrainlayer using Guid(47a059cf343d18a49af7b80b395451bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e26299204aa9b63415e4335c0c64e5b') in 0.015384 seconds
-  Import took 0.022149 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002165 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Ground_2.terrainlayer
-  artifactKey: Guid(47a059cf343d18a49af7b80b395451bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Ground_2.terrainlayer using Guid(47a059cf343d18a49af7b80b395451bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e26299204aa9b63415e4335c0c64e5b') in 0.013568 seconds
-  Import took 0.020228 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.410236 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Leaves.terrainlayer
-  artifactKey: Guid(39f8b9e8aaafa0841a7d83892ea3e3f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Leaves.terrainlayer using Guid(39f8b9e8aaafa0841a7d83892ea3e3f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f05ee094bf62183e59bcdfe23e4fdd2') in 0.016076 seconds
-  Import took 0.022297 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.211324 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Path.terrainlayer
-  artifactKey: Guid(13561bf7ac141a64d80a15511aa13916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Path.terrainlayer using Guid(13561bf7ac141a64d80a15511aa13916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f5e95b9e48f833de9d042f77903b287') in 0.017145 seconds
-  Import took 0.024340 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001261 seconds.
-  path: Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Path.terrainlayer
-  artifactKey: Guid(13561bf7ac141a64d80a15511aa13916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/AZURE Nature/Terrain Layers/Autumn/AN_Aut_Path.terrainlayer using Guid(13561bf7ac141a64d80a15511aa13916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f5e95b9e48f833de9d042f77903b287') in 0.014073 seconds
-  Import took 0.020194 seconds .
+Total: 6.735500 ms (FindLiveObjects: 0.488900 ms CreateObjectMapping: 0.211200 ms MarkObjects: 5.391500 ms  DeleteObjects: 0.641300 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Resources/Scenes/RecordingScene.unity
+  artifactKey: Guid(e8c8c76c00a246346b9776c5015e9f85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Scenes/RecordingScene.unity using Guid(e8c8c76c00a246346b9776c5015e9f85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41e8aae9eb6f4f06b93ac86a2ca74817') in 0.065039 seconds
+  Import took 0.087323 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.013915 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.93 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.147 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 3.14 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3663 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 178.7 MB.
+System memory in use after: 178.9 MB.
+
+Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 4285.
+Total: 7.134300 ms (FindLiveObjects: 1.693600 ms CreateObjectMapping: 0.473800 ms MarkObjects: 4.738700 ms  DeleteObjects: 0.220300 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.012566 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.18 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.972 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.00 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3663 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 178.8 MB.
+System memory in use after: 178.9 MB.
+
+Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 4289.
+Total: 4.416000 ms (FindLiveObjects: 0.693800 ms CreateObjectMapping: 0.359900 ms MarkObjects: 3.171400 ms  DeleteObjects: 0.189300 ms)
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
