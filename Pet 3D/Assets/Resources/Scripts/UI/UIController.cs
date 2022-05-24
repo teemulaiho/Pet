@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour
     [SerializeField] TMP_Text petName;
     [SerializeField] TMP_Text petLevel;
     [SerializeField] Slider healthBar;
+    [SerializeField] Slider hungerBar;
     [SerializeField] Slider energyBar;
     [SerializeField] Slider happinessBar;
     [SerializeField] TMP_Text petStateText;
@@ -30,7 +31,6 @@ public class UIController : MonoBehaviour
     [SerializeField] TMP_Text petIntelligence;
     [SerializeField] TMP_Text petStrength;
     [SerializeField] TMP_Text petStamina;
-    [SerializeField] TMP_Text petExperience;
 
     [Space]
     [Header("Player")]
@@ -198,6 +198,7 @@ public class UIController : MonoBehaviour
     {
         UpdatePetStateInfo();
         UpdateSlider(healthBar, pet.HealthPercentage);
+        UpdateSlider(hungerBar, pet.HungerPercentage);
         UpdateSlider(energyBar, pet.EnergyPercentage);
         UpdateSlider(happinessBar, pet.HappinessPercentage);
     }
@@ -212,7 +213,6 @@ public class UIController : MonoBehaviour
             petIntelligence.text = Persistent.petStats.intellect.ToString();
             petStrength.text = Persistent.petStats.strength.ToString();
             petStamina.text = Persistent.petStats.stamina.ToString();
-            petExperience.text = Persistent.petStats.experience.ToString();
         }
     }
 

@@ -331,7 +331,6 @@ public class SkillContestManager : MonoBehaviour
     {
         UpdateContestantRanks();
         DistributeContestantRewards();
-        DistributePlayerPetExperience();
         scoreScreen.gameObject.SetActive(true);
 
         contestOver = true;
@@ -369,18 +368,6 @@ public class SkillContestManager : MonoBehaviour
             if (contestant.isPlayerPet)
                 if (Persistent.playerInventory != null)
                     Persistent.playerInventory.IncreaseMoney(contestant.Winnings);
-        }
-    }
-
-    private void DistributePlayerPetExperience()
-    {
-        foreach (SkillContestant contestant in contestants)
-        {
-            if (contestant.isPlayerPet)
-            {
-                if (contestant.Rank > 0)
-                    Persistent.AddExperience(10f);
-            }
         }
     }
 

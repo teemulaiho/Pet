@@ -140,6 +140,13 @@ public class BattleManager : MonoBehaviour
 
     public void ReturnHome()
     {
+        foreach (Battler battler in battlers)
+            if (battler.isPlayerPet)
+            {
+                Persistent.petStats.health = 100f * battler.RelativeCurrentHealth;
+                break;
+            }
+
         SceneManager.LoadScene("HomeScene");
     }
 
@@ -175,7 +182,6 @@ public class BattleManager : MonoBehaviour
         ResetTurnAnimations();
         UpdateContestantRanks();
         DistributeContestantRewards();
-        DistributePlayerPetExperience();
         scoreScreen.gameObject.SetActive(true);
         battleOver = true;
     }
@@ -223,18 +229,6 @@ public class BattleManager : MonoBehaviour
             if (battler.isPlayerPet)
                 if (Persistent.playerInventory != null)
                     Persistent.playerInventory.IncreaseMoney(battler.Winnings);
-        }
-    }
-
-    private void DistributePlayerPetExperience()
-    {
-        foreach (Battler battler in battlers)
-        {
-            if (battler.isPlayerPet)
-            {
-                if (battler.Winnings > 0)
-                    Persistent.AddExperience(10f);
-            }
         }
     }
 }

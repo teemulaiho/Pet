@@ -51,11 +51,6 @@ public class Pet : MonoBehaviour
     public delegate void StateChange(PetState from, PetState to);
     public event StateChange onStateChange;
 
-    enum BallAction
-    {
-        Kick,
-        Pickup
-    }
     private int ballActionsMax = 6;
     private int ballActionsCurrent = 6;
     private float ballActionRechargeDuration = 30.0f;
@@ -63,11 +58,14 @@ public class Pet : MonoBehaviour
 
     [Space]
     [Header("Stats")]
-    public bool canLoseHealth;
+    public bool canLoseHunger;
     public bool canLoseEnergy;
 
     private float maxHealth = 100f;
     [SerializeField] private float health = 100f;
+
+    private float maxHunger = 100f;
+    [SerializeField] private float hunger = 100f;
 
     private float maxEnergy = 100f;
     [SerializeField] private float energy = 100f;
@@ -89,7 +87,7 @@ public class Pet : MonoBehaviour
     [SerializeField] private Vector3 waypoint;
     [SerializeField] private GameObject spawnPosition;
 
-    private float healthPreviousFrame = 0f;
+    private float hungerPreviousFrame = 0f;
 
     [Space]
     [Header("Behaviour Values")]
@@ -102,14 +100,17 @@ public class Pet : MonoBehaviour
     public float timeSinceLastEnjoyableAction = 0f;
     private int happinessTimer = 15;
 
-    private float healthdt = 0f;
-    private float healthdtCounter = 20f;
+    private float healthLossRate = 0.75f;
+    private float healthGainRate = 1.0f;
+
+    private float hungerDt = 0f;
+    private float hungerDtCounter = 20f;
 
     private float energydt = 0f;
-    private float energydtCounter = 2f;
+    private float energydtCounter = 5f;
 
     private float actionDt = 0f;
-    private float speed = 1.2f;
+    private float speed = 1.5f;
 
     private float senseUpdateTimer = 0f;
     private float senseUpdateInterval = 1f;
@@ -140,7 +141,7 @@ public class Pet : MonoBehaviour
     [Header("Animations")]
 
     [SerializeField] Animator petAnimator;
-    [SerializeField] Animator healthAnimator;
+    [SerializeField] Animator hungerAnimator;
     [SerializeField] Animator reactionAnimator;
 
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -178,7 +179,9 @@ public class Pet : MonoBehaviour
     [SerializeField] Transform feetPos;
 
     //public PetState GetState() { return state; }
+
     public float HealthPercentage { get { return health / maxHealth; } }
+    public float HungerPercentage { get { return hunger / maxHunger; } }
     public float EnergyPercentage { get { return energy / maxEnergy; } }
     public float HappinessPercentage { get { return happiness / maxHappiness; } }
 
@@ -209,9 +212,10 @@ public class Pet : MonoBehaviour
 
         State = PetState.Idle;
         health = Persistent.petStats.health;
+        hunger = Persistent.petStats.hunger;
         energy = Persistent.petStats.energy;
-        healthAnimator.SetFloat("Health", health);
-        petAnimator.SetFloat("Health", health);
+        hungerAnimator.SetFloat("Health", hunger);
+        petAnimator.SetFloat("Health", hunger);
         previousPos = transform.position;
 
         if (player)
@@ -275,10 +279,9 @@ public class Pet : MonoBehaviour
             senseUpdateTimer = 0f;
         }
 
-        //Act();
-
         UpdateMovement();
         UpdateHealth();
+        UpdateHunger();
         UpdateEnergy();
         UpdateCooldowns();
         UpdateAnimator();
@@ -319,12 +322,6 @@ public class Pet : MonoBehaviour
     }
     void Decide()
     {
-        if (tetherBall)
-        {
-            if (tetherBall.gameObject.activeSelf)
-                State = PetState.TetherBall;
-        }
-
         if (State == PetState.GoToFood)
         {
             if (!food) // if the food magically disappeared
@@ -367,7 +364,6 @@ public class Pet : MonoBehaviour
 
                     if (!ball.hasBounced)
                     {
-                        Persistent.AddExperience(5f);
                         NotificationManager.ReceiveNotification(NotificationType.Experience, 5f);
                     }
                     State = PetState.ReturnBall;
@@ -380,7 +376,6 @@ public class Pet : MonoBehaviour
                     if (ballActionsCurrent == 0)
                         State = PetState.Idle;
 
-                    Persistent.AddExperience(1f);
                     Persistent.AddIntellect(0.1f);
                 }
             }
@@ -444,7 +439,7 @@ public class Pet : MonoBehaviour
         }
         else if (State == PetState.Idle)
         {
-            if (HealthPercentage < 0.5f && food) // if you're hungry and there is food around
+            if (HungerPercentage < 0.5f && food) // if you're hungry and there is food around
             {
                 State = PetState.GoToFood;
                 canLoseEnergy = false;
@@ -461,6 +456,10 @@ public class Pet : MonoBehaviour
             {
                 State = PetState.ChaseBall;
                 SpawnSpeedCloud();
+            }
+            else if (tetherBall && tetherBall.gameObject.activeSelf)
+            {
+                State = PetState.TetherBall;
             }
             else if (Player && isPlayerMoving && Vector3.Distance(transform.position, Player.transform.position) < detectionRange)
             {
@@ -722,7 +721,7 @@ public class Pet : MonoBehaviour
 
             if (actionDt <= 0f)
             {
-                health += food.HealthGain();
+                hunger += food.HealthGain();
                 Destroy(food.gameObject);
                 food = null;
             }
@@ -765,22 +764,40 @@ public class Pet : MonoBehaviour
 
     void UpdateHealth()
     {
-        if (!canLoseHealth)
-            return;
-
-        healthdt += Time.deltaTime;
-
-        if (healthdt > healthdtCounter)
+        if (HungerPercentage <= 0.2f)
         {
-            health -= 10f;
-
-            if (HealthPercentage <= 0f)
-                Feint();
-
-            healthdt = 0f;
+            health -= Time.deltaTime * healthLossRate;
+        }
+        else if (HungerPercentage > 0.5f && EnergyPercentage > 0.5f)
+        {
+            health += Time.deltaTime * healthGainRate;
+        }
+        else
+        {
+            return;
         }
 
-        healthPreviousFrame = health;
+        health = Mathf.Clamp(health, 0f, maxHealth);
+    }
+
+    void UpdateHunger()
+    {
+        if (!canLoseHunger)
+            return;
+
+        hungerDt += Time.deltaTime;
+
+        if (hungerDt > hungerDtCounter)
+        {
+            hunger -= 10f;
+
+            if (HungerPercentage <= 0f)
+                Feint();
+
+            hungerDt = 0f;
+        }
+
+        hungerPreviousFrame = hunger;
     }
 
     void UpdateEnergy()
@@ -858,11 +875,11 @@ public class Pet : MonoBehaviour
             }
         }
 
-        if (health != healthPreviousFrame)
-            healthAnimator.SetFloat("Health", health);
+        if (hunger != hungerPreviousFrame)
+            hungerAnimator.SetFloat("Health", hunger);
 
         if (State != PetState.Sleeping)
-            petAnimator.SetFloat("Health", health);
+            petAnimator.SetFloat("Health", hunger);
 
         if (isMoving)
             petAnimator.SetTrigger("Break");

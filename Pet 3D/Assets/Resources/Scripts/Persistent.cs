@@ -42,11 +42,11 @@ public static class Persistent
             name = "Pet",
             level = 1,
             health = 100f,
+            hunger = 100f,
             energy = 100f,
             stamina = 2,
             intellect = 1f,
-            strength = 1f,
-            experience = 0f
+            strength = 1f
         };
 
         petSkills = new PetSkills
@@ -80,11 +80,6 @@ public static class Persistent
         }
 
         loadCount++;
-    }
-
-    public static void AddExperience(float experienceToAdd)
-    {
-        petStats.experience += experienceToAdd;
     }
 
     public static void AddIntellect(float intellectToAdd)

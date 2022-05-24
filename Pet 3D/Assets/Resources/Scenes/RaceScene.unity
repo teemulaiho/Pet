@@ -1779,6 +1779,7 @@ GameObject:
   - component: {fileID: 1301214315}
   - component: {fileID: 1301214314}
   - component: {fileID: 1301214316}
+  - component: {fileID: 1301214317}
   m_Layer: 5
   m_Name: Countdown
   m_TagString: Untagged
@@ -1931,6 +1932,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1301214317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301214312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4b3c8c8329046448e0cf9fb269e339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horn: {fileID: 8300000, guid: b6bc864e87fab2a43a66a1481a8ec20a, type: 3}
+  gun: {fileID: 8300000, guid: fcef8230061104849af75c6d6d18a7ac, type: 3}
 --- !u!1 &1367015883
 GameObject:
   m_ObjectHideFlags: 0
