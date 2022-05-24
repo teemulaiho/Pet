@@ -5247,6 +5247,10 @@ PrefabInstance:
       propertyPath: playerMoney
       value: 
       objectReference: {fileID: 1219502682564149650}
+    - target: {fileID: 4676965910221530549, guid: 96d8bfa66b4ec8b4589a61d2c5fae2e1, type: 3}
+      propertyPath: hotbarItemSlotParent
+      value: 
+      objectReference: {fileID: 724529700171477546}
     - target: {fileID: 8319119270926246834, guid: 96d8bfa66b4ec8b4589a61d2c5fae2e1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5276,6 +5280,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &724529700171477546 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5398092310628990895, guid: 96d8bfa66b4ec8b4589a61d2c5fae2e1, type: 3}
+  m_PrefabInstance: {fileID: 4676965910336900485}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7255566933167129272 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2618588201295630141, guid: 96d8bfa66b4ec8b4589a61d2c5fae2e1, type: 3}

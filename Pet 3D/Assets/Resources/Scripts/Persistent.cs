@@ -13,17 +13,20 @@ public static class Persistent
     public static PlayerInventory playerInventory;
     public static PetStats petStats;
     public static PetSkills petSkills;
+    public static bool initialLoad = true;
+    public static int loadCount = 0;
 
-#if UNITY_EDITOR
-    static Persistent()
-    {
-        Initialize();
-    }
-#endif
+//#if UNITY_EDITOR
+//    static Persistent()
+//    {
+//        Initialize();
+//    }
+//#endif
 
 #if UNITY_STANDALONE || UNITY_WEBGL || UNITY_ANDROID || UNITY_IOS
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 #endif
+
     public static void Initialize()
     {
         eventInfoList = new List<EventInfo>();
@@ -57,6 +60,26 @@ public static class Persistent
 
         Application.targetFrameRate = 70;
         QualitySettings.vSyncCount = 0;
+
+        if (initialLoad)
+        {
+            //// initialize database on game launch
+            //if (itemDatabase.items.Count == 0)
+            //{
+            //    itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/AppleItem"));
+            //    itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/BallItem"));
+            //    itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/WhistleItem"));
+            //    itemDatabase.items.Add(Resources.Load<Item>("ScriptableObjects/TetherBallItem"));
+            //}
+
+            ////Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Apple"), 5);
+            //playerInventory.AddItem(itemDatabase.ItemByName("Ball"), 5);
+            ////Persistent.playerInventory.AddItem(Persistent.itemDatabase.ItemByName("Whistle"), 1);
+
+            initialLoad = false;
+        }
+
+        loadCount++;
     }
 
     public static void AddExperience(float experienceToAdd)

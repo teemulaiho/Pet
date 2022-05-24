@@ -15,7 +15,8 @@ public enum PetState
     Fainted,
     Dazed,
     Bored,
-    ReturnToNest
+    ReturnToNest,
+    TetherBall
 }
 
 public class Pet : MonoBehaviour
@@ -50,7 +51,8 @@ public class Pet : MonoBehaviour
     public delegate void StateChange(PetState from, PetState to);
     public event StateChange onStateChange;
 
-    enum BallAction { 
+    enum BallAction
+    {
         Kick,
         Pickup
     }
@@ -80,6 +82,7 @@ public class Pet : MonoBehaviour
     [SerializeField] private Food food;
     [SerializeField] private Ball ball;
     [SerializeField] private Nest nest;
+    [SerializeField] private TetherBall tetherBall;
 
     [SerializeField] private Entity grabbedObject;
 
@@ -110,6 +113,10 @@ public class Pet : MonoBehaviour
 
     private float senseUpdateTimer = 0f;
     private float senseUpdateInterval = 1f;
+
+    private bool jumpCoolDownActive = false;
+    private float jumpdt = 0f;
+    private float jumpCoolDown = 3f;
 
     private float interactRange = 0.5f;
     private float followRange = 3f;
@@ -193,6 +200,7 @@ public class Pet : MonoBehaviour
         spawnPosition = GameObject.FindGameObjectWithTag("SpawnPosition");
         body = GetComponent<Rigidbody>();
         nest = FindObjectOfType<Nest>();
+        tetherBall = FindObjectOfType<TetherBall>();
     }
 
     private void Start()
@@ -252,6 +260,9 @@ public class Pet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Z))
+            petAnimator.SetTrigger("Stretch");
+
         if (senseUpdateTimer < senseUpdateInterval) // sensing and deciding done slower than acting
         {
             senseUpdateTimer += Time.deltaTime;
@@ -292,6 +303,9 @@ public class Pet : MonoBehaviour
 
         food = FindNearest<Food>();
 
+        if (!tetherBall)
+            tetherBall = FindObjectOfType<TetherBall>();
+
         if (player)
         {
             isPlayerMoving = previousPlayerPos != player.transform.position;
@@ -305,6 +319,12 @@ public class Pet : MonoBehaviour
     }
     void Decide()
     {
+        if (tetherBall)
+        {
+            if (tetherBall.gameObject.activeSelf)
+                State = PetState.TetherBall;
+        }
+
         if (State == PetState.GoToFood)
         {
             if (!food) // if the food magically disappeared
@@ -503,12 +523,15 @@ public class Pet : MonoBehaviour
         }
         else if (State == PetState.ReturnToNest)
         {
-            if (WithinLimits(transform.position, nest.transform.position, interactRange))
+            if (nest)
             {
-                petAnimator.SetBool("isSleeping", true);
-                reactionAnimator.SetBool("isSleeping", true);
-                reactionAnimator.SetTrigger("Sleep");
-                State = PetState.Sleeping;
+                if (WithinLimits(transform.position, nest.transform.position, interactRange))
+                {
+                    petAnimator.SetBool("isSleeping", true);
+                    reactionAnimator.SetBool("isSleeping", true);
+                    reactionAnimator.SetTrigger("Sleep");
+                    State = PetState.Sleeping;
+                }
             }
         }
     }
@@ -571,6 +594,28 @@ public class Pet : MonoBehaviour
                     GoToNest();
                     break;
                 }
+            case PetState.TetherBall:
+                {
+                    if (GoToTetherBall())
+                    {
+                        if (!jumpCoolDownActive)
+                        {
+                            JumpTowards();
+                            jumpCoolDownActive = true;
+                        }
+                        else
+                        {
+                            jumpdt += Time.deltaTime;
+                            if (jumpdt >= jumpCoolDown)
+                            {
+                                jumpdt = 0f;
+                                jumpCoolDownActive = false;
+                            }
+                        }
+                    }
+
+                    break;
+                }
         }
     }
 
@@ -587,8 +632,25 @@ public class Pet : MonoBehaviour
 
     bool GoToNest()
     {
+        if (!nest)
+            return false;
+
         MoveTowards(nest.transform.position, interactRange);
         return Vector3.Distance(transform.position, nest.transform.position) <= interactRange;
+    }
+
+    bool GoToTetherBall()
+    {
+        MoveTowards(tetherBall.ballrb.transform.position, interactRange);
+        return Vector3.Distance(transform.position, tetherBall.ballrb.transform.position) <= interactRange;
+    }
+
+    bool JumpTowards()
+    {
+        petAnimator.SetTrigger("Jump");
+        //tetherBall.Nudge(transform.forward, 20f);
+
+        return true;
     }
 
     void Wander()
@@ -989,7 +1051,8 @@ public class Pet : MonoBehaviour
         if (!Persistent.CheckIfSkillUnlocked("Whistle"))
             return;
 
-        Player = FindObjectOfType<Player>();
+        if (!Player)
+            Player = FindObjectOfType<Player>();
 
         float dist = Vector3.Distance(transform.position, Player.transform.position);
         if (dist < callRange)
@@ -1042,6 +1105,10 @@ public class Pet : MonoBehaviour
         {
             reactionAnimator.SetTrigger("Dazed");
             State = PetState.Idle;
+        }
+        else if (animationThatEnded.Contains("Jump"))
+        {
+            tetherBall.Nudge(transform.forward, 20f);
         }
     }
 

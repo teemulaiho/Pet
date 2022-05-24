@@ -29,6 +29,9 @@ public class ShopWindow : MonoBehaviour
     {
         uiController = FindObjectOfType<UIController>();
 
+        tetherBall = FindObjectOfType<TetherBall>().gameObject;
+        tetherBall.SetActive(false);
+
         shopItems = new List<Item>();
         quantityParent.SetActive(false);
         quantitySlider.value = quantitySlider.minValue;
@@ -93,8 +96,9 @@ public class ShopWindow : MonoBehaviour
             {
                 quantitySlider.gameObject.SetActive(true);
                 quantitySlider.value = quantitySlider.minValue;
-                quantityParent.SetActive(true);
             }
+
+            quantityParent.SetActive(true);
 
             foreach (ShopItemSlot slot in itemSlots)
             {
