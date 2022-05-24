@@ -6,13 +6,14 @@ using TMPro;
 
 public class RaceManager : MonoBehaviour
 {
-    private Camera cam;
-    private Vector3 camStartPosition;
-    private Vector3 camTargetPosition;
     public Transform finishLine;
     public GameObject racerPrefab;
+    private RaceCamera raceCamera;
+    public FadeScreen fadeScreen;
 
     public TMP_Text time;
+    public Animator countDown;
+    public Animation count;
     public RaceScoreScreen scoreScreen;
 
     private int raceDifficulty;
@@ -23,6 +24,7 @@ public class RaceManager : MonoBehaviour
     private Racer[] racers;
     private int playerIndex;
 
+    private float startDuration;
     private float startTimer;
 
     private float raceTimer;
@@ -30,12 +32,11 @@ public class RaceManager : MonoBehaviour
     private bool running = false;
     private bool raceOver = false;
 
+    private bool starting = false;
+    private bool exiting = false;
+
     private void Awake()
     {
-        cam = Camera.main;
-        camStartPosition = cam.transform.position;
-        camTargetPosition = cam.transform.position;
-
         raceDifficulty = 1;
         prizePool = 225;
 
@@ -71,6 +72,13 @@ public class RaceManager : MonoBehaviour
 
         raceTimer = 0f;
         racersFinished = 0;
+
+        raceCamera = Camera.main.GetComponent<RaceCamera>();
+        raceCamera.Init(finishLine.position);
+        fadeScreen.FadeIn();
+
+        startDuration = 3.5f;
+        startTimer = 3.5f;
     }
 
     private void Update()
@@ -79,13 +87,42 @@ public class RaceManager : MonoBehaviour
         {
             if (raceOver)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                    SceneManager.LoadScene("HomeScene");
+                if (exiting)
+                {
+                    if (!fadeScreen.IsFading())
+                        SceneManager.LoadScene("HomeScene");
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        exiting = true;
+                        scoreScreen.leaveText.enabled = false;
+                        fadeScreen.FadeOut();
+                    }
+                }
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                    StartRace();
+                if (!fadeScreen.IsFading())
+                {
+                    if (!starting)
+                    {
+                        countDown.SetTrigger("Start");
+                        starting = true;
+                    }
+                    else
+                    {
+                        if (startTimer > 0f)
+                        {
+                            startTimer -= Time.deltaTime;
+                        }
+                        else
+                        {
+                            StartRace();
+                        }
+                    }
+                }
             }
         }
         else
@@ -124,7 +161,7 @@ public class RaceManager : MonoBehaviour
                 DistributePlayerPetExperience();
             }
         }
-        UpdateCamera();
+        raceCamera.TrackTargets(racers);
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -138,21 +175,6 @@ public class RaceManager : MonoBehaviour
             racer.Release();
 
         running = true;
-    }
-
-    private void UpdateCamera()
-    {
-        float xPosition = 0;
-        float xOffset = 3.0f;
-        foreach (Racer racer in racers)
-            xPosition += racer.transform.position.x;
-
-        xPosition /= racers.Length;
-        xPosition += xOffset;
-
-        xPosition = Mathf.Clamp(xPosition, camStartPosition.x, finishLine.transform.position.x);
-        camTargetPosition.x = xPosition;
-        cam.transform.position = Vector3.Lerp(cam.transform.position, camTargetPosition, 0.0125f);
     }
 
     private void DistributeRacerRewards()
