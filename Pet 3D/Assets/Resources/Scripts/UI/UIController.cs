@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System;
+using System.Linq;
 
 public class UIController : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class UIController : MonoBehaviour
     private Player player;
 
     private MouseLock mouseLock;
+
+    [Space]
+    [Header("Shop & Event Windows")]
+    [SerializeField] EventWindow eventWindow;
+    [SerializeField] ShopWindow shopWindow;
 
     [Space]
     [Header("Pet Info")]
@@ -22,8 +28,6 @@ public class UIController : MonoBehaviour
     [SerializeField] Slider energyBar;
     [SerializeField] Slider happinessBar;
     [SerializeField] TMP_Text petStateText;
-    [SerializeField] EventWindow eventWindow;
-    [SerializeField] ShopWindow shopWindow;
 
     [Space]
     [Header("Pet Stats")]
@@ -134,7 +138,6 @@ public class UIController : MonoBehaviour
         if (quantitySliderActive)
         {
             quantitySlider.value += v;
-
             return;
         }
 
@@ -155,7 +158,6 @@ public class UIController : MonoBehaviour
         else if (currentIndex < 0)
             currentIndex = uiButtons.Count - 1;
 
-
         if (selectedUIButton.transform.Find("Border"))
             selectedUIButton.transform.Find("Border").gameObject.SetActive(false);
         else
@@ -167,6 +169,14 @@ public class UIController : MonoBehaviour
             selectedUIButton.transform.Find("Border").gameObject.SetActive(true);
         else
             selectedUIButton.transform.GetChild(0).gameObject.SetActive(true);
+
+        if (shopWindow)
+        {
+            if (selectedUIButton.TryGetComponent(out ShopItemSlot itemSlot))
+            {
+                shopWindow.SelectSlot(itemSlot);
+            }
+        }
     }
 
     private void Select()
@@ -250,7 +260,11 @@ public class UIController : MonoBehaviour
         if (windowToClose != null)
         {
             if (windowToClose.name.Contains("Shop") || windowToClose.CompareTag("Shop"))
+            {
                 windowToClose = shopWindow.gameObject;
+                quantitySlider.value = 0;
+                quantitySliderActive = false;
+            }
             else if (windowToClose.name.Contains("Event") || windowToClose.CompareTag("Event"))
                 windowToClose = eventWindow.gameObject;
 
@@ -283,15 +297,18 @@ public class UIController : MonoBehaviour
     {
         player.DeselectItem();
         player.ReleaseCursor();
-        player.CanMove = false;
 
         uiButtons.Clear();
-        uiButtons.AddRange(FindObjectsOfType<Button>());
+
+        List<Button> unsortedList = new List<Button>();
+        unsortedList.AddRange(FindObjectsOfType<Button>());
+        
+        uiButtons = unsortedList.OrderBy(o => o.name).ToList();
+        uiButtons.Reverse();
     }
     private void OnWindowClose()
     {
         player.LockCursor();
-        player.CanMove = true;
     }
     public static bool IsMouseOverUI()
     {

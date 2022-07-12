@@ -11,6 +11,7 @@ public class ShopWindow : MonoBehaviour
     public ShopItemSlot[] itemSlots;
     private List<Item> shopItems;
 
+    [SerializeField] TMP_Text itemTitle;
     [SerializeField] GameObject quantityParent;
     [SerializeField] Slider quantitySlider;
     [SerializeField] TMP_Text quantityValue;
@@ -43,6 +44,9 @@ public class ShopWindow : MonoBehaviour
 
     private void Start()
     {
+        if (itemTitle)
+            itemTitle.text = "";
+
         foreach (Item item in Persistent.itemDatabase.items)
             shopItems.Add(item);
 
@@ -110,6 +114,11 @@ public class ShopWindow : MonoBehaviour
                     slot.Highlight(false);
             }
         }
+
+        if (itemTitle && shopItemSlot && shopItemSlot.item)
+            itemTitle.text = shopItemSlot.item.itemName;
+        else
+            itemTitle.text = "";
     }
 
     public void PurchaseItem()
@@ -136,6 +145,7 @@ public class ShopWindow : MonoBehaviour
 
     void Close()
     {
+        selectedItem = null;
         onWindowClose(false);
         uiController.CloseUIWindw(this.gameObject, false);
     }

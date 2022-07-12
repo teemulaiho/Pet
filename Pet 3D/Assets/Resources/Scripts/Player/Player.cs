@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
 
                             if (leftMouseDown)
                             {
-                                mouseLock.ReleaseCursor(true);
+                                //mouseLock.ReleaseCursor(true);
                             }
                         }
                     }
@@ -224,7 +224,7 @@ public class Player : MonoBehaviour
                 if (onAim != null)
                     onAim(Vector3.zero);
                 
-                mouseLock.LockCursor();
+                //mouseLock.LockCursor();
                 _trajectory.RemoveTrajectory();
             }
         }
