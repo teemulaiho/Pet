@@ -122,12 +122,6 @@ public class UIController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
             ChangeSelectedObject(1);
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            ChangeSelectedObject(5);
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-            ChangeSelectedObject(-5);
     }
 
     private void ChangeSelectedObject(int v)
@@ -175,6 +169,10 @@ public class UIController : MonoBehaviour
             if (selectedUIButton.TryGetComponent(out ShopItemSlot itemSlot))
             {
                 shopWindow.SelectSlot(itemSlot);
+            }
+            else if (selectedUIButton.name.Contains("Close"))
+            {
+                shopWindow.SelectCloseButton();
             }
         }
     }
@@ -305,6 +303,14 @@ public class UIController : MonoBehaviour
         
         uiButtons = unsortedList.OrderBy(o => o.name).ToList();
         uiButtons.Reverse();
+
+        Button purchaseButton = null;
+
+        foreach(var b in uiButtons)
+            if (b.name.Contains("Purchase"))
+                purchaseButton = b;
+
+        uiButtons.Remove(purchaseButton);
     }
     private void OnWindowClose()
     {

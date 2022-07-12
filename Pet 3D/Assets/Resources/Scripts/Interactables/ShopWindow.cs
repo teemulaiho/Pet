@@ -11,7 +11,7 @@ public class ShopWindow : MonoBehaviour
     public ShopItemSlot[] itemSlots;
     private List<Item> shopItems;
 
-    [SerializeField] TMP_Text itemTitle;
+    [SerializeField] public TMP_Text itemTitle;
     [SerializeField] GameObject quantityParent;
     [SerializeField] Slider quantitySlider;
     [SerializeField] TMP_Text quantityValue;
@@ -117,8 +117,12 @@ public class ShopWindow : MonoBehaviour
 
         if (itemTitle && shopItemSlot && shopItemSlot.item)
             itemTitle.text = shopItemSlot.item.itemName;
-        else
-            itemTitle.text = "";
+    }
+
+    public void SelectCloseButton()
+    {
+        itemTitle.text = "Close Shop";
+        quantityParent.SetActive(false);
     }
 
     public void PurchaseItem()
